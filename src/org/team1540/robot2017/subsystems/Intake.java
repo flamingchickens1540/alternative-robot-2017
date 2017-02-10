@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
 
-	private CANTalon intakeTalon = new CANTalon(RobotMap.intakeTalon);
+	private final CANTalon intakeTalon = new CANTalon(RobotMap.intakeTalon);
 	
 	@Override
 	protected void initDefaultCommand() {

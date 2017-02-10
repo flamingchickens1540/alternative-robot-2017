@@ -1,15 +1,20 @@
 
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.ExampleCommand;
+import org.team1540.robot2017.subsystems.Climber;
+import org.team1540.robot2017.subsystems.DriveTrain;
+import org.team1540.robot2017.subsystems.Feeder;
+import org.team1540.robot2017.subsystems.GearMechanism;
+import org.team1540.robot2017.subsystems.Intake;
+import org.team1540.robot2017.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.team1540.robot2017.commands.ExampleCommand;
-import org.team1540.robot2017.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,7 +25,12 @@ import org.team1540.robot2017.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Climber climber = new Climber();
+	public static final Feeder feeder = new Feeder();
+	public static final GearMechanism gearMechanism = new GearMechanism();
+	public static final Intake intake = new Intake();
+	public static final Shooter shooter = new Shooter();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -95,7 +105,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+			autonomousCommand.cancel();		
 	}
 
 	/**

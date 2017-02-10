@@ -8,12 +8,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	private CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterTalonRightFlywheel);
-	private CANTalon shooterLeftFlywheelTalon = new CANTalon(RobotMap.shooterTalonLeftFlywheel);
-	private CANTalon shooterBeltTalon = new CANTalon(RobotMap.shooterTalonBelt);
+	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterTalonRightFlywheel);
+	private final CANTalon shooterLeftFlywheelTalon = new CANTalon(RobotMap.shooterTalonLeftFlywheel);
+	private final CANTalon shooterBeltTalon = new CANTalon(RobotMap.shooterTalonBelt);
 	
 	@Override
 	protected void initDefaultCommand() {
 		
 	}
 }
+
