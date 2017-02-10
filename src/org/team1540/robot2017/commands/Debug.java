@@ -3,10 +3,11 @@ package org.team1540.robot2017.commands;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SpinupFlywheel extends Command {
-	public SpinupFlywheel() {
-		requires(Robot.shooter);
+public class Debug extends Command {
+	public Debug() {
+		
 	}
 
 	// Called just before this Command runs the first time
@@ -17,7 +18,7 @@ public class SpinupFlywheel extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.shooter.setSpeed(100);
+		SmartDashboard.putNumber("Speed", Robot.shooter.getSpeed());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
