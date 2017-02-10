@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class GearMechanism extends Subsystem {
 
 	private CANTalon gearSliderTalon = new CANTalon(RobotMap.gearSliderTalon);
-	private Servo gearRightDeployServo = new Servo(RobotMap.gearServoRightDeploy);
-	private Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeftDeploy);
+//	private Servo gearRightDeployServo = new Servo(RobotMap.gearServoRightDeploy);
+//	private Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeftDeploy);
 	
 	@Override
 	protected void initDefaultCommand() {
