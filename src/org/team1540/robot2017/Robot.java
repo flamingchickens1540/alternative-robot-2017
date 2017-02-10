@@ -1,7 +1,6 @@
 
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.ExampleCommand;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
@@ -43,7 +42,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -105,7 +103,9 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
-			autonomousCommand.cancel();		
+			autonomousCommand.cancel();
+		
+		
 	}
 
 	/**

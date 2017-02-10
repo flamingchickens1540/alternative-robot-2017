@@ -19,10 +19,17 @@ public class RobotMap {
 	public static final int shooterTalonRightFlywheel = 0;
 	public static final int shooterTalonLeftFlywheel = 2;
 	public static final int shooterTalonBelt = 8;
-	public static final int driveTalonRightA = 12;
-	public static final int driveTalonRightB = 13;
-	public static final int driveTalonRightC = 1;
-	public static final int driveTalonLeftA = 3;
-	public static final int driveTalonLeftB = 15;
-	public static final int driveTalonLeftC = 14;
+//	public static final int driveTalonRightA = 12;
+//	public static final int driveTalonRightB = 13;
+//	public static final int driveTalonRightC = 1;
+//	public static final int driveTalonLeftA = 3;
+//	public static final int driveTalonLeftB = 15;
+//	public static final int driveTalonLeftC = 14;
+	
+	public static final int driveTalonRightA = 1;
+	public static final int driveTalonRightB = 2;
+	public static final int driveTalonRightC = 3;
+	public static final int driveTalonLeftA = 4;
+	public static final int driveTalonLeftB = 5;
+	public static final int driveTalonLeftC = 6;
 }

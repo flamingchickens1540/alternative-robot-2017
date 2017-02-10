@@ -1,5 +1,6 @@
 package org.team1540.robot2017.commands;
 
+import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,6 +18,7 @@ public class IdleDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		Robot.driveTrain.tankDrive(OI.primary.getRawAxis(OI.primaryLeftAxis), OI.primary.getRawAxis(OI.primaryRightAxis));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

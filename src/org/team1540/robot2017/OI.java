@@ -7,5 +7,9 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static Joystick stick = new Joystick(1);
+	public static final Joystick primary = new Joystick(0);
+	public static final Joystick secondary = new Joystick(1);
+	
+	public static final int primaryRightAxis = 5;
+	public static final int primaryLeftAxis = 1;
 }
