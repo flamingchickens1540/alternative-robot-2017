@@ -16,8 +16,8 @@ public class RobotMap {
 //	public static final int gearServoRightDeploy;
 //	public static final int gearServoLeftDeploy;
 	public static final int intakeTalon = 7;
-	public static final int shooterTalonRightFlywheel = 0;
-	public static final int shooterTalonLeftFlywheel = 2;
+	public static final int shooterTalonRightFlywheel = 10;
+	public static final int shooterTalonLeftFlywheel = 11;
 	public static final int shooterTalonBelt = 8;
 //	public static final int driveTalonRightA = 12;
 //	public static final int driveTalonRightB = 13;

@@ -1,6 +1,8 @@
 
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.SpindownFlywheel;
+import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
@@ -9,6 +11,7 @@ import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -31,7 +34,7 @@ public class Robot extends IterativeRobot {
 	public static final Intake intake = new Intake();
 	public static final Shooter shooter = new Shooter();
 	public static OI oi;
-
+		
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -44,6 +47,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
+		new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 	}
 
 	/**
@@ -104,8 +109,6 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
-		
 	}
 
 	/**
