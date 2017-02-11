@@ -12,4 +12,7 @@ public class OI {
 	
 	public static final int primaryRightAxis = 5;
 	public static final int primaryLeftAxis = 1;
+	
+	public static final int primaryRightTrigger = 3;
+	public static final int primaryLeftTrigger = 2;
 }
