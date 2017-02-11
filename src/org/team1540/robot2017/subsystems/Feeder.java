@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Feeder extends Subsystem {
 
-	private final CANTalon topFeederTalon = new CANTalon(RobotMap.feederTalonTop);
-	private final CANTalon leftFeederTalon = new CANTalon(RobotMap.feederTalonLeft);
-	private final CANTalon rightFeederTalon = new CANTalon(RobotMap.feederTalonRight);
+	private final CANTalon feederConveyor = new CANTalon(RobotMap.feederConveyor);
+	private final CANTalon leftFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerLeft);
+	private final CANTalon rightFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerLeft);
 	
 	@Override
 	protected void initDefaultCommand() {
