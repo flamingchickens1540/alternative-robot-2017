@@ -5,8 +5,8 @@ import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IdleDrive extends Command {
-	public IdleDrive() {
+public class JoystickDrive extends Command {
+	public JoystickDrive() {
 		requires(Robot.driveTrain);
 	}
 

@@ -5,8 +5,8 @@ import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Climb extends Command {
-	public Climb() {
+public class JoystickClimb extends Command {
+	public JoystickClimb() {
 		requires(Robot.climber);
 	}
 
