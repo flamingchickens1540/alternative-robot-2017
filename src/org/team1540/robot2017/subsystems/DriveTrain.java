@@ -2,7 +2,7 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
-import org.team1540.robot2017.commands.IdleDrive;
+import org.team1540.robot2017.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -33,7 +33,7 @@ public class DriveTrain extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new IdleDrive());
+		setDefaultCommand(new JoystickDrive());
 	}
 	
 	public void tankDrive(double left, double right) {
