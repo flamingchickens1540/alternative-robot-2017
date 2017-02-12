@@ -47,8 +47,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
-		new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
+		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
+		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 	}
 
 	/**
