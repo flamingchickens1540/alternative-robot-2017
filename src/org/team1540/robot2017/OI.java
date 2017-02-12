@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 	// Joysticks
-	private static final Joystick primary = new Joystick(0);
-	private static final Joystick secondary = new Joystick(1);
+	public static final Joystick primary = new Joystick(0);
+	public static final Joystick secondary = new Joystick(1);
 	
 	private static final int rightAxisX = 5;
 	private static final int rightAxisY = 5;
