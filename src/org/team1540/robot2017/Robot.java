@@ -1,6 +1,7 @@
 
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.CalibrateGearSlider;
 import org.team1540.robot2017.commands.SpindownFlywheel;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.subsystems.Climber;
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 		
 	Command autonomousCommand;
+	Command calibrateSlider;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
@@ -49,6 +51,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
 		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
+		
+		calibrateSlider = new CalibrateGearSlider();
 	}
 
 	/**
@@ -109,6 +113,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		calibrateSlider.start();
+		
 	}
 
 	/**
