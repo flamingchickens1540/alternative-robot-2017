@@ -2,7 +2,7 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
-import org.team1540.robot2017.commands.Climb;
+import org.team1540.robot2017.commands.JoystickClimb;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -20,7 +20,7 @@ public class Climber extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Climb());
+		setDefaultCommand(new JoystickClimb());
 	}
 
 	public void joyClimb(double rawAxis) {
