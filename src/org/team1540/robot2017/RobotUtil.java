@@ -7,4 +7,12 @@ public class RobotUtil {
 		}
 		return input;
 	}
+	public static double limit(double input, double max, double min) {
+		if (input>max) {
+			return max;
+		} else if(input<min) {
+			return min;
+		}
+		return input;
+	}
 }
