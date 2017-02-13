@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterTalonRightFlywheel);
-	private final CANTalon shooterLeftFlywheelTalon = new CANTalon(RobotMap.shooterTalonLeftFlywheel);
+	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterTalonLeftFlywheel);
+	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterTalonRightFlywheel);
 //	private final CANTalon shooterBeltTalon = new CANTalon(RobotMap.shooterTalonBelt);
 	
 	public Shooter() {
-		shooterLeftFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-		shooterLeftFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
-		shooterLeftFlywheelTalon.reverseOutput(false);
+		shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
+		shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
+		shooterRightFlywheelTalon.reverseOutput(false);
 		
 		shooterFlywheelTalon.setEncPosition(0);
 		shooterFlywheelTalon.configEncoderCodesPerRev(125 * 15);
@@ -26,9 +26,9 @@ public class Shooter extends Subsystem {
 		shooterFlywheelTalon.setAllowableClosedLoopErr(0);
 		shooterFlywheelTalon.setProfile(0);
 		shooterFlywheelTalon.setF(0.0125);
-		shooterFlywheelTalon.setP(0.1);
-		shooterFlywheelTalon.setI(0.0); 
-		shooterFlywheelTalon.setD(0.0);
+		shooterFlywheelTalon.setP(0.01);
+		shooterFlywheelTalon.setI(0.01); 
+		shooterFlywheelTalon.setD(0.01);
 		shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		shooterFlywheelTalon.reverseSensor(false);
 		shooterFlywheelTalon.reverseOutput(false);
@@ -68,4 +68,3 @@ public class Shooter extends Subsystem {
 		
 	}
 }
-

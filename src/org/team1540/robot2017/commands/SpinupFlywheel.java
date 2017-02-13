@@ -5,6 +5,7 @@ import org.team1540.robot2017.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpinupFlywheel extends Command {
+	
 	public SpinupFlywheel() {
 		requires(Robot.shooter);
 	}
@@ -17,7 +18,7 @@ public class SpinupFlywheel extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.shooter.setSpeed(100);
+		Robot.shooter.setSpeed(3600);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -36,4 +37,5 @@ public class SpinupFlywheel extends Command {
 	@Override
 	protected void interrupted() {
 	}
+	
 }
