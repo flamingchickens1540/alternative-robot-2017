@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		new TurnEverythingOff();
 	}
 
 	@Override
@@ -106,6 +106,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		new TurnEverythingOff();
 		autonomousCommand = chooser.getSelected();
 
 		/*
@@ -136,6 +137,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		new TurnEverythingOff();
 	}
 
 	/**
