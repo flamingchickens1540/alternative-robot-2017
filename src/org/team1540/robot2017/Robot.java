@@ -1,14 +1,22 @@
 
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SpindownFlywheel;
+import org.team1540.robot2017.commands.SpinupFireShooter;
 import org.team1540.robot2017.commands.SpinupFlywheel;
+import org.team1540.robot2017.commands.StartTesting;
+import org.team1540.robot2017.commands.StopTesting;
+import org.team1540.robot2017.commands.TurnOffIntake;
+import org.team1540.robot2017.commands.TurnOnIntake;
+import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
 import org.team1540.robot2017.subsystems.GearMechanism;
 import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.Shooter;
+import org.team1540.robot2017.subsystems.Testing;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -29,11 +37,14 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Climber climber = new Climber();
-	public static final Feeder feeder = new Feeder();
 	public static final GearMechanism gearMechanism = new GearMechanism();
+	public static final Feeder feeder = new Feeder();
+	public static final Belt belt = new Belt();
 	public static final Intake intake = new Intake();
 	public static final Shooter shooter = new Shooter();
+	public static Tuning tuning;
 	public static OI oi;
+//	public static final Testing testing = new Testing();
 		
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -45,10 +56,21 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		tuning = new Tuning();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
-		new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
+		
+//		OI.buttonSpinupFire.whenPressed(new SpinupFireShooter());
+		OI.buttonSpinup.whenPressed(new SpinupFlywheel());
+		OI.buttonFire.whenPressed(new FireShooter());
+		OI.buttonSpindown.whenPressed(new SpindownFlywheel());
+		
+		OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
+		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
+		
+//		OI.buttonSpinupFire.whenPressed(new StartTesting());
+//		OI.buttonSpinupFire.whenReleased(new StopTesting());
+		
 	}
 
 	/**
@@ -64,6 +86,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+		SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
+		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
+//		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
 	}
 
 	/**
@@ -117,6 +144,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+//		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+		SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
+		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
+		SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
+//		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
 	}
 
 	/**

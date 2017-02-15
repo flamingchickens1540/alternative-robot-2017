@@ -21,6 +21,7 @@ public class DriveTrain extends Subsystem {
 		driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
 		driveRightBTalon.changeControlMode(TalonControlMode.Follower);
 		driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+//		driveRightTalon.reverseOutput(true);
 		driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
 		driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
 		driveLeftCTalon.changeControlMode(TalonControlMode.Follower);

@@ -18,7 +18,7 @@ public class IdleDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.tankDrive(OI.primary.getRawAxis(OI.primaryLeftAxis), OI.primary.getRawAxis(OI.primaryRightAxis));
+		Robot.driveTrain.tankDrive(OI.driver.getRawAxis(OI.driverLeftAxis), OI.driver.getRawAxis(OI.driverRightAxis));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

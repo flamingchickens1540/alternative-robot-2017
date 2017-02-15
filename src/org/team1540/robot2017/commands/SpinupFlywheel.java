@@ -3,6 +3,7 @@ package org.team1540.robot2017.commands;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SpinupFlywheel extends Command {
 	
@@ -18,7 +19,9 @@ public class SpinupFlywheel extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.shooter.setSpeed(3600);
+//		Robot.shooter.setSpeed(SmartDashboard.getNumber("Flywheel Setpoint", 1000));
+		Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
+//		Robot.shooter.setFull();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

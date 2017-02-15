@@ -7,17 +7,27 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SpindownFlywheel extends Command {
 	public SpindownFlywheel() {
 		requires(Robot.shooter);
+		requires(Robot.feeder);
+		requires(Robot.belt);
+		requires(Robot.intake);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.shooter.setSpeed(0);
+//		Robot.feeder.set(0, 0, 0);
+		Robot.feeder.setTop(0);
+		Robot.feeder.setLeft(0);
+		Robot.feeder.setRight(0);
+		Robot.belt.set(0);
+		Robot.intake.set(0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.shooter.setSpeed(0);
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
