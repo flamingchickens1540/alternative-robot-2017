@@ -14,14 +14,13 @@ public class SpinupFlywheel extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-//		Robot.shooter.setSpeed(SmartDashboard.getNumber("Flywheel Setpoint", 1000));
-		Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
-//		Robot.shooter.setFull();
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

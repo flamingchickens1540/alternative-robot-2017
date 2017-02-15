@@ -2,11 +2,11 @@
 package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.FireShooter;
-import org.team1540.robot2017.commands.SpindownFlywheel;
 import org.team1540.robot2017.commands.SpinupFireShooter;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.StartTesting;
 import org.team1540.robot2017.commands.StopTesting;
+import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOffIntake;
 import org.team1540.robot2017.commands.TurnOnIntake;
 import org.team1540.robot2017.subsystems.Belt;
@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
 //		OI.buttonSpinupFire.whenPressed(new SpinupFireShooter());
 		OI.buttonSpinup.whenPressed(new SpinupFlywheel());
 		OI.buttonFire.whenPressed(new FireShooter());
-		OI.buttonSpindown.whenPressed(new SpindownFlywheel());
+		OI.buttonSpindown.whenPressed(new TurnEverythingOff());
 		
 		OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
 		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());

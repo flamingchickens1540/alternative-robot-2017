@@ -4,8 +4,8 @@ import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SpindownFlywheel extends Command {
-	public SpindownFlywheel() {
+public class TurnEverythingOff extends Command {
+	public TurnEverythingOff() {
 		requires(Robot.shooter);
 		requires(Robot.feeder);
 		requires(Robot.belt);

@@ -58,10 +58,6 @@ public class Shooter extends Subsystem {
 		return shooterFlywheelTalon.pidGet();
 	}
 	
-//	public void setFull() {
-//		shooterFlywheelTalon.set(1);
-//	}
-	
 	public void setSpeed(double rpm) {
 		shooterFlywheelTalon.changeControlMode(TalonControlMode.Speed);
 		shooterFlywheelTalon.setSetpoint(rpm);
