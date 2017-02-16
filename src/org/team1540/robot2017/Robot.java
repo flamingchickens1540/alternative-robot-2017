@@ -1,23 +1,26 @@
 
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.CalibrateGearSlider;
-import org.team1540.robot2017.commands.SpindownFlywheel;
-import org.team1540.robot2017.commands.SpinupFlywheel;
+//import org.team1540.robot2017.commands.CalibrateGearSlider;
+//import org.team1540.robot2017.commands.SpindownFlywheel;
+//import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.subsystems.Climber;
-import org.team1540.robot2017.subsystems.DriveTrain;
-import org.team1540.robot2017.subsystems.Feeder;
-import org.team1540.robot2017.subsystems.GearMechanism;
-import org.team1540.robot2017.subsystems.Intake;
-import org.team1540.robot2017.subsystems.Shooter;
+//import org.team1540.robot2017.subsystems.DriveTrain;
+//import org.team1540.robot2017.subsystems.Feeder;
+//import org.team1540.robot2017.subsystems.GearMechanism;
+//import org.team1540.robot2017.subsystems.Intake;
+import org.team1540.robot2017.subsystems.LEDs;
+//import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,13 +31,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
+	//public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Climber climber = new Climber();
-	public static final Feeder feeder = new Feeder();
-	public static final GearMechanism gearMechanism = new GearMechanism();
-	public static final Intake intake = new Intake();
-	public static final Shooter shooter = new Shooter();
+	//public static final Feeder feeder = new Feeder();
+	//public static final GearMechanism gearMechanism = new GearMechanism();
+	//public static final Intake intake = new Intake();
+	//public static final Shooter shooter = new Shooter();
+	public static final LEDs leds = new LEDs();
+	public static Tuning tuning;
 	public static OI oi;
+	
 		
 	Command autonomousCommand;
 	Command calibrateSlider;
@@ -52,7 +58,7 @@ public class Robot extends IterativeRobot {
 		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
 		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 		
-		calibrateSlider = new CalibrateGearSlider();
+		//calibrateSlider = new CalibrateGearSlider();
 	}
 
 	/**
@@ -95,6 +101,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		if (calibrateSlider != null)
+			calibrateSlider.start();
 	}
 
 	/**
@@ -113,7 +121,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		calibrateSlider.start();
+		if (calibrateSlider != null)
+			calibrateSlider.start();
 		
 	}
 
@@ -123,6 +132,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Top Climber Current", this.climber.getTopClimberCurrent());
+		SmartDashboard.putNumber("Bottom Climber Current", this.climber.getBottomClimberCurrent());
+		SmartDashboard.putNumber("Red", this.leds.getRed());
+		SmartDashboard.putNumber("Green", this.leds.getGreen());
+		SmartDashboard.putNumber("Blue", this.leds.getBlue());
 	}
 
 	/**

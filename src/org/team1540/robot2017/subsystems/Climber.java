@@ -24,7 +24,14 @@ public class Climber extends Subsystem {
 	}
 
 	public void joyClimb(double rawAxis) {
-		climberTopTalon.set(RobotUtil.deadzone(rawAxis, 0.2));
-		climberBottomTalon.set(RobotUtil.deadzone(-rawAxis, 0.2));
+		climberTopTalon.set(RobotUtil.deadzone(rawAxis, .02));
+		climberBottomTalon.set(-RobotUtil.deadzone(rawAxis, .02));
+	}
+	
+	public double getTopClimberCurrent() {
+		return climberTopTalon.getOutputCurrent();
+	}
+	public double getBottomClimberCurrent() {
+		return climberTopTalon.getOutputCurrent();
 	}
 }
