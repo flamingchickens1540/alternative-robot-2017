@@ -15,12 +15,9 @@ public class FireShooter extends Command {
 	}
 	
 	protected void initialize() {
-//		Robot.feeder.set(1, 0.6, 1);
-		Robot.feeder.setTop(1);
-//		Robot.feeder.setLeft(0.6);
-//		Robot.feeder.setRight(1);
-		Robot.belt.set(1);
-		Robot.intake.set(1);
+		Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
+		Robot.belt.set(Robot.tuning.getBeltTopOutput());
+		Robot.intake.set(Robot.tuning.getIntakeOutput());
 	}
 	
 	protected void execute() {
@@ -28,13 +25,11 @@ public class FireShooter extends Command {
 //		boolean beltShouldBeOn = ((long) (time / Robot.tuning.getBeltPeriod()) % 2) == 1 ? true : false;
 //		Robot.belt.set(beltShouldBeOn ? 1 : 0);
 //		Robot.feeder.setTop(((long) (time / Robot.tuning.getFeederTopPeriod()) % 2) == 1 ? 1 : 0);
-		boolean feederSide = ((long) (time / Robot.tuning.getFeederSideSwitchPeriod()) % 2) == 1 ? true : false;
-		Robot.feeder.setLeft(feederSide == true ? 0.8 : 0);
-		Robot.feeder.setRight(feederSide == true ? 0 : 0.8);
-//		SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
-//		SmartDashboard.putNumber("Should Belt Be On", beltShouldBeOn ? 1 : 0);
+//		boolean feederSide = ((long) (time / Robot.tuning.getFeederSideSwitchPeriod()) % 2) == 1 ? true : false;
+		int feederSide = (int) ((time / Robot.tuning.getFeederSideSwitchPeriod()) % 3);
+		Robot.feeder.setLeft(feederSide == 1 ? 0 : Robot.tuning.getFeederSideOutput());
+		Robot.feeder.setRight(feederSide == 2 ? 0 : Robot.tuning.getFeederSideOutput());
 		SmartDashboard.putNumber("Time", time);
-//		SmartDashboard.putNumber("thing", (time / Robot.tuning.getBeltPeriod()) % 2);
 	}
 
 	@Override

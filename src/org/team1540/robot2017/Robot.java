@@ -1,25 +1,10 @@
 
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.FireShooter;
-import org.team1540.robot2017.commands.SpinupFireShooter;
-import org.team1540.robot2017.commands.SpinupFlywheel;
-import org.team1540.robot2017.commands.StartTesting;
-import org.team1540.robot2017.commands.StopTesting;
-import org.team1540.robot2017.commands.TurnEverythingOff;
-import org.team1540.robot2017.commands.TurnOffIntake;
-import org.team1540.robot2017.commands.TurnOnIntake;
-import org.team1540.robot2017.subsystems.Belt;
-import org.team1540.robot2017.subsystems.Climber;
-import org.team1540.robot2017.subsystems.DriveTrain;
-import org.team1540.robot2017.subsystems.Feeder;
-import org.team1540.robot2017.subsystems.GearMechanism;
-import org.team1540.robot2017.subsystems.Intake;
-import org.team1540.robot2017.subsystems.Shooter;
-import org.team1540.robot2017.subsystems.Testing;
+import org.team1540.robot2017.commands.*;
+import org.team1540.robot2017.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -35,16 +20,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Climber climber = new Climber();
-	public static final GearMechanism gearMechanism = new GearMechanism();
-	public static final Feeder feeder = new Feeder();
-	public static final Belt belt = new Belt();
-	public static final Intake intake = new Intake();
-	public static final Shooter shooter = new Shooter();
+	public static DriveTrain driveTrain;
+	public static Climber climber;
+	public static GearMechanism gearMechanism;
+	public static Feeder feeder;
+	public static Belt belt;
+	public static Intake intake;
+	public static Shooter shooter;
 	public static Tuning tuning;
 	public static OI oi;
-//	public static final Testing testing = new Testing();
 		
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -57,6 +41,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		tuning = new Tuning();
+		driveTrain = new DriveTrain();
+		climber = new Climber();
+		gearMechanism = new GearMechanism();
+		feeder = new Feeder();
+		belt = new Belt();
+		intake = new Intake();
+		shooter = new Shooter();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
@@ -67,9 +58,6 @@ public class Robot extends IterativeRobot {
 		
 		OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
 		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
-		
-//		OI.buttonSpinupFire.whenPressed(new StartTesting());
-//		OI.buttonSpinupFire.whenReleased(new StopTesting());
 		
 	}
 
@@ -138,6 +126,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		new TurnEverythingOff();
+		shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
+		shooter.setF(tuning.getFlywheelF());
 	}
 
 	/**
@@ -152,6 +142,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
 		SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
 //		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
+		SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
+		SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
+		SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
+		SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
+		SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
+		SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
 	}
 
 	/**

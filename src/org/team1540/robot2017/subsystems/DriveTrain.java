@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 	
-	private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveTalonRightA);
-	private final CANTalon driveRightBTalon = new CANTalon(RobotMap.driveTalonRightB);
-	private final CANTalon driveRightCTalon = new CANTalon(RobotMap.driveTalonRightC);
-	private final CANTalon driveLeftTalon = new CANTalon(RobotMap.driveTalonLeftA);
-	private final CANTalon driveLeftBTalon = new CANTalon(RobotMap.driveTalonLeftB);
-	private final CANTalon driveLeftCTalon = new CANTalon(RobotMap.driveTalonLeftC);
+	public final CANTalon driveRightTalon = new CANTalon(RobotMap.driveTalonRightA);
+	public final CANTalon driveRightBTalon = new CANTalon(RobotMap.driveTalonRightB);
+	public final CANTalon driveRightCTalon = new CANTalon(RobotMap.driveTalonRightC);
+	public final CANTalon driveLeftTalon = new CANTalon(RobotMap.driveTalonLeftA);
+	public final CANTalon driveLeftBTalon = new CANTalon(RobotMap.driveTalonLeftB);
+	public final CANTalon driveLeftCTalon = new CANTalon(RobotMap.driveTalonLeftC);
 	
 	public DriveTrain() {
 		driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
@@ -34,6 +34,27 @@ public class DriveTrain extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new IdleDrive());
+	}
+	
+	public void setAll(double output) {
+		driveRightTalon.set(output);
+		driveRightBTalon.set(output);
+		driveRightCTalon.set(output);
+		driveLeftTalon.set(output);
+		driveLeftBTalon.set(output);
+		driveLeftCTalon.set(output);
+	}
+	
+	public void setRight(double output) {
+		driveRightTalon.set(output);
+		driveRightBTalon.set(output);
+		driveRightCTalon.set(output);
+	}
+	
+	public void setLeft(double output) {
+		driveLeftTalon.set(output);
+		driveLeftBTalon.set(output);
+		driveLeftCTalon.set(output);
 	}
 	
 	public void tankDrive(double left, double right) {

@@ -6,17 +6,27 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SpinupFireShooter extends Command {
 	
-//	public SpinupFireShooter() {
-//		requires(Robot.shooter);
-//		requires(Robot.feeder);
-//		requires(Robot.belt);
-//		requires(Robot.intake);
-//	}
-//	
+	public SpinupFireShooter() {
+		requires(Robot.shooter);
+		requires(Robot.feeder);
+		requires(Robot.belt);
+		requires(Robot.intake);
+	}
+	
+	@Override
+	protected void initialize() {
+		if (Robot.shooter.upToSpeed()) {
+			new FireShooter();
+		}
+		else {
+			new SpinupFlywheel();
+		}
+	}
+	
 //	protected void execute() {
 //		if (Robot.shooter.upToSpeed()) {
 //			// fire
-//			Robot.feeder.set(0.75, 0.65, 0.86);
+////			Robot.feeder.set(0.75, 0.65, 0.86);
 //			Robot.belt.set(0.4);
 //			Robot.intake.set(1);
 //		}
@@ -30,7 +40,7 @@ public class SpinupFireShooter extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 }

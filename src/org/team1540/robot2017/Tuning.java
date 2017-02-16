@@ -26,4 +26,40 @@ public class Tuning {
 		return tuning.getDouble("Feeder Side Switch Period", 250);
 	}
 	
+	public double getFlywheelP() {
+		return tuning.getDouble("Shooter Flywheel PID P", 0.14);
+	}
+	
+	public double getFlywheelI() {
+		return tuning.getDouble("Shooter Flywheel PID I", 0.0001);
+	}
+	
+	public double getFlywheelD() {
+		return tuning.getDouble("Shooter Flywheel PID D", 0.05);
+	}
+	
+	public double getFlywheelF() {
+		return tuning.getDouble("Shooter Flywheel PID F", 1 / 26274);
+	}
+	
+	public double getIntakeRegularOutput() {
+		return tuning.getDouble("Intake Regular Output", 1);
+	}
+	
+	public double getIntakeShootingOutput() {
+		return tuning.getDouble("Intake Shooting Output", 1);
+	}
+	
+	public double getBeltTopOutput() {
+		return tuning.getDouble("Belt Output", 1);
+	}
+	
+	public double getFeederTopOutput() {
+		return tuning.getDouble("Feeder Top Output", 1);
+	}
+	
+	public double getFeederSideOutput() {
+		return tuning.getDouble("Feeder Side Output", 1);
+	}
+	
 }

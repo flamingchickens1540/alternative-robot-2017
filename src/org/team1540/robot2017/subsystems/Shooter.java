@@ -28,14 +28,22 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setProfile(0);
         shooterFlywheelTalon.ClearIaccum();
         shooterFlywheelTalon.enable();
-        shooterFlywheelTalon.setF(1 / 26274);
-        shooterFlywheelTalon.setP(0.07);
-        shooterFlywheelTalon.setI(0.0001); 
+        shooterFlywheelTalon.setF(Robot.tuning.getFlywheelF());
+//        shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
+//        shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI()); 
+//        shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
+        shooterFlywheelTalon.setP(0.14);
+        shooterFlywheelTalon.setI(0.0001);
         shooterFlywheelTalon.setD(0.05);
+        
 	}
 	
 	public void setPID(double p, double i, double d) {
 		shooterFlywheelTalon.setPID(p, i, d);
+	}
+	
+	public void setF(double f) {
+		shooterFlywheelTalon.setF(f);
 	}
 	
 	public double getP() {
@@ -80,7 +88,15 @@ public class Shooter extends Subsystem {
 	}
 	
 	public boolean upToSpeed() {
-		return shooterFlywheelTalon.getSpeed() >= Robot.tuning.getShooterFlywheelSpeed(); ////////
+		return Math.abs(shooterFlywheelTalon.getSpeed() / Robot.tuning.getShooterFlywheelSpeed() - 1) < 0.1;
+	}
+	
+	public double getFlywheelCurrentL() {
+		return shooterFlywheelTalon.getOutputCurrent();
+	}
+	
+	public double getFlywheelCurrentR() {
+		return shooterRightFlywheelTalon.getOutputCurrent();
 	}
 	
 	@Override
