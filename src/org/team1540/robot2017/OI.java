@@ -20,7 +20,7 @@ public class OI {
 	public static final JoystickButton buttonSpindown = new JoystickButton(driver, 2);
 	
 	public static final JoystickButton buttonIntakeOn = new JoystickButton(driver, 3);
-	public static final JoystickButton buttonIntakeOff = new JoystickButton(driver, 4);
+//	public static final JoystickButton buttonIntakeOff = new JoystickButton(driver, 4);
 	
 //	public static final JoystickButton buttonTest = new JoystickButton(driver, 6);
 	

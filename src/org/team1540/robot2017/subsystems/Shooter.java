@@ -71,6 +71,11 @@ public class Shooter extends Subsystem {
 		shooterFlywheelTalon.setSetpoint(rpm);
 	}
 	
+	public void stop() {
+		shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterFlywheelTalon.set(0);
+	}
+	
 	public double getSpeed() {
 		return shooterFlywheelTalon.getSpeed();
 	}

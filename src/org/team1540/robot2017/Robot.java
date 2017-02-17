@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
 		OI.buttonSpindown.whenPressed(new TurnEverythingOff());
 		
 		OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
-		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
+//		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
 		
 	}
 
