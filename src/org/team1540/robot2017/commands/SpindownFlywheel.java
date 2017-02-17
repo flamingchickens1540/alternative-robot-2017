@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package org.team1540.robot2017.commands;
 
 import org.team1540.robot2017.Robot;
@@ -6,7 +6,7 @@ import org.team1540.robot2017.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpindownFlywheel extends Command {
-=======
+
 //package org.team1540.robot2017.commands;
 //
 //import org.team1540.robot2017.Robot;
@@ -14,7 +14,6 @@ public class SpindownFlywheel extends Command {
 //import edu.wpi.first.wpilibj.command.Command;
 //
 //public class SpindownFlywheel extends Command {
->>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796
 //	public SpindownFlywheel() {
 //		requires(Robot.shooter);
 //	}
@@ -29,7 +28,6 @@ public class SpindownFlywheel extends Command {
 //	protected void execute() {
 //		Robot.shooter.setSpeed(0);
 //	}
-<<<<<<< HEAD
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
@@ -48,7 +46,6 @@ public class SpindownFlywheel extends Command {
 	protected void interrupted() {
 	}
 }
-=======
 //
 //	// Make this return true when this Command no longer needs to run execute()
 //	@Override
@@ -67,4 +64,3 @@ public class SpindownFlywheel extends Command {
 //	protected void interrupted() {
 //	}
 //}
->>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796

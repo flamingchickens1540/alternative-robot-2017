@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 	// Joysticks
-	public static final Joystick primary = new Joystick(0);
-	public static final Joystick secondary = new Joystick(1);
+	public static final Joystick driver = new Joystick(0);
+	public static final Joystick copilot = new Joystick(1);
 	
 //	private static final int rightAxisX = ???; // ??
 	private static final int rightAxisY = 5;
@@ -19,14 +19,13 @@ public class OI {
 	private static final int rightTrigger = 3;
 	private static final int leftTrigger = 2;
 	
-<<<<<<< HEAD
-	private static final int rightBumper = (Integer) null;
-	private static final int leftBumper = (Integer) null;
-	
-	private static final int buttonX = (Integer) null;
-	private static final int buttonA = (Integer) null;
-	private static final int buttonY = (Integer) null;
-	private static final int buttonB = (Integer) null;
+//	private static final int rightBumper = (Integer) null;
+//	private static final int leftBumper = (Integer) null;
+//	
+//	private static final int buttonX = (Integer) null;
+//	private static final int buttonA = (Integer) null;
+//	private static final int buttonY = (Integer) null;
+//	private static final int buttonB = (Integer) null;
 	
 //	private static final int leftJoyPush = (Integer) null;
 //	private static final int rightJoyPush = (Integer) null;
@@ -39,7 +38,7 @@ public class OI {
 //	private static final int buttonSW = (Integer) null;
 //	private static final int buttonW = (Integer) null;
 //	private static final int buttonNW = (Integer) null;
-=======
+
 //	private static final int rightBumper = ???;
 //	private static final int leftBumper = ???;
 //	
@@ -59,23 +58,22 @@ public class OI {
 //	private static final int buttonSW = ???;
 //	private static final int buttonW = ???;
 //	private static final int buttonNW = ???;
->>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796
 	
 	// Climber
 	public static double getClimberJoystick() {
-		return primary.getRawAxis(rightAxisY);
+		return copilot.getRawAxis(rightAxisY);
 	}
 	
 	// DriveTrain
 	public static double getDriveRightJoystick() {
-		return secondary.getRawAxis(rightAxisY);
+		return -driver.getRawAxis(rightAxisY);
 	}
 	public static double getDriveLeftJoystick() {
-		return secondary.getRawAxis(leftAxisY);
+		return driver.getRawAxis(leftAxisY);
 	}
 
 	// GearMechanism
 	public static double getGearSliderJoystick() {
-		return secondary.getRawAxis(rightAxisY);
+		return copilot.getRawAxis(rightAxisY);
 	}
 }

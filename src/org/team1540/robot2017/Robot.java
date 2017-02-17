@@ -3,12 +3,12 @@ package org.team1540.robot2017;
 
 //import org.team1540.robot2017.commands.CalibrateGearSlider;
 //import org.team1540.robot2017.commands.SpindownFlywheel;
-<<<<<<< HEAD
+
 import org.team1540.robot2017.commands.SpinupFlywheel;
-=======
+
 //import org.team1540.robot2017.commands.SpinupFlywheel;
->>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796
 import org.team1540.robot2017.subsystems.Climber;
+import org.team1540.robot2017.subsystems.DriveTrain;
 //import org.team1540.robot2017.subsystems.DriveTrain;
 //import org.team1540.robot2017.subsystems.Feeder;
 //import org.team1540.robot2017.subsystems.GearMechanism;
@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	//public static final DriveTrain driveTrain = new DriveTrain();
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Climber climber = new Climber();
 	//public static final Feeder feeder = new Feeder();
 	//public static final GearMechanism gearMechanism = new GearMechanism();
@@ -62,11 +62,8 @@ public class Robot extends IterativeRobot {
 		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
 		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 		
-<<<<<<< HEAD
 //		calibrateSlider = new CalibrateGearSlider();
-=======
 		//calibrateSlider = new CalibrateGearSlider();
->>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796
 	}
 
 	/**
