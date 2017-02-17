@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+//		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
 		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
 //		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
@@ -126,8 +126,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		new TurnEverythingOff();
-		shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
-		shooter.setF(tuning.getFlywheelF());
+//		shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
+//		shooter.setF(tuning.getFlywheelF());
 	}
 
 	/**
@@ -140,14 +140,15 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
 		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-		SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
+//		SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
 //		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
 		SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
 		SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
-		SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
-		SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
-		SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
-		SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
+//		SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
+//		SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
+//		SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
+//		SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
+		SmartDashboard.putBoolean("Spinup Button Value", Robot.oi.buttonSpinup.get());
 	}
 
 	/**

@@ -6,23 +6,23 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SpinupFireShooter extends Command {
 	
-	public SpinupFireShooter() {
-		requires(Robot.shooter);
-		requires(Robot.feeder);
-		requires(Robot.belt);
-		requires(Robot.intake);
-	}
-	
-	@Override
-	protected void initialize() {
-		if (Robot.shooter.upToSpeed()) {
-			new FireShooter();
-		}
-		else {
-			new SpinupFlywheel();
-		}
-	}
-	
+//	public SpinupFireShooter() {
+//		requires(Robot.shooter);
+//		requires(Robot.feeder);
+//		requires(Robot.belt);
+//		requires(Robot.intake);
+//	}
+//	
+//	@Override
+//	protected void initialize() {
+//		if (Robot.shooter.upToSpeed()) {
+//			new FireShooter();
+//		}
+//		else {
+//			new SpinupFlywheel();
+//		}
+//	}
+//	
 //	protected void execute() {
 //		if (Robot.shooter.upToSpeed()) {
 //			// fire
