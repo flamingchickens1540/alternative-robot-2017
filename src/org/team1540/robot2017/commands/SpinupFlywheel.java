@@ -1,5 +1,6 @@
 package org.team1540.robot2017.commands;
 
+import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +19,7 @@ public class SpinupFlywheel extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+//    	System.out.println("initializing");
         previousError = 0;
         setpoint = Robot.tuning.getShooterFlywheelSpeed();
     }
@@ -25,7 +27,8 @@ public class SpinupFlywheel extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double error = setpoint - Robot.shooter.getSpeed();
+//    	System.out.println("executing");
+    	double error = setpoint - Robot.shooter.getSpeed();
         currentMotorOutput += Robot.tuning.getTBHParameter() * error;
         if (currentMotorOutput > 1) {
             currentMotorOutput = 1;
@@ -45,12 +48,13 @@ public class SpinupFlywheel extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return Robot.oi.buttonSpindown.get();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+    	Robot.shooter.setSpeed(0);
     }
 
     // Called when another command which requires one or more of the same
