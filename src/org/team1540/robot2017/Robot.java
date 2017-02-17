@@ -1,8 +1,8 @@
 
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.CalibrateGearSlider;
-import org.team1540.robot2017.commands.SpindownFlywheel;
+//import org.team1540.robot2017.commands.CalibrateGearSlider;
+//import org.team1540.robot2017.commands.SpindownFlywheel;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
 		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 		
-		calibrateSlider = new CalibrateGearSlider();
+//		calibrateSlider = new CalibrateGearSlider();
 	}
 
 	/**
