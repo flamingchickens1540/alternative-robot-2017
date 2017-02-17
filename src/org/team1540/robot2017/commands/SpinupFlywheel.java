@@ -18,6 +18,7 @@ public class SpinupFlywheel extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        previousError = 0;
         setpoint = Robot.tuning.getShooterFlywheelSpeed();
     }
 
@@ -34,8 +35,9 @@ public class SpinupFlywheel extends Command {
 
         if (Math.signum(error) != Math.signum(previousError)) {
             currentMotorOutput = takeBackHalfVariable = 0.5 * (currentMotorOutput + takeBackHalfVariable);
-            previousError = error;
         }
+
+        previousError = error;
 
         Robot.shooter.setSpeed(currentMotorOutput);
     }
