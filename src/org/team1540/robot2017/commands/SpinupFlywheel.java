@@ -6,38 +6,54 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SpinupFlywheel extends Command {
-	
-	public SpinupFlywheel() {
-		requires(Robot.shooter);
-	}
+    private double setpoint = 0;
+    private double currentMotorOutput = 0;
+    private double previousError = 0;
+    private double takeBackHalfVariable = 0;
 
-	// Called just before this Command runs the first time
-	@Override
-	protected void initialize() {
-		Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
-	}
+    public SpinupFlywheel() {
+        requires(Robot.shooter);
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-		
-	}
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+        setpoint = Robot.tuning.getShooterFlywheelSpeed();
+    }
 
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		return true;
-	}
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        double error = setpoint - Robot.shooter.getSpeed();
+        currentMotorOutput += Robot.tuning.getTBHParameter() * error;
+        if (currentMotorOutput > 1) {
+            currentMotorOutput = 1;
+        } else if (currentMotorOutput < 0) {
+            currentMotorOutput = 0;
+        }
 
-	// Called once after isFinished returns true
-	@Override
-	protected void end() {
-	}
+        if (Math.signum(error) != Math.signum(previousError)) {
+            currentMotorOutput = takeBackHalfVariable = 0.5 * (currentMotorOutput + takeBackHalfVariable);
+            previousError = error;
+        }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
-	}
-	
+        Robot.shooter.setSpeed(currentMotorOutput);
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        return true;
+    }
+
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
+    }
 }
