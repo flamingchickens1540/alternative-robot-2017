@@ -9,6 +9,7 @@ import org.team1540.robot2017.commands.SpinupFlywheel;
 //import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
+import org.team1540.robot2017.subsystems.GearMechanism;
 //import org.team1540.robot2017.subsystems.DriveTrain;
 //import org.team1540.robot2017.subsystems.Feeder;
 //import org.team1540.robot2017.subsystems.GearMechanism;
@@ -35,15 +36,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Climber climber = new Climber();
-	//public static final Feeder feeder = new Feeder();
-	//public static final GearMechanism gearMechanism = new GearMechanism();
-	//public static final Intake intake = new Intake();
-	//public static final Shooter shooter = new Shooter();
-	public static final LEDs leds = new LEDs();
-	public static Tuning tuning;
-	public static OI oi;
+//	public static final DriveTrain driveTrain = new DriveTrain();
+//	public static final Climber climber = new Climber();
+//	//public static final Feeder feeder = new Feeder();
+//	public static final GearMechanism gearMechanism = new GearMechanism();
+//	//public static final Intake intake = new Intake();
+//	//public static final Shooter shooter = new Shooter();
+//	public static final LEDs leds = new LEDs();
+//	public static Tuning tuning;
+////	public static OI oi;
 	
 		
 	Command autonomousCommand;
@@ -56,13 +57,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
+//		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		//new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
 		//new JoystickButton(OI.primary, 2).whenPressed(new SpindownFlywheel());
 		
-//		calibrateSlider = new CalibrateGearSlider();
 		//calibrateSlider = new CalibrateGearSlider();
 	}
 

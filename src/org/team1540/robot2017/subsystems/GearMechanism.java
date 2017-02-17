@@ -1,19 +1,19 @@
-//package org.team1540.robot2017.subsystems;
-//
-//import org.team1540.robot2017.RobotMap;
-//import org.team1540.robot2017.RobotUtil;
-//
-//import com.ctre.CANTalon;
-//import com.ctre.CANTalon.TalonControlMode;
-//
-//import edu.wpi.first.wpilibj.Counter;
-//import edu.wpi.first.wpilibj.DigitalInput;
-//import edu.wpi.first.wpilibj.Encoder;
-//import edu.wpi.first.wpilibj.Servo;
-//import edu.wpi.first.wpilibj.command.Subsystem;
-//
-//public class GearMechanism extends Subsystem {
-//
+package org.team1540.robot2017.subsystems;
+
+import org.team1540.robot2017.RobotMap;
+import org.team1540.robot2017.RobotUtil;
+
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
+
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class GearMechanism extends Subsystem {
+
 //	private final CANTalon gearSliderTalon = new CANTalon(RobotMap.gearSliderTalon);
 //	private final Servo gearRightDeployServo = new Servo(RobotMap.gearServoRight);
 //	private final Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeft);
@@ -40,12 +40,12 @@
 //	public void initializeCounter() {
 //        counter.reset();
 //    }
-//	
-//	@Override
-//	protected void initDefaultCommand() {
-//		
-//	}
-//	
+	
+	@Override
+	protected void initDefaultCommand() {
+		
+	}
+	
 //	public void joySlider(double rawAxis) {
 //		if (useJoystick) {
 //			System.out.print(sliderEncoder.get()); // ??
@@ -95,4 +95,4 @@
 //		}
 //		gearLock = !gearLock;
 //	}
-//}
+}

@@ -1,4 +1,3 @@
-
 package org.team1540.robot2017.commands;
 
 import org.team1540.robot2017.Robot;
@@ -6,6 +5,7 @@ import org.team1540.robot2017.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpindownFlywheel extends Command {
+
 
 //package org.team1540.robot2017.commands;
 //
@@ -28,6 +28,7 @@ public class SpindownFlywheel extends Command {
 //	protected void execute() {
 //		Robot.shooter.setSpeed(0);
 //	}
+
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override

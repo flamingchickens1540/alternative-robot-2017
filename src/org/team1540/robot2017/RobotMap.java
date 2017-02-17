@@ -20,10 +20,8 @@ public class RobotMap {
 	
 	// GearMechanism
 	public static final int gearSliderTalon = 3;
-//	public static final int gearServoRightDeploy;
-//	public static final int gearServoLeftDeploy;
-	//public static final int gearServoRight = ???;
-	//public static final int gearServoLeft = ???;
+	public static final int gearServoRight = 1;
+	public static final int gearServoLeft = 2;
 	
 	// Intake
 	public static final int intakeRollers = 16;
@@ -39,7 +37,6 @@ public class RobotMap {
 	public static final int driveTalonLeftA = 7;
 	public static final int driveTalonLeftB = 1;
 	public static final int driveTalonLeftC = 8;
-
 	
 	// RGB LEDs
 	public static int redPWM = 2;
