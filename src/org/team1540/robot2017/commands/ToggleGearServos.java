@@ -5,9 +5,9 @@
 //
 //import edu.wpi.first.wpilibj.command.Command;
 //
-//public class JoystickDrive extends Command {
-//	public JoystickDrive() {
-//		requires(Robot.driveTrain);
+//public class ToggleGearServos extends Command {
+//	public ToggleGearServos() {
+//		requires(Robot.gearMechanism);
 //	}
 //
 //	// Called just before this Command runs the first time
@@ -18,13 +18,13 @@
 //	// Called repeatedly when this Command is scheduled to run
 //	@Override
 //	protected void execute() {
-//		Robot.driveTrain.tankDrive(OI.getDriveLeftJoystick(), OI.getDriveRightJoystick());
+//		Robot.gearMechanism.toggleServos();
 //	}
 //
 //	// Make this return true when this Command no longer needs to run execute()
 //	@Override
 //	protected boolean isFinished() {
-//		return false;
+//		return true;
 //	}
 //
 //	// Called once after isFinished returns true

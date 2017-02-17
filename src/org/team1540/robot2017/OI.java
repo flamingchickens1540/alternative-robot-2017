@@ -11,14 +11,15 @@ public class OI {
 	public static final Joystick primary = new Joystick(0);
 	public static final Joystick secondary = new Joystick(1);
 	
-	private static final int rightAxisX = (Integer) null; // ??
+//	private static final int rightAxisX = ???; // ??
 	private static final int rightAxisY = 5;
-	private static final int leftAxisX = (Integer) null; // ??
+//	private static final int leftAxisX = ???; // ??
 	private static final int leftAxisY = 1;
 	
 	private static final int rightTrigger = 3;
 	private static final int leftTrigger = 2;
 	
+<<<<<<< HEAD
 	private static final int rightBumper = (Integer) null;
 	private static final int leftBumper = (Integer) null;
 	
@@ -38,18 +39,39 @@ public class OI {
 //	private static final int buttonSW = (Integer) null;
 //	private static final int buttonW = (Integer) null;
 //	private static final int buttonNW = (Integer) null;
+=======
+//	private static final int rightBumper = ???;
+//	private static final int leftBumper = ???;
+//	
+//	private static final int buttonX = ???;
+//	private static final int buttonA = ???;
+//	private static final int buttonY = ???;
+//	private static final int buttonB = ???;
+//	
+//	private static final int leftJoyPush = ???;
+//	private static final int rightJoyPush = ???;
+//	
+//	private static final int buttonN = ???;
+//	private static final int buttonNE = ???;
+//	private static final int buttonE = ???;
+//	private static final int buttonSE = ???;
+//	private static final int buttonS = ???;
+//	private static final int buttonSW = ???;
+//	private static final int buttonW = ???;
+//	private static final int buttonNW = ???;
+>>>>>>> 6acfb4d6da7a7c2608b93dcb642929370bd6c796
 	
 	// Climber
 	public static double getClimberJoystick() {
-		return secondary.getRawAxis(leftAxisY);
+		return primary.getRawAxis(rightAxisY);
 	}
 	
 	// DriveTrain
 	public static double getDriveRightJoystick() {
-		return primary.getRawAxis(rightAxisY);
+		return secondary.getRawAxis(rightAxisY);
 	}
 	public static double getDriveLeftJoystick() {
-		return primary.getRawAxis(leftAxisY);
+		return secondary.getRawAxis(leftAxisY);
 	}
 
 	// GearMechanism
