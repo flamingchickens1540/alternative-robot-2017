@@ -26,8 +26,7 @@ public class SpinupFlywheel extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
-//    	System.out.println("executing");
+    protected void execute() {        
     	double error = setpoint - Robot.shooter.getSpeed();
         currentMotorOutput += Robot.tuning.getTBHParameter() * error;
         if (currentMotorOutput > 1) {
@@ -42,6 +41,16 @@ public class SpinupFlywheel extends Command {
 
         previousError = error;
 
+        SmartDashboard.putNumber("TBH Motor Output", currentMotorOutput);
+        SmartDashboard.putNumber("TBH Target", setpoint);
+        SmartDashboard.putNumber("TBH Actual", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("TBH Error", error);
+        
+        if (currentMotorOutput > 1) {
+            currentMotorOutput = 1;
+        } else if (currentMotorOutput < 0) {
+            currentMotorOutput = 0;
+        }
         Robot.shooter.setSpeed(currentMotorOutput);
     }
 

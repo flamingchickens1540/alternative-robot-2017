@@ -34,7 +34,7 @@ public class Shooter extends Subsystem {
     }
 
     public void setSpeed(double speed) {
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.Voltage);
+        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(speed);
     }
 
