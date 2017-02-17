@@ -15,7 +15,7 @@ public class Tuning {
     }
 
     public double getTBHParameter() {
-        return tuning.getDouble("Shooter TBH Parameter", 20000); // constant constant that you could change
+        return tuning.getDouble("Shooter TBH Parameter", 0.03); // constant constant that you could change
     }
 
     //	public double getBeltPeriod() {
