@@ -13,7 +13,7 @@ public class OI {
 	
 //	private static final int rightAxisX = ???; // ??
 	private static final int rightAxisY = 5;
-//	private static final int leftAxisX = ???; // ??
+	private static final int leftAxisX = 0;
 	private static final int leftAxisY = 1;
 	
 	private static final int rightTrigger = 3;
@@ -48,12 +48,13 @@ public class OI {
 	public static double getDriveRightJoystick() {
 		return -driver.getRawAxis(rightAxisY);
 	}
+	
 	public static double getDriveLeftJoystick() {
 		return driver.getRawAxis(leftAxisY);
 	}
 
 	// GearMechanism
 	public static double getGearSliderJoystick() {
-		return copilot.getRawAxis(rightAxisY);
+		return copilot.getRawAxis(leftAxisX);
 	}
 }

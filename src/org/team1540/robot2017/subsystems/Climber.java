@@ -10,28 +10,28 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem {
-//	private final CANTalon climberTopTalon = new CANTalon(RobotMap.climberTop);
-//	private final CANTalon climberBottomTalon = new CANTalon(RobotMap.climberBottom);
-//
-//	public Climber() {
-//		climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
-//		climberBottomTalon.changeControlMode(TalonControlMode.PercentVbus);
-//	}
+	private final CANTalon climberTopTalon = new CANTalon(RobotMap.climberTop);
+	private final CANTalon climberBottomTalon = new CANTalon(RobotMap.climberBottom);
+
+	public Climber() {
+		climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
+		climberBottomTalon.changeControlMode(TalonControlMode.PercentVbus);
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new JoystickClimb());
 	}
 
-//	public void joyClimb(double rawAxis) {
-//		climberTopTalon.set(-RobotUtil.deadzone(rawAxis, .02));
-//		climberBottomTalon.set(RobotUtil.deadzone(rawAxis, .02));
-//	}
-//	
-//	public double getTopClimberCurrent() {
-//		return climberTopTalon.getOutputCurrent();
-//	}
-//	public double getBottomClimberCurrent() {
-//		return climberTopTalon.getOutputCurrent();
-//	}
+	public void joyClimb(double rawAxis) {
+		climberTopTalon.set(-RobotUtil.deadzone(rawAxis, .02));
+		climberBottomTalon.set(RobotUtil.deadzone(rawAxis, .02));
+	}
+	
+	public double getTopClimberCurrent() {
+		return climberTopTalon.getOutputCurrent();
+	}
+	public double getBottomClimberCurrent() {
+		return climberTopTalon.getOutputCurrent();
+	}
 }

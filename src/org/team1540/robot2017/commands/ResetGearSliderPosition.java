@@ -1,36 +1,45 @@
-//package org.team1540.robot2017.commands;
-//import org.team1540.robot2017.Robot;
-//
-//import edu.wpi.first.wpilibj.command.Command;
-//
-//public class ResetGearSliderPosition extends Command {
-//
-//    public ResetGearSliderPosition() {
-//    	requires(Robot.gearMechanism);
-//    }
-//
-//    protected void initialize() {
-//    	Robot.gearMechanism.initializeCounter();
-//    	Robot.gearMechanism.disableJoystickControl();
-//    	Robot.gearMechanism.sliderSlowCalib();
-//    }
-//
-//    protected void execute() {
-//    }
-//
-//    protected boolean isFinished() {
-//        return Robot.gearMechanism.isSwitchSet();
-//    }
-//
-//    protected void end() {
-//    	Robot.gearMechanism.sliderStop();
-//    	Robot.gearMechanism.initializeSliderEncoder();
-//    	Robot.gearMechanism.enableJoystickControl();
-//    }
-//
-//    protected void interrupted() {
-//    	Robot.gearMechanism.sliderStop();
-//    	Robot.gearMechanism.enableJoystickControl();
-//        end();
-//    }
-//}
+package org.team1540.robot2017.commands;
+import org.team1540.robot2017.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ResetGearSliderPosition extends Command {
+
+	private boolean trippedLimitSwitch = false;
+	private boolean calibrated = false;
+	
+    public ResetGearSliderPosition() {
+    	requires(Robot.gearMechanism);
+    }
+
+    protected void initialize() {
+    	trippedLimitSwitch = false;
+    	calibrated = false;
+    }
+
+    protected void execute() {
+    	if (Robot.gearMechanism.getRightLimitSwitch()) {
+    		trippedLimitSwitch = true;
+    	}
+    	
+    	if (!Robot.gearMechanism.getRightLimitSwitch() && !trippedLimitSwitch && !calibrated) {
+    		Robot.gearMechanism.slider(-0.7);
+    	} else if (Robot.gearMechanism.getRightLimitSwitch() && !calibrated) {
+    		Robot.gearMechanism.slider(+0.2);
+    	} else if (!Robot.gearMechanism.getRightLimitSwitch() && trippedLimitSwitch && !calibrated) {
+    		Robot.gearMechanism.slider(0);
+    		Robot.gearMechanism.initializeSliderEncoder();
+    		calibrated = true;
+    	}
+    }
+
+    protected boolean isFinished() {
+        return calibrated;
+    }
+
+    protected void end() {
+    }
+
+    protected void interrupted() {
+    }
+}
