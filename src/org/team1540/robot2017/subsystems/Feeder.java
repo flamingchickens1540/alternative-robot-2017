@@ -11,7 +11,7 @@ public class Feeder extends Subsystem {
 
 	private final CANTalon feederConveyor = new CANTalon(RobotMap.feederConveyor);
 	private final CANTalon leftFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerLeft);
-	private final CANTalon rightFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerLeft);
+	private final CANTalon rightFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerRight);
 	
 	public Feeder() {
 		feederConveyor.changeControlMode(TalonControlMode.PercentVbus);
