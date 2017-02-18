@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	public static Tuning tuning;
 	public static DriveTrain driveTrain;
 	public static Climber climber;
 	public static GearMechanism gearMechanism;
@@ -27,8 +27,6 @@ public class Robot extends IterativeRobot {
 	public static Belt belt;
 	public static Intake intake;
 	public static Shooter shooter;
-	public static Tuning tuning;
-	public static OI oi;
 		
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -39,7 +37,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
 		tuning = new Tuning();
 		driveTrain = new DriveTrain();
 		climber = new Climber();
@@ -51,13 +48,11 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-//		OI.buttonSpinupFire.whenPressed(new SpinupFireShooter());
 		OI.buttonSpinup.whenPressed(new SpinupFlywheel());
 		OI.buttonFire.whenPressed(new FireShooter());
 		OI.buttonSpindown.whenPressed(new TurnEverythingOff());
 		
 		OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
-//		OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
 		
 	}
 
@@ -78,7 +73,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
 		SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-//		SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
 	}
 
 	/**
