@@ -83,7 +83,7 @@ public class GearMechanism extends Subsystem {
 			gearLeftDeployServo.set(0.0);
 		} else {
 			gearRightDeployServo.set(0.0);
-			gearLeftDeployServo.set(0.90);
+			gearLeftDeployServo.set(1.0);
 		}
 		gearLock = !gearLock;
 	}

@@ -17,8 +17,8 @@ public class Feeder extends Subsystem {
 		feederConveyor.changeControlMode(TalonControlMode.PercentVbus);
 		leftFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
 		rightFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
-		rightFeederTalon.reverseOutput(true);
-		leftFeederTalon.reverseSensor(true);
+		rightFeederTalon.reverseOutput(false);
+		leftFeederTalon.reverseOutput(true);
 	}
 	
 //	public void set(double topFeederOutput, double leftFeederOutput, double rightFeederOutput) {
@@ -28,7 +28,7 @@ public class Feeder extends Subsystem {
 //	}
 	
 	public void setTop(double output) {
-		feederConveyor.set(output);
+		feederConveyor.set(-output);
 	}
 	
 	public void setLeft(double output) {
@@ -36,7 +36,7 @@ public class Feeder extends Subsystem {
 	}
 	
 	public void setRight(double output) {
-		rightFeederTalon.set(output);
+		rightFeederTalon.set(-output);
 	}
 	
 	@Override

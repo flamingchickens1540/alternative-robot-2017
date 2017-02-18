@@ -69,7 +69,7 @@ public class Robot2 extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-    	int TO_TEST = 16;
+    	int TO_TEST = 13;
     	
     	if (OI.driver.getRawButton(1)) {
     		talons[TO_TEST-1].changeControlMode(TalonControlMode.PercentVbus);
