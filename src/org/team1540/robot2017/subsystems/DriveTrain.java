@@ -1,7 +1,8 @@
 package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.RobotMap;
-import org.team1540.robot2017.commands.IdleDrive;
+import org.team1540.robot2017.RobotUtil;
+import org.team1540.robot2017.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -9,7 +10,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
-
     private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveTalonRightA);
     private final CANTalon driveRightBTalon = new CANTalon(RobotMap.driveTalonRightB);
     private final CANTalon driveRightCTalon = new CANTalon(RobotMap.driveTalonRightC);
@@ -23,7 +23,7 @@ public class DriveTrain extends Subsystem {
             talon.setVoltageRampRate(0.1);
             talon.enableBrakeMode(true);
         }
-        
+
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
@@ -42,7 +42,7 @@ public class DriveTrain extends Subsystem {
     }
 
     public void tankDrive(double left, double right) {
-        driveRightTalon.set(right);
-        driveLeftTalon.set(left);
+        driveRightTalon.set(RobotUtil.deadzone(right, 0.2));
+        driveLeftTalon.set(RobotUtil.deadzone(left, 0.2));
     }
 }

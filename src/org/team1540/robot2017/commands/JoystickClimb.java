@@ -2,12 +2,13 @@ package org.team1540.robot2017.commands;
 
 import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
+import org.team1540.robot2017.RobotUtil;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IdleDrive extends Command {
-	public IdleDrive() {
-		requires(Robot.driveTrain);
+public class JoystickClimb extends Command {
+	public JoystickClimb() {
+		requires(Robot.climber);
 	}
 
 	// Called just before this Command runs the first time
@@ -18,7 +19,7 @@ public class IdleDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.tankDrive(OI.primary.getRawAxis(OI.primaryLeftAxis), OI.primary.getRawAxis(OI.primaryRightAxis));
+		Robot.climber.joyClimb(RobotUtil.deadzone(OI.getClimberJoystick(), 0.2));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
