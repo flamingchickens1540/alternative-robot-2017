@@ -18,19 +18,19 @@ public class ResetGearSliderPosition extends Command {
     }
 
     protected void execute() {
-    	if (Robot.gearMechanism.getRightLimitSwitch()) {
-    		trippedLimitSwitch = true;
-    	}
-    	
-    	if (!Robot.gearMechanism.getRightLimitSwitch() && !trippedLimitSwitch && !calibrated) {
-    		Robot.gearMechanism.slider(-0.7);
-    	} else if (Robot.gearMechanism.getRightLimitSwitch() && !calibrated) {
-    		Robot.gearMechanism.slider(+0.2);
-    	} else if (!Robot.gearMechanism.getRightLimitSwitch() && trippedLimitSwitch && !calibrated) {
-    		Robot.gearMechanism.slider(0);
-    		Robot.gearMechanism.initializeSliderEncoder();
-    		calibrated = true;
-    	}
+//    	if (Robot.gearMechanism.getRightLimitSwitch()) {
+//    		trippedLimitSwitch = true;
+//    	}
+//    	
+//    	if (!Robot.gearMechanism.getRightLimitSwitch() && !trippedLimitSwitch && !calibrated) {
+//    		Robot.gearMechanism.slider(-0.7);
+//    	} else if (Robot.gearMechanism.getRightLimitSwitch() && !calibrated) {
+//    		Robot.gearMechanism.slider(+0.2);
+//    	} else if (!Robot.gearMechanism.getRightLimitSwitch() && trippedLimitSwitch && !calibrated) {
+//    		Robot.gearMechanism.slider(0);
+//    		Robot.gearMechanism.initializeSliderEncoder();
+//    		calibrated = true;
+//    	}
     }
 
     protected boolean isFinished() {

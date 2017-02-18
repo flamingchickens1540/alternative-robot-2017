@@ -22,16 +22,15 @@ public class JoystickGearSlider extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.gearMechanism.joySlider(RobotUtil.deadzone(OI.getGearSliderJoystick(), 0.2) * 0.6);
-		
-
-    	SmartDashboard.putNumber("gear position", Robot.gearMechanism.getSliderEncoder());
-    	
-    	if (prevTrip != Robot.gearMechanism.getRightLimitSwitch()) {
-    		Robot.gearMechanism.initializeSliderEncoder();
-    	}
-    	
-    	prevTrip = Robot.gearMechanism.getRightLimitSwitch();
+//		Robot.gearMechanism.joySlider(RobotUtil.deadzone(OI.getGearSliderJoystick(), 0.2) * 0.6);
+//
+//    	SmartDashboard.putNumber("gear position", Robot.gearMechanism.getSliderEncoder());
+//    	
+//    	if (prevTrip != Robot.gearMechanism.getRightLimitSwitch()) {
+//    		Robot.gearMechanism.initializeSliderEncoder();
+//    	}
+//    	
+//    	prevTrip = Robot.gearMechanism.getRightLimitSwitch();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
