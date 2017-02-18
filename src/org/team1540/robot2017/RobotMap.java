@@ -20,6 +20,8 @@ public class RobotMap {
 
 	// GearMechanism
 	public static final int gearSliderTalon = 3;
+//	public static final int gearServoRight = 1;
+//	public static final int gearServoLeft = 2;
 	public static final int gearServoRight = 7;
 	public static final int gearServoLeft = 6;
 	public static final int gearLeftLimitSwitch = 1;
@@ -48,9 +50,9 @@ public class RobotMap {
 	public static final int climberTalonTop = 12;
 	public static final int climberTalonBottom = 11;
 
-	public static final int intakeTalon = 16;
+	public static final int intakeTalon = 15;
 
-	public static final int feederTalonTop = 15;
+	public static final int feederTalonTop = 16;
 	public static final int feederTalonRight = 4;
 	public static final int feederTalonLeft = 5;
 

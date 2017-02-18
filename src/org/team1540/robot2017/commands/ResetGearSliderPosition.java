@@ -34,7 +34,8 @@ public class ResetGearSliderPosition extends Command {
     }
 
     protected boolean isFinished() {
-        return calibrated;
+//        return calibrated;
+    	return true;
     }
 
     protected void end() {

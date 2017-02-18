@@ -38,14 +38,10 @@ public class OI {
 		return copilot.getRawAxis(leftAxisX);
 	}
 
-	public static final JoystickButton buttonSpinup = new JoystickButton(driver, 1);
-	public static final JoystickButton buttonFire = new JoystickButton(driver, 6);
-//	public static final JoystickButton buttonSpinupFire = new JoystickButton(driver, 1);
-	public static final JoystickButton buttonSpindown = new JoystickButton(driver, 2);
+	public static final JoystickButton buttonSpinup = new JoystickButton(copilot, 1);
+	public static final JoystickButton buttonFire = new JoystickButton(copilot, 6);
+	public static final JoystickButton buttonSpindown = new JoystickButton(copilot, 2);
 
-	public static final JoystickButton buttonIntakeOn = new JoystickButton(driver, 3);
-	public static final JoystickButton buttonIntakeOff = new JoystickButton(driver, 4);
-
-//	public static final JoystickButton buttonTest = new JoystickButton(driver, 6);
+	public static final JoystickButton buttonIntakeOn = new JoystickButton(copilot, 3);
 
 }

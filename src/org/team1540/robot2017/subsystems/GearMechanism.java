@@ -43,22 +43,22 @@ public class GearMechanism extends Subsystem {
 	}
 
 	public void joySlider(double rawAxis) {
-		double max = 1;
-		double min = -1;
-		
-		if (getSliderEncoder() < -2100.0) {
-			min = 0;
-		}
-
-		if (getSliderEncoder() > 2700.0) {
-			max = 0;
-		}
-		
-		gearSliderTalon.set(RobotUtil.limit(rawAxis, max, min));
+//		double max = 1;
+//		double min = -1;
+//		
+//		if (getSliderEncoder() < -2100.0) {
+//			min = 0;
+//		}
+//
+//		if (getSliderEncoder() > 2700.0) {
+//			max = 0;
+//		}
+//		
+//		gearSliderTalon.set(RobotUtil.limit(rawAxis, max, min));
 	}
 	
 	public void slider(double vel) {
-		gearSliderTalon.set(vel);
+//		gearSliderTalon.set(vel);
 	}
 	
 	public boolean getRightLimitSwitch() {
@@ -79,11 +79,11 @@ public class GearMechanism extends Subsystem {
 
 	public void toggleServos() {
 		if (gearLock) {
-			gearRightDeployServo.set(1);
-			gearLeftDeployServo.set(0);
+			gearRightDeployServo.set(1.0);
+			gearLeftDeployServo.set(0.0);
 		} else {
-			gearRightDeployServo.set(0);
-			gearLeftDeployServo.set(1);
+			gearRightDeployServo.set(0.0);
+			gearLeftDeployServo.set(0.90);
 		}
 		gearLock = !gearLock;
 	}

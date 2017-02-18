@@ -63,13 +63,11 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
     	
         calibrateSlider = new ResetGearSliderPosition();
-        new JoystickButton(OI.copilot, 3).whenPressed(new ToggleGearServos());
+        new JoystickButton(OI.copilot, 4).whenPressed(new ToggleGearServos());
 
-        // OI.buttonSpinupFire.whenPressed(new SpinupFireShooter());
         OI.buttonSpinup.whenPressed(new SpinupFlywheel());
         OI.buttonFire.whenPressed(new FireShooter());
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
-
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
     }
 

@@ -22,10 +22,6 @@ public class FireShooter extends Command {
 	
 	protected void execute() {
 		long time = System.currentTimeMillis();
-//		boolean beltShouldBeOn = ((long) (time / Robot.tuning.getBeltPeriod()) % 2) == 1 ? true : false;
-//		Robot.belt.set(beltShouldBeOn ? 1 : 0);
-//		Robot.feeder.setTop(((long) (time / Robot.tuning.getFeederTopPeriod()) % 2) == 1 ? 1 : 0);
-//		boolean feederSide = ((long) (time / Robot.tuning.getFeederSideSwitchPeriod()) % 2) == 1 ? true : false;
 		int feederSide = (int) ((time / Robot.tuning.getFeederSideSwitchPeriod()) % 3);
 		Robot.feeder.setLeft(feederSide == 1 ? 0 : Robot.tuning.getFeederSideOutput());
 		Robot.feeder.setRight(feederSide == 2 ? 0 : Robot.tuning.getFeederSideOutput());

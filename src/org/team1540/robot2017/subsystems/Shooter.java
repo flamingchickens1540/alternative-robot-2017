@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
-	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel);
+	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel, 1);
+	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel, 1);
 
 	public Shooter() {
 		shooterRightFlywheelTalon.reset();
@@ -29,12 +29,12 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.ClearIaccum();
         shooterFlywheelTalon.enable();
         shooterFlywheelTalon.setF(Robot.tuning.getFlywheelF());
-//        shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
-//        shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
-//        shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
-        shooterFlywheelTalon.setP(0.14);
-        shooterFlywheelTalon.setI(0.0001);
-        shooterFlywheelTalon.setD(0.05);
+        shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
+        shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
+        shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
+//        shooterFlywheelTalon.setP(0.14);
+//        shooterFlywheelTalon.setI(0.0001);
+//        shooterFlywheelTalon.setD(0.05);
 
 	}
 
@@ -69,6 +69,11 @@ public class Shooter extends Subsystem {
 	public void setSpeed(double rpm) {
 		shooterFlywheelTalon.changeControlMode(TalonControlMode.Speed);
 		shooterFlywheelTalon.setSetpoint(rpm);
+	}
+	
+	public void stop() {
+		shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterFlywheelTalon.set(0);
 	}
 
 	public double getSpeed() {
