@@ -14,7 +14,7 @@ public class Feeder extends Subsystem {
 	private final CANTalon rightFeederTalon = new CANTalon(RobotMap.feederFunnelingRollerLeft);
 	
 	public Feeder() {
-		topFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
+		feederConveyor.changeControlMode(TalonControlMode.PercentVbus);
 		leftFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
 		rightFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
 		rightFeederTalon.reverseOutput(true);
@@ -28,7 +28,7 @@ public class Feeder extends Subsystem {
 //	}
 	
 	public void setTop(double output) {
-		topFeederTalon.set(output);
+		feederConveyor.set(output);
 	}
 	
 	public void setLeft(double output) {

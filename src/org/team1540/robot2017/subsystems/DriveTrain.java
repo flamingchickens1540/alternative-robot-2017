@@ -38,7 +38,7 @@ public class DriveTrain extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new IdleDrive());
+        setDefaultCommand(new JoystickDrive());
     }
 
     public void tankDrive(double left, double right) {

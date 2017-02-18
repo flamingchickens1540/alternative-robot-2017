@@ -3,21 +3,20 @@ package org.team1540.robot2017.subsystems;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickGearSlider;
-import org.team1540.robot2017.commands.SetGearSliderReferencePositionOnTrip;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearMechanism extends Subsystem {
 	private final CANTalon gearSliderTalon = new CANTalon(RobotMap.gearSliderTalon);
 	private final DigitalInput leftLimitSwitch = new DigitalInput(RobotMap.gearLeftLimitSwitch);
 	private final DigitalInput rightLimitSwitch = new DigitalInput(RobotMap.gearRightLimitSwitch);
-//	private final Servo gearRightDeployServo = new Servo(RobotMap.gearServoRight);
-//	private final Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeft);
+	private final Servo gearRightDeployServo = new Servo(RobotMap.gearServoRight);
+	private final Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeft);
 	private boolean gearLock;
 	
 	public GearMechanism() {
@@ -27,12 +26,10 @@ public class GearMechanism extends Subsystem {
 
 	public boolean isRightSwitchSet() {
 		return false;
-//		return counterRight.get() > 0;
 	}
 
 	public boolean isLeftSwitchSet() {
 		return false;
-//		return counterLeft.get() > 0;
 	}
 
 	public void initializeCounter() {
@@ -81,13 +78,13 @@ public class GearMechanism extends Subsystem {
 	}
 
 	public void toggleServos() {
-//		if (gearLock) {
-//			gearRightDeployServo.set(1);
-//			gearLeftDeployServo.set(0);
-//		} else {
-//			gearRightDeployServo.set(0);
-//			gearLeftDeployServo.set(1);
-//		}
+		if (gearLock) {
+			gearRightDeployServo.set(1);
+			gearLeftDeployServo.set(0);
+		} else {
+			gearRightDeployServo.set(0);
+			gearLeftDeployServo.set(1);
+		}
 		gearLock = !gearLock;
 	}
 }

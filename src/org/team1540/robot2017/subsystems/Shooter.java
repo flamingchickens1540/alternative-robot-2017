@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterTalonLeftFlywheel);
-	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterTalonRightFlywheel);
+	private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
+	private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel);
 
 	public Shooter() {
 		shooterRightFlywheelTalon.reset();

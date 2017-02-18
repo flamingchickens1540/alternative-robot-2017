@@ -1,10 +1,22 @@
 
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.*;
-import org.team1540.robot2017.subsystems.*;
+import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.ResetGearSliderPosition;
+import org.team1540.robot2017.commands.SpinupFlywheel;
+import org.team1540.robot2017.commands.ToggleGearServos;
+import org.team1540.robot2017.commands.TurnEverythingOff;
+import org.team1540.robot2017.commands.TurnOnIntake;
+import org.team1540.robot2017.subsystems.Belt;
+import org.team1540.robot2017.subsystems.Climber;
+import org.team1540.robot2017.subsystems.DriveTrain;
+import org.team1540.robot2017.subsystems.Feeder;
+import org.team1540.robot2017.subsystems.GearMechanism;
+import org.team1540.robot2017.subsystems.Intake;
+import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -40,16 +52,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        calibrateSlider = new ResetGearSliderPosition();
-        // oi = new OI();
-        // chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
-        // new JoystickButton(OI.primary, 1).whenPressed(new SpinupFlywheel());
-        // new JoystickButton(OI.primary, 2).whenPressed(new
-        // SpindownFlywheel());
-        new JoystickButton(OI.copilot, 3).whenPressed(new ToggleGearServos());
-
-        // calibrateSlider = new CalibrateGearSlider();
         oi = new OI();
         tuning = new Tuning();
         driveTrain = new DriveTrain();
@@ -59,7 +61,9 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
-        // chooser.addObject("My Auto", new MyAutoCommand());
+    	
+        calibrateSlider = new ResetGearSliderPosition();
+        new JoystickButton(OI.copilot, 3).whenPressed(new ToggleGearServos());
 
         // OI.buttonSpinupFire.whenPressed(new SpinupFireShooter());
         OI.buttonSpinup.whenPressed(new SpinupFlywheel());
@@ -67,8 +71,6 @@ public class Robot extends IterativeRobot {
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
 
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
-        OI.buttonIntakeOff.whenPressed(new TurnOffIntake());
-
     }
 
     @Override
