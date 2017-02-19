@@ -1,5 +1,6 @@
 package org.team1540.robot2017.commands;
 
+import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -16,7 +17,7 @@ public class FireShooter extends Command {
 	
 	protected void initialize() {
 		Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
-		Robot.belt.set(Robot.tuning.getBeltTopOutput());
+		Robot.belt.setSpeed(Robot.tuning.getBeltSpeed());
 		Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
 	}
 	
@@ -30,7 +31,7 @@ public class FireShooter extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return OI.buttonSpindown.get();
 	}
 
 }

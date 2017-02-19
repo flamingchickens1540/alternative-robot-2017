@@ -98,7 +98,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
         SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
         SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-        // SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
     }
 
     /**
@@ -170,12 +169,15 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
         SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
         SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
-        SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
-        SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
-        SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
-        SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
+//        SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
+//        SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
+//        SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
+//        SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
         SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
         SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
+        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
+        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
+        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
         
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);

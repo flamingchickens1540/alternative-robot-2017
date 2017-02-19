@@ -14,12 +14,13 @@ public class UnJamFeeder extends Command {
 	}
 	
 	protected void initialize() {
-		Robot.shooter.stop();
-		Robot.feeder.setTop(0);
-		Robot.feeder.setLeft(0);
-		Robot.feeder.setRight(0);
-		Robot.belt.set(0);
-		Robot.intake.set(0);
+//		Robot.shooter.stop();
+//		Robot.feeder.setTop(0);
+//		Robot.feeder.setLeft(0);
+//		Robot.feeder.setRight(0);
+//		Robot.belt.set(0);
+//		Robot.intake.set(0);
+		new TurnEverythingOff().start();
 		Robot.feeder.setTop(-Robot.tuning.getFeederTopOutput());
 		Robot.feeder.setLeft(-Robot.tuning.getFeederSideOutput());
 		Robot.feeder.setRight(-Robot.tuning.getFeederSideOutput());

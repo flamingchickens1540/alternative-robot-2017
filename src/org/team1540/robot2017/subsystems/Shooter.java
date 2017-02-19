@@ -45,21 +45,21 @@ public class Shooter extends Subsystem {
 		shooterFlywheelTalon.setF(f);
 	}
 
-	public double getP() {
-		return shooterFlywheelTalon.getP();
-	}
-
-	public double getI() {
-		return shooterFlywheelTalon.getI();
-	}
-
-	public double getD() {
-		return shooterFlywheelTalon.getD();
-	}
-
-	public double getF() {
-		return shooterFlywheelTalon.getF();
-	}
+//	public double getP() {
+//		return shooterFlywheelTalon.getP();
+//	}
+//
+//	public double getI() {
+//		return shooterFlywheelTalon.getI();
+//	}
+//
+//	public double getD() {
+//		return shooterFlywheelTalon.getD();
+//	}
+//
+//	public double getF() {
+//		return shooterFlywheelTalon.getF();
+//	}
 
 	public double getPIDOutput() {
 		return shooterFlywheelTalon.pidGet();
