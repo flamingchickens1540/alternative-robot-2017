@@ -43,5 +43,6 @@ public class OI {
 	public static final JoystickButton buttonSpindown = new JoystickButton(copilot, 2);
 
 	public static final JoystickButton buttonIntakeOn = new JoystickButton(copilot, 3);
+	public static final JoystickButton buttonUnJam = new JoystickButton(copilot, 7);
 
 }

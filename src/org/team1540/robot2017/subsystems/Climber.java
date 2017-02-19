@@ -32,6 +32,6 @@ public class Climber extends Subsystem {
 		return climberTopTalon.getOutputCurrent();
 	}
 	public double getBottomClimberCurrent() {
-		return climberTopTalon.getOutputCurrent();
+		return climberBottomTalon.getOutputCurrent();
 	}
 }

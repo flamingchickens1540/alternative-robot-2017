@@ -7,6 +7,7 @@ import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
+import org.team1540.robot2017.commands.UnJamFeeder;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -15,6 +16,7 @@ import org.team1540.robot2017.subsystems.GearMechanism;
 import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.Shooter;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
@@ -69,6 +71,7 @@ public class Robot extends IterativeRobot {
         OI.buttonFire.whenPressed(new FireShooter());
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
+        OI.buttonUnJam.whenPressed(new UnJamFeeder());
     }
 
     @Override
@@ -151,6 +154,8 @@ public class Robot extends IterativeRobot {
         new TurnEverythingOff();
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
         shooter.setF(tuning.getFlywheelF());
+        
+        gearMechanism.closeServos();
     }
 
     /**
@@ -160,18 +165,22 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-        // SmartDashboard.putNumber("Flywheel Setpoint",
-        // Robot.shooter.getSetpoint());
         SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
         SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
         SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
-        // SmartDashboard.putNumber("_Belt Period", tuning.getBeltPeriod());
         SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
         SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
         SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
         SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
         SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
         SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
+        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
+        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
+        
+        OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
+        OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
+        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
     }
 
     /**

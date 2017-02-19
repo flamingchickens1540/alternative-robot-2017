@@ -20,7 +20,7 @@ public class DriveTrain extends Subsystem {
 
     public DriveTrain() {
         for (CANTalon talon : talons) {
-            talon.setVoltageRampRate(0.1);
+            talon.setVoltageRampRate(0.05);
             talon.enableBrakeMode(true);
         }
 

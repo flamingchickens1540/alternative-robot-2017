@@ -43,17 +43,17 @@ public class GearMechanism extends Subsystem {
 	}
 
 	public void joySlider(double rawAxis) {
-//		double max = 1;
-//		double min = -1;
-//		
-//		if (getSliderEncoder() < -2100.0) {
-//			min = 0;
-//		}
-//
-//		if (getSliderEncoder() > 2700.0) {
-//			max = 0;
-//		}
-//		
+		double max = 1;
+		double min = -1;
+		
+		if (getSliderEncoder() < -2100.0) {
+			min = 0;
+		}
+
+		if (getSliderEncoder() > 2700.0) {
+			max = 0;
+		}
+		
 //		gearSliderTalon.set(RobotUtil.limit(rawAxis, max, min));
 	}
 	
@@ -86,5 +86,15 @@ public class GearMechanism extends Subsystem {
 			gearLeftDeployServo.set(1.0);
 		}
 		gearLock = !gearLock;
+	}
+	
+	public void closeServos() {
+		gearLock = true;
+		gearRightDeployServo.set(0.0);
+		gearLeftDeployServo.set(1.0);
+	}
+	
+	public boolean getServoOpen() {
+		return !gearLock;
 	}
 }
