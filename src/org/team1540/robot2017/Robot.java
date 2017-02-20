@@ -3,6 +3,7 @@ package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.ResetGearSliderPosition;
+import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
@@ -72,6 +73,7 @@ public class Robot extends IterativeRobot {
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
+        OI.buttonSelfTest.whenPressed(new SelfTest());
     }
 
     @Override
@@ -89,6 +91,10 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledInit() {
         new TurnEverythingOff();
+        OI.copilot.setRumble(RumbleType.kLeftRumble, 0.0);
+        OI.driver.setRumble(RumbleType.kLeftRumble, 0.0);
+        OI.copilot.setRumble(RumbleType.kRightRumble, 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, 0.0);
     }
 
     @Override

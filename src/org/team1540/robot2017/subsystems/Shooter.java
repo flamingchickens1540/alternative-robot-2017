@@ -31,10 +31,6 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
-//        shooterFlywheelTalon.setP(0.14);
-//        shooterFlywheelTalon.setI(0.0001);
-//        shooterFlywheelTalon.setD(0.05);
-
 	}
 
 	public void setPID(double p, double i, double d) {
@@ -66,6 +62,8 @@ public class Shooter extends Subsystem {
 	}
 
 	public void setSpeed(double rpm) {
+		shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
+        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
 		shooterFlywheelTalon.changeControlMode(TalonControlMode.Speed);
 		shooterFlywheelTalon.setSetpoint(rpm);
 	}
@@ -101,6 +99,30 @@ public class Shooter extends Subsystem {
 
 	public double getFlywheelCurrentR() {
 		return shooterRightFlywheelTalon.getOutputCurrent();
+	}
+	
+	public double getFlywheelEncoder() {
+		return shooterFlywheelTalon.getEncPosition();
+	}
+	
+	public void setRight(double value) {
+		shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterRightFlywheelTalon.set(value);
+	}
+	
+	public void setLeft(double value) {
+		shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
+		shooterFlywheelTalon.set(value);
+	}
+	
+	public double getRightCurrent() {
+		return shooterRightFlywheelTalon.getOutputCurrent();
+	}
+	
+	public double getLeftCurrent() {
+		return shooterFlywheelTalon.getOutputCurrent();
 	}
 	
 	@Override

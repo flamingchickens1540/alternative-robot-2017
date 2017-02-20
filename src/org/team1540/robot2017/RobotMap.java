@@ -14,7 +14,7 @@ public class RobotMap {
 
 	// Feeder
 	public static final int feederBelt = 2;
-	public static final int feederConveyor = 15;
+	public static final int feederFunnelingRollerTop = 15;
 	public static final int feederFunnelingRollerRight = 4;
 	public static final int feederFunnelingRollerLeft = 5;
 

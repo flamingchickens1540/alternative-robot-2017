@@ -97,4 +97,12 @@ public class GearMechanism extends Subsystem {
 	public boolean getServoOpen() {
 		return !gearLock;
 	}
+	
+	public double getServoRightPosition() {
+		return gearRightDeployServo.get();
+	}
+	
+	public double getServoLeftPosition() {
+		return gearRightDeployServo.get();
+	}
 }

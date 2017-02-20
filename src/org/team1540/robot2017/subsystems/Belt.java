@@ -23,9 +23,16 @@ public class Belt extends Subsystem {
 		return beltTalon.getOutputVoltage() / beltTalon.getBusVoltage();
 	}
 	
+	public double getBeltEncoder() {
+		return beltTalon.getEncPosition();
+	}
+	
+	public double getBeltCurrent() {
+		return beltTalon.getOutputCurrent();
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		
 	}
-	
 }

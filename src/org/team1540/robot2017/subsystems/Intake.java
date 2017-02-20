@@ -29,6 +29,10 @@ public class Intake extends Subsystem {
 		return intaking;
 	}
 	
+	public double getIntakeCurrent() {
+		return intakeTalon.getOutputCurrent();
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		

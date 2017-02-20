@@ -23,14 +23,27 @@ public class Climber extends Subsystem {
 		setDefaultCommand(new JoystickClimb());
 	}
 
-	public void joyClimb(double rawAxis) {
-		climberTopTalon.set(-RobotUtil.deadzone(rawAxis, .02));
-		climberBottomTalon.set(RobotUtil.deadzone(rawAxis, .02));
+	public void set(double value) {
+		climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
+		climberBottomTalon.changeControlMode(TalonControlMode.PercentVbus);
+		climberTopTalon.set(-value);
+		climberBottomTalon.set(value);
+	}
+	
+	public void setTop(double value) {
+		climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
+		climberTopTalon.set(value);
+	}
+	
+	public void setBottom(double value) {
+		climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
+		climberTopTalon.set(value);
 	}
 	
 	public double getTopClimberCurrent() {
 		return climberTopTalon.getOutputCurrent();
 	}
+	
 	public double getBottomClimberCurrent() {
 		return climberBottomTalon.getOutputCurrent();
 	}
