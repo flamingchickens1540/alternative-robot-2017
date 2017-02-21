@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
-    	
+
         calibrateSlider = new ResetGearSliderPosition();
         new JoystickButton(OI.copilot, 4).whenPressed(new ToggleGearServos());
 
@@ -160,7 +160,7 @@ public class Robot extends IterativeRobot {
         new TurnEverythingOff();
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
         shooter.setF(tuning.getFlywheelF());
-        
+
         gearMechanism.closeServos();
     }
 
@@ -182,7 +182,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
         SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
         SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
-        
+
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);

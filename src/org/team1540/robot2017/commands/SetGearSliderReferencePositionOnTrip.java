@@ -5,30 +5,30 @@ import org.team1540.robot2017.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetGearSliderReferencePositionOnTrip extends Command {
-	private boolean prevTrip = false;
-	
+    private boolean prevTrip = false;
+
     public SetGearSliderReferencePositionOnTrip() {
-    	requires(Robot.gearMechanism);
+        requires(Robot.gearMechanism);
     }
 
     @Override
-	protected void initialize() {
+    protected void initialize() {
     }
 
     @Override
-	protected void execute() {
+    protected void execute() {
     }
 
     @Override
-	protected boolean isFinished() {
-    	return false;
+    protected boolean isFinished() {
+        return false;
     }
 
     @Override
-	protected void end() {
+    protected void end() {
     }
 
     @Override
-	protected void interrupted() {
+    protected void interrupted() {
     }
 }
