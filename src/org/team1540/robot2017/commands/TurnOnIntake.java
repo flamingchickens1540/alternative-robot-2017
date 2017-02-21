@@ -10,6 +10,7 @@ public class TurnOnIntake extends Command {
 		requires(Robot.intake);
 	}
 	
+	@Override
 	protected void execute() {
 		Robot.intake.set(1.0);
 	}

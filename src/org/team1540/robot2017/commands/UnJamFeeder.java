@@ -13,6 +13,7 @@ public class UnJamFeeder extends Command {
 		requires(Robot.intake);
 	}
 	
+	@Override
 	protected void initialize() {
 		Robot.shooter.stop();
 		Robot.feeder.setTop(0);
@@ -25,6 +26,7 @@ public class UnJamFeeder extends Command {
 		Robot.feeder.setRight(-Robot.tuning.getFeederSideOutput());
 	}
 	
+	@Override
 	protected void execute() {
 	}
 
@@ -33,6 +35,7 @@ public class UnJamFeeder extends Command {
 		return !OI.buttonUnJam.get();
 	}
 	
+	@Override
 	protected void end() {
 		Robot.feeder.setTop(0.0);
 		Robot.feeder.setLeft(0.0);

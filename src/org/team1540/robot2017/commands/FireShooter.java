@@ -2,7 +2,6 @@ package org.team1540.robot2017.commands;
 
 import org.team1540.robot2017.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,12 +13,14 @@ public class FireShooter extends Command {
 		requires(Robot.intake);
 	}
 	
+	@Override
 	protected void initialize() {
 		Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
 		Robot.belt.set(Robot.tuning.getBeltTopOutput());
 		Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
 	}
 	
+	@Override
 	protected void execute() {
 		long time = System.currentTimeMillis();
 		int feederSide = (int) ((time / Robot.tuning.getFeederSideSwitchPeriod()) % 3);

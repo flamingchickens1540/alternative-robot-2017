@@ -12,12 +12,14 @@ public class ResetGearSliderPosition extends Command {
     	requires(Robot.gearMechanism);
     }
 
-    protected void initialize() {
+    @Override
+	protected void initialize() {
     	trippedLimitSwitch = false;
     	calibrated = false;
     }
 
-    protected void execute() {
+    @Override
+	protected void execute() {
 //    	if (Robot.gearMechanism.getRightLimitSwitch()) {
 //    		trippedLimitSwitch = true;
 //    	}
@@ -33,14 +35,17 @@ public class ResetGearSliderPosition extends Command {
 //    	}
     }
 
-    protected boolean isFinished() {
+    @Override
+	protected boolean isFinished() {
 //        return calibrated;
     	return true;
     }
 
-    protected void end() {
+    @Override
+	protected void end() {
     }
 
-    protected void interrupted() {
+    @Override
+	protected void interrupted() {
     }
 }
