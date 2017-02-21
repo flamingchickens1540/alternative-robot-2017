@@ -1,7 +1,6 @@
 package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.RobotMap;
-import org.team1540.robot2017.commands.IdleDrive;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -45,7 +44,7 @@ public class DriveTrain extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new IdleDrive());
+		//setDefaultCommand(new IdleDrive());
 	}
 	
 	public void setAll(double output) {
@@ -71,19 +70,22 @@ public class DriveTrain extends Subsystem {
 	
 	/**
 	 * Sets all the motors on the left and the right side to be slaves to their respective
-	 * encoder equipped motors.
+	 * encoder equipped motors. Sets the left and right talon to use position as the 
+	 * control mode.
 	 * This is particularly useful when using PID on the encoder equipped motors.
 	 */
 	public void setControlModeAsFollower() {
 		//hard coding is stupid but Amber told me to do it
+		driveRightTalon.changeControlMode(CANTalon.TalonControlMode.Position);
+		driveLeftTalon.changeControlMode(CANTalon.TalonControlMode.Position);
 		driveRightBTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		driveRightCTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		driveLeftBTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		driveLeftCTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
-		driveRightBTalon.set(driveRightTalon.getDeviceID());
-		driveRightCTalon.set(driveRightTalon.getDeviceID());
-		driveLeftBTalon.set(driveLeftTalon.getDeviceID());
-		driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+//		driveRightBTalon.set(driveRightTalon.getDeviceID());
+//		driveRightCTalon.set(driveRightTalon.getDeviceID());
+//		driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+//		driveLeftCTalon.set(driveLeftTalon.getDeviceID());
 	}
 	
 	/**

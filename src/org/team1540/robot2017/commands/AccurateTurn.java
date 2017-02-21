@@ -11,13 +11,12 @@ public class AccurateTurn extends Command {
 
 	//TODO make these tunable
 	public double calibration = 1;
-	public double p = 0.0;
-	public double i = 0.0;
-	public double d = 0.0;
+	public double p = 0.10;
+	public double i = 0.00;
+	public double d = 0.00;
 	
 	private boolean isFinished = false;
 	
-	public String address = "";
 	private NetworkTable table;
 	private String valueKey;
 	
@@ -25,16 +24,13 @@ public class AccurateTurn extends Command {
 	private CANTalon driveRightTalon = Robot.driveTrain.driveLeftTalon;
 	
 	public AccurateTurn(String tableKey, String valueKey) {
-		NetworkTable.setIPAddress(address);
-		NetworkTable.setClientMode();
 		table = NetworkTable.getTable(tableKey);
 		this.valueKey = valueKey;
+		driveLeftTalon.reverseOutput(true);
+		driveRightTalon.reverseOutput(true);
 	}
 	
 	public AccurateTurn(String tableKey, String valueKey, String address) {
-		this.address = address;
-		NetworkTable.setIPAddress(address);
-		NetworkTable.setClientMode();
 		table = NetworkTable.getTable(tableKey);
 		this.valueKey = valueKey;
 	}
@@ -43,20 +39,31 @@ public class AccurateTurn extends Command {
 	@Override
 	protected void initialize() {
 		Robot.driveTrain.setControlModeAsFollower();
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
+		
 		driveLeftTalon.setP(p);
 		driveLeftTalon.setI(i);
 		driveLeftTalon.setD(d);
 		driveRightTalon.setP(p);
 		driveRightTalon.setI(i);
 		driveRightTalon.setD(d);
+	}
+
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		table.putNumber("setpointL", driveLeftTalon.getSetpoint());
+		table.putNumber("setpointR", driveRightTalon.getSetpoint());
+		table.putNumber("positionL", driveLeftTalon.getEncPosition());
+		table.putNumber("positionR", driveRightTalon.getEncPosition());
+		table.putNumber("errorL", driveLeftTalon.getError());
+		table.putNumber("errorR", driveRightTalon.getError());
 		
-		driveLeftTalon.setSetpoint(table.getNumber(valueKey,0)*calibration);
-		driveLeftTalon.setSetpoint(-table.getNumber(valueKey,0)*calibration);
+//		driveLeftTalon.setSetpoint(10000);
+//		driveRightTalon.setSetpoint(10000);
+		driveLeftTalon.set(table.getNumber(valueKey,0)*calibration);
+		driveRightTalon.set(table.getNumber(valueKey,0)*calibration);
+		
+		table.putNumber("calculation", table.getNumber(valueKey,0)*calibration);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
