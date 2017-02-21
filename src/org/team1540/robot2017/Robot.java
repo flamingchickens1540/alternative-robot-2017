@@ -3,6 +3,7 @@ package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.ResetGearSliderPosition;
+import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
@@ -63,7 +64,7 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
-    	
+
         calibrateSlider = new ResetGearSliderPosition();
         new JoystickButton(OI.copilot, 4).whenPressed(new ToggleGearServos());
 
@@ -72,6 +73,7 @@ public class Robot extends IterativeRobot {
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
+        OI.buttonSelfTest.whenPressed(new SelfTest());
     }
 
     @Override
@@ -89,6 +91,10 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledInit() {
         new TurnEverythingOff();
+        OI.copilot.setRumble(RumbleType.kLeftRumble, 0.0);
+        OI.driver.setRumble(RumbleType.kLeftRumble, 0.0);
+        OI.copilot.setRumble(RumbleType.kRightRumble, 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, 0.0);
     }
 
     @Override
@@ -154,7 +160,7 @@ public class Robot extends IterativeRobot {
         new TurnEverythingOff();
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
         shooter.setF(tuning.getFlywheelF());
-        
+
         gearMechanism.closeServos();
     }
 
@@ -176,7 +182,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
         SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
         SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
-        
+
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);

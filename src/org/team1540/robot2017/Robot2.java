@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot2 extends IterativeRobot {
-	
-	private CANTalon[] talons = new CANTalon[16];
-	
+
+    private CANTalon[] talons = new CANTalon[16];
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
-    	for (int i=0; i<talons.length; ++i) {
-    		talons[i] = new CANTalon(i+1);
-    	}
+        for (int i = 0; i < talons.length; ++i) {
+            talons[i] = new CANTalon(i + 1);
+        }
     }
 
     @Override
@@ -69,17 +69,17 @@ public class Robot2 extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-    	int TO_TEST = 13;
-    	
-    	if (OI.driver.getRawButton(1)) {
-    		talons[TO_TEST-1].changeControlMode(TalonControlMode.PercentVbus);
-    		talons[TO_TEST-1].set(0.7);
-    		SmartDashboard.putBoolean("running", true);
-    	} else {
-    		talons[TO_TEST-1].changeControlMode(TalonControlMode.PercentVbus);
-    		talons[TO_TEST-1].set(0.0);
-    		SmartDashboard.putBoolean("running", false);
-    	}
+        int TO_TEST = 13;
+
+        if (OI.driver.getRawButton(1)) {
+            talons[TO_TEST - 1].changeControlMode(TalonControlMode.PercentVbus);
+            talons[TO_TEST - 1].set(0.7);
+            SmartDashboard.putBoolean("running", true);
+        } else {
+            talons[TO_TEST - 1].changeControlMode(TalonControlMode.PercentVbus);
+            talons[TO_TEST - 1].set(0.0);
+            SmartDashboard.putBoolean("running", false);
+        }
     }
 
     /**

@@ -3,28 +3,32 @@ package org.team1540.robot2017.commands;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetGearSliderReferencePositionOnTrip extends Command {
-	private boolean prevTrip = false;
-	
+    private boolean prevTrip = false;
+
     public SetGearSliderReferencePositionOnTrip() {
-    	requires(Robot.gearMechanism);
+        requires(Robot.gearMechanism);
     }
 
+    @Override
     protected void initialize() {
     }
 
+    @Override
     protected void execute() {
     }
 
+    @Override
     protected boolean isFinished() {
-    	return false;
+        return false;
     }
 
+    @Override
     protected void end() {
     }
 
+    @Override
     protected void interrupted() {
     }
 }
