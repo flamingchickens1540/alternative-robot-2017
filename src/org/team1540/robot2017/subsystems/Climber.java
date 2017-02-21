@@ -1,5 +1,6 @@
 package org.team1540.robot2017.subsystems;
 
+import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickClimb;
@@ -24,8 +25,8 @@ public class Climber extends Subsystem {
 	}
 
 	public void joyClimb(double rawAxis) {
-		climberTopTalon.set(-RobotUtil.deadzone(rawAxis, .02));
-		climberBottomTalon.set(RobotUtil.deadzone(rawAxis, .02));
+		climberTopTalon.set(-RobotUtil.deadzone(rawAxis, Robot.tuning.getJoystickDeadzone()));
+		climberBottomTalon.set(RobotUtil.deadzone(rawAxis, Robot.tuning.getJoystickDeadzone()));
 	}
 	
 	public double getTopClimberCurrent() {

@@ -1,5 +1,6 @@
 package org.team1540.robot2017.subsystems;
 
+import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
@@ -42,7 +43,7 @@ public class DriveTrain extends Subsystem {
     }
 
     public void tankDrive(double left, double right) {
-        driveRightTalon.set(RobotUtil.deadzone(right, 0.2));
-        driveLeftTalon.set(RobotUtil.deadzone(left, 0.2));
+        driveRightTalon.set(RobotUtil.deadzone(right, Robot.tuning.getJoystickDeadzone()));
+        driveLeftTalon.set(RobotUtil.deadzone(left, Robot.tuning.getJoystickDeadzone()));
     }
 }

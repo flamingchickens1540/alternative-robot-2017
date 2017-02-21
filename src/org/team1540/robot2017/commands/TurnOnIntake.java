@@ -10,13 +10,13 @@ public class TurnOnIntake extends Command {
 		requires(Robot.intake);
 	}
 	
-	protected void execute() {
-		Robot.intake.set(1.0);
+	protected void initialize() {
+		Robot.intake.set(Robot.tuning.getIntakeRegularOutput());
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 	
 }

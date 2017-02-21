@@ -58,10 +58,6 @@ public class Tuning {
 		return tuning.getDouble("Intake Shooting Output", 1);
 	}
 
-//	public double getBeltTopOutput() {
-//		return tuning.getDouble("Belt Output", 1);
-//	}
-
 	public double getFeederTopOutput() {
 		return tuning.getDouble("Feeder Top Output", 1);
 	}
@@ -76,6 +72,10 @@ public class Tuning {
 
 	public double getFeederSideOutput() {
 		return tuning.getDouble("Feeder Side Output", 1);
+	}
+	
+	public double getJoystickDeadzone() {
+		return tuning.getDouble("Joystick Deadzone", 0.2);
 	}
 
 }
