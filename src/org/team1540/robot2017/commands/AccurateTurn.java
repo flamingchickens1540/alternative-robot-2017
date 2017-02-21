@@ -21,7 +21,7 @@ public class AccurateTurn extends Command {
 	private String valueKey;
 	
 	private CANTalon driveLeftTalon = Robot.driveTrain.driveLeftTalon;
-	private CANTalon driveRightTalon = Robot.driveTrain.driveLeftTalon;
+	private CANTalon driveRightTalon = Robot.driveTrain.driveRightTalon;
 	
 	public AccurateTurn(String tableKey, String valueKey) {
 		table = NetworkTable.getTable(tableKey);
