@@ -42,6 +42,10 @@ public class Tuning {
     public double getFlywheelF() {
         return tuning.getDouble("Shooter Flywheel PID F", 1 / 26274);
     }
+    
+    public double getFlywheelSpeedMarginOfError() {
+        return tuning.getDouble("Flywheel Speed Margin of Error", 200);
+    }
 
     public double getBeltSpeed() {
         return tuning.getDouble("Belt Target Speed", 5000);
