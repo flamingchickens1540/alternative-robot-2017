@@ -1,5 +1,6 @@
 package org.team1540.robot2017.subsystems;
 
+import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
@@ -21,7 +22,7 @@ public class DriveTrain extends Subsystem {
 
     public DriveTrain() {
         for (CANTalon talon : talons) {
-            talon.setVoltageRampRate(0.05);
+            talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
             talon.enableBrakeMode(true);
         }
 

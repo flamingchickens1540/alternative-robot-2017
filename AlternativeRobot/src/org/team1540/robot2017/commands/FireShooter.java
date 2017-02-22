@@ -16,7 +16,9 @@ public class FireShooter extends Command {
     @Override
     protected void initialize() {
         Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
-        Robot.belt.setSpeed(Robot.tuning.getBeltSpeed());
+//        Robot.belt.setSpeed(Robot.tuning.getBeltSpeed());
+        // todo: un-hardcose
+        Robot.belt.set(-1.0);
         Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
     }
 

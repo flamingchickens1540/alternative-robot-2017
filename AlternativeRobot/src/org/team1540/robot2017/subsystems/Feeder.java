@@ -23,7 +23,7 @@ public class Feeder extends Subsystem {
 
     public void setTop(double output) {
         topFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
-        topFeederTalon.set(-output);
+        topFeederTalon.set(output);
     }
 
     public void setLeft(double output) {
