@@ -1,7 +1,6 @@
 package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.FireShooter;
-import org.team1540.robot2017.commands.ResetGearSliderPosition;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
@@ -45,7 +44,7 @@ public class Robot extends IterativeRobot {
     public static OI oi;
 
     Command autonomousCommand;
-    Command calibrateSlider;
+    Command stopEverything;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
     /**
@@ -64,8 +63,10 @@ public class Robot extends IterativeRobot {
         intake = new Intake();
         shooter = new Shooter();
 
-        calibrateSlider = new ResetGearSliderPosition();
+        // TODO: move this to OI
         new JoystickButton(OI.copilot, 4).whenPressed(new ToggleGearServos());
+        stopEverything = new TurnEverythingOff();
+        stopEverything.setRunWhenDisabled(true);
 
         OI.buttonSpinup.whenPressed(new SpinupFlywheel());
         OI.buttonFire.whenPressed(new FireShooter());
@@ -77,9 +78,17 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void robotPeriodic() {
-        SmartDashboard.putBoolean("Right Limit", gearMechanism.getRightLimitSwitch());
-        SmartDashboard.putBoolean("Left Limit", gearMechanism.getLeftLimitSwitch());
-        SmartDashboard.putNumber("Slider Encoder", gearMechanism.getSliderEncoder());
+        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
+        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
+        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
+        SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
+        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
+        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
+        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
+        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
+        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
     }
 
     /**
@@ -89,7 +98,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
-        new TurnEverythingOff();
+        stopEverything.start();
         OI.copilot.setRumble(RumbleType.kLeftRumble, 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, 0.0);
         OI.copilot.setRumble(RumbleType.kRightRumble, 0.0);
@@ -99,10 +108,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
-        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
-        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
     }
 
     /**
@@ -118,7 +123,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        new TurnEverythingOff();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -131,8 +135,6 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
-        if (calibrateSlider != null)
-            calibrateSlider.start();
     }
 
     /**
@@ -152,10 +154,6 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
 
-        if (calibrateSlider != null)
-            calibrateSlider.start();
-
-        new TurnEverythingOff();
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD(), tuning.getFlywheelF());
         belt.setPID(tuning.getBeltP(), tuning.getBeltI(), tuning.getBeltD(), tuning.getBeltF());
 
@@ -168,21 +166,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
-        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-        SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
-        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
-        SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
-        // SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
-        // SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
-        // SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
-        // SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
-        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
-        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
-        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
-        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
-        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
