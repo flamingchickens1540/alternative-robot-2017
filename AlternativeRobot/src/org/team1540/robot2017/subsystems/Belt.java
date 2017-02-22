@@ -28,30 +28,30 @@ public class Belt extends Subsystem {
         beltTalon.setD(Robot.tuning.getBeltD());
         beltTalon.setF(Robot.tuning.getBeltF());
     }
-    
+
     public void set(double output) {
         beltTalon.changeControlMode(TalonControlMode.PercentVbus);
         beltTalon.set(output);
     }
-    
+
     public void setSpeed(double rpm) {
         beltTalon.changeControlMode(TalonControlMode.Speed);
         beltTalon.setSetpoint(rpm);
     }
-    
+
     public void stop() {
         beltTalon.changeControlMode(TalonControlMode.PercentVbus);
         beltTalon.set(0);
     }
-    
+
     public double getPIDOutput() {
         return beltTalon.pidGet();
     }
-    
+
     public double getSpeed() {
         return beltTalon.getSpeed();
     }
-    
+
     public double getClosedLoopError() {
         return beltTalon.getClosedLoopError();
     }

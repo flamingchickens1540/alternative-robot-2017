@@ -174,10 +174,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel PID", Robot.shooter.getPIDOutput());
         SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
         SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
-//        SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
-//        SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
-//        SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
-//        SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
+        // SmartDashboard.putNumber("Flywheel PID P", Robot.shooter.getP());
+        // SmartDashboard.putNumber("Flywheel PID I", Robot.shooter.getI());
+        // SmartDashboard.putNumber("Flywheel PID D", Robot.shooter.getD());
+        // SmartDashboard.putNumber("Flywheel PID F", Robot.shooter.getF());
         SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
         SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
