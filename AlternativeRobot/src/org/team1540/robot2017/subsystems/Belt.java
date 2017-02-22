@@ -18,7 +18,6 @@ public class Belt extends Subsystem {
         beltTalon.reverseSensor(true);
         beltTalon.configNominalOutputVoltage(+0f, -0f);
         beltTalon.configPeakOutputVoltage(+12f, -12f);
-        beltTalon.configEncoderCodesPerRev(125 * 15);
         beltTalon.setAllowableClosedLoopErr(0);
         beltTalon.setProfile(0);
         beltTalon.ClearIaccum();
