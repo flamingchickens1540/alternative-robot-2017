@@ -1,24 +1,19 @@
 package org.team1540.robot2017;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Servo;
 
 public class Robot2 extends IterativeRobot {
 
-    private CANTalon[] talons = new CANTalon[16];
-
+    private Servo servo;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
-        for (int i = 0; i < talons.length; ++i) {
-            talons[i] = new CANTalon(i + 1);
-        }
+        servo = new Servo(7);
     }
 
     @Override
@@ -69,17 +64,7 @@ public class Robot2 extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-        int TO_TEST = 13;
-
-        if (OI.driver.getRawButton(1)) {
-            talons[TO_TEST - 1].changeControlMode(TalonControlMode.PercentVbus);
-            talons[TO_TEST - 1].set(0.7);
-            SmartDashboard.putBoolean("running", true);
-        } else {
-            talons[TO_TEST - 1].changeControlMode(TalonControlMode.PercentVbus);
-            talons[TO_TEST - 1].set(0.0);
-            SmartDashboard.putBoolean("running", false);
-        }
+        servo.set(0.5);
     }
 
     /**

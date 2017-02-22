@@ -83,4 +83,7 @@ public class Tuning {
         return tuning.getDouble("Feeder Side Output", 1);
     }
 
+    public double getDriveRampRate() {
+        return tuning.getDouble("Drive Ramp Rate", 0.025);
+    }
 }
