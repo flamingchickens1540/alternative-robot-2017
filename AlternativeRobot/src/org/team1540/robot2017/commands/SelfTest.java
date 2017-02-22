@@ -163,7 +163,7 @@ public class SelfTest extends CommandGroup {
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Belt", () -> Robot.belt.set(0.7), () -> Robot.belt.set(0.0),
-                        () -> Robot.belt.getBeltEncoder(), () -> Robot.belt.getBeltCurrent(), Robot.belt),
+                        () -> Robot.belt.getBeltEncoder(), () -> Robot.belt.getCurrent(), Robot.belt),
                 0.5);
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Climber Top", () -> Robot.climber.setTop(0.7),

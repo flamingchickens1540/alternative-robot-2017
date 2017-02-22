@@ -19,10 +19,6 @@ public class Tuning {
                                                                          // change
     }
 
-    // public double getBeltPeriod() {
-    // return tuning.getDouble("Shooter Belt Period", 250);
-    // }
-
     public double getFeederTopPeriod() {
         return tuning.getDouble("Feeder Top Period", 250);
     }
@@ -47,16 +43,32 @@ public class Tuning {
         return tuning.getDouble("Shooter Flywheel PID F", 1 / 26274);
     }
 
+    public double getBeltSpeed() {
+        return tuning.getDouble("Belt Target Speed", 5000);
+    }
+
+    public double getBeltP() {
+        return tuning.getDouble("Belt PID P", 0.01);
+    }
+
+    public double getBeltI() {
+        return tuning.getDouble("Belt PID I", 0.01);
+    }
+
+    public double getBeltD() {
+        return tuning.getDouble("Belt PID D", 0.01);
+    }
+
+    public double getBeltF() {
+        return tuning.getDouble("Belt PID F", 0.0001);
+    }
+
     public double getIntakeRegularOutput() {
         return tuning.getDouble("Intake Regular Output", 1);
     }
 
     public double getIntakeShootingOutput() {
         return tuning.getDouble("Intake Shooting Output", 1);
-    }
-
-    public double getBeltTopOutput() {
-        return tuning.getDouble("Belt Output", 1);
     }
 
     public double getFeederTopOutput() {

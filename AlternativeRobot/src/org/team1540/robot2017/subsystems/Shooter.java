@@ -33,11 +33,8 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
     }
 
-    public void setPID(double p, double i, double d) {
+    public void setPID(double p, double i, double d, double f) {
         shooterFlywheelTalon.setPID(p, i, d);
-    }
-
-    public void setF(double f) {
         shooterFlywheelTalon.setF(f);
     }
 
