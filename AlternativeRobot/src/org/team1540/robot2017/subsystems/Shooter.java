@@ -87,7 +87,7 @@ public class Shooter extends Subsystem {
     }
 
     public boolean upToSpeed() {
-        return Math.abs(shooterFlywheelTalon.getSpeed() / Robot.tuning.getShooterFlywheelSpeed() - 1) < 0.1;
+        return Math.abs(getSpeed() - Robot.tuning.getShooterFlywheelSpeed()) < Robot.tuning.getFlywheelSpeedMarginOfError();
     }
 
     public double getFlywheelCurrentL() {
