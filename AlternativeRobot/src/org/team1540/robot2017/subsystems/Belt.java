@@ -27,6 +27,11 @@ public class Belt extends Subsystem {
         beltTalon.setD(Robot.tuning.getBeltD());
         beltTalon.setF(Robot.tuning.getBeltF());
     }
+    
+    public void setPID(double p, double i, double d, double f) {
+        beltTalon.setPID(p, i, d);
+        beltTalon.setF(f);
+    }
 
     public void set(double output) {
         beltTalon.changeControlMode(TalonControlMode.PercentVbus);

@@ -156,8 +156,8 @@ public class Robot extends IterativeRobot {
             calibrateSlider.start();
 
         new TurnEverythingOff();
-        shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD());
-        shooter.setF(tuning.getFlywheelF());
+        shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD(), tuning.getFlywheelF());
+        belt.setPID(tuning.getBeltP(), tuning.getBeltI(), tuning.getBeltD(), tuning.getBeltF());
 
         gearMechanism.closeServos();
     }
