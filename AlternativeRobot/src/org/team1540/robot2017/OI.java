@@ -32,6 +32,14 @@ public class OI {
     public static double getDriveLeftJoystick() {
         return driver.getRawAxis(leftAxisY);
     }
+    
+    public static double getDriveRightTrigger() {
+        return -driver.getRawAxis(rightTrigger);
+    }
+    
+    public static double getDriveLeftTrigger() {
+        return driver.getRawAxis(leftTrigger);
+    }
 
     // GearMechanism
     public static double getGearSliderJoystick() {
