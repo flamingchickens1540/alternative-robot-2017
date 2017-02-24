@@ -15,6 +15,8 @@ public class AccurateTurn extends Command {
 	public double i = 0.00;
 	public double d = 0.00;
 	
+	private Double lastValue = Double.NaN;
+	
 	private boolean isFinished = false;
 	
 	private NetworkTable table;
@@ -58,12 +60,18 @@ public class AccurateTurn extends Command {
 		table.putNumber("errorL", driveLeftTalon.getError());
 		table.putNumber("errorR", driveRightTalon.getError());
 		
-//		driveLeftTalon.setSetpoint(10000);
-//		driveRightTalon.setSetpoint(10000);
-		driveLeftTalon.set(table.getNumber(valueKey,0)*calibration);
-		driveRightTalon.set(table.getNumber(valueKey,0)*calibration);
-		
-		table.putNumber("calculation", table.getNumber(valueKey,0)*calibration);
+		//Note that this code assumes that the value of the degrees to turn will
+		//change every time the camera updates it. While this should be fine in
+		//practice, this may cause unintended side effects if used improperly
+		if (lastValue == Double.NaN || lastValue!=table.getNumber(valueKey,0)) {
+			lastValue = table.getNumber(valueKey,0);
+			driveLeftTalon.set(
+					(table.getNumber(valueKey,0)-driveLeftTalon.getPosition())
+					*calibration);
+			driveRightTalon.set(
+					(table.getNumber(valueKey,0)-driveRightTalon.getPosition())
+					*calibration);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
