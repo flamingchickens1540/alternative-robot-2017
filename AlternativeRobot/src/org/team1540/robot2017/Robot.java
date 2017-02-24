@@ -2,6 +2,7 @@ package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
+import org.team1540.robot2017.commands.SpinupFire;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
@@ -62,17 +63,17 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
-
-        // TODO: move this to OI
-        new JoystickButton(OI.copilot, 4).whenPressed(new ToggleGearServos());
+        
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
-        OI.buttonSpinup.whenPressed(new SpinupFlywheel());
+//        OI.buttonSpinup.whenPressed(new SpinupFlywheel());
+        OI.buttonSpinup.whenPressed(new SpinupFire());
         OI.buttonFire.whenPressed(new FireShooter());
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
+        OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
         OI.buttonSelfTest.whenPressed(new SelfTest());
     }
 
