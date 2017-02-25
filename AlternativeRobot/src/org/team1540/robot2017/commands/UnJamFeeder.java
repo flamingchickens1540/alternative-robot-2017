@@ -24,6 +24,7 @@ public class UnJamFeeder extends Command {
         Robot.feeder.setTop(-Robot.tuning.getFeederTopOutput());
         Robot.feeder.setLeft(-Robot.tuning.getFeederSideOutput());
         Robot.feeder.setRight(-Robot.tuning.getFeederSideOutput());
+        Robot.belt.setSpeed(-Robot.tuning.getBeltSpeed());
     }
 
     @Override

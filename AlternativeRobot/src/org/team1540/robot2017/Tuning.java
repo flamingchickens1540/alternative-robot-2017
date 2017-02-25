@@ -11,12 +11,7 @@ public class Tuning {
     }
 
     public double getShooterFlywheelSpeed() {
-        return tuning.getDouble("Shooter Flywheel Target Speed", 20000); // constant
-                                                                         // constant
-                                                                         // that
-                                                                         // you
-                                                                         // could
-                                                                         // change
+        return tuning.getDouble("Shooter Flywheel Target Speed", 20000); // constant constant that you could change
     }
 
     public double getFeederTopPeriod() {

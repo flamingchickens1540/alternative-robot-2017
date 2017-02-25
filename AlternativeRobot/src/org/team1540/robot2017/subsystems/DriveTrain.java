@@ -57,6 +57,28 @@ public class DriveTrain extends Subsystem {
         driveRightTalon.set(RobotUtil.deadzone(right, 0.2));
         driveLeftTalon.set(RobotUtil.deadzone(left, 0.2));
     }
+    
+    public void driveForward(double value) {
+        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightTalon.set(value);
+        driveLeftTalon.set(value);
+    }
+    
+    public void driveBackward(double value) {
+        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightTalon.set(-value);
+        driveLeftTalon.set(-value);
+    }
 
     public void setRightFront(double value) {
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
