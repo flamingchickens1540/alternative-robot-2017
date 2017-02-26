@@ -10,7 +10,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class AccurateTurn extends Command {
 
 	//TODO make these tunable
-	public double calibration = 1;
+	//(1/360)*(24pi)*(1/(4pi))*125*15
+	//degrees to turn = (1/360)*(turning circumference)*(1/wheel circumference) *
+	//(encoders ticks per wheel turn)
+	public double calibration = 31.25;
 	public double p = 0.10;
 	public double i = 0.00;
 	public double d = 0.00;
@@ -59,6 +62,7 @@ public class AccurateTurn extends Command {
 		table.putNumber("positionR", driveRightTalon.getEncPosition());
 		table.putNumber("errorL", driveLeftTalon.getError());
 		table.putNumber("errorR", driveRightTalon.getError());
+		table.putBoolean("lastValue!=number", lastValue!=table.getNumber(valueKey,0));			
 		
 		//Note that this code assumes that the value of the degrees to turn will
 		//change every time the camera updates it. While this should be fine in
@@ -66,11 +70,15 @@ public class AccurateTurn extends Command {
 		if (lastValue == Double.NaN || lastValue!=table.getNumber(valueKey,0)) {
 			lastValue = table.getNumber(valueKey,0);
 			driveLeftTalon.set(
-					(table.getNumber(valueKey,0)-driveLeftTalon.getPosition())
-					*calibration);
+					(table.getNumber(valueKey,0))*calibration+
+					driveLeftTalon.getPosition());
 			driveRightTalon.set(
-					(table.getNumber(valueKey,0)-driveRightTalon.getPosition())
-					*calibration);
+					(-table.getNumber(valueKey,0))*calibration+
+					driveRightTalon.getPosition());
+			table.putNumber("calculationL",(table.getNumber(valueKey,0))*calibration+
+					driveLeftTalon.getPosition());
+			table.putNumber("calculationR",(-table.getNumber(valueKey,0))*calibration+
+					driveRightTalon.getPosition());
 		}
 	}
 
