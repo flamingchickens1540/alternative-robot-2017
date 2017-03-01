@@ -15,6 +15,7 @@ public class SpinupFlywheel extends Command {
     @Override
     protected void initialize() {
         Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
+//        Robot.shooter.enableBangBang(Robot.tuning.getShooterFlywheelSpeed());
     }
 
     // Called repeatedly when this Command is scheduled to run

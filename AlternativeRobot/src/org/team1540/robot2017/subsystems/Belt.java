@@ -15,7 +15,8 @@ public class Belt extends Subsystem {
 
     public Belt() {
         beltTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        beltTalon.reverseSensor(true);
+        beltTalon.reverseSensor(false);
+        beltTalon.reverseOutput(false);
         beltTalon.configNominalOutputVoltage(+0f, -0f);
         beltTalon.configPeakOutputVoltage(+12f, -12f);
         beltTalon.setAllowableClosedLoopErr(0);
@@ -40,7 +41,7 @@ public class Belt extends Subsystem {
 
     public void setSpeed(double rpm) {
         beltTalon.changeControlMode(TalonControlMode.Speed);
-        beltTalon.setSetpoint(-rpm);
+        beltTalon.setSetpoint(rpm);
     }
 
     public void stop() {
@@ -53,7 +54,7 @@ public class Belt extends Subsystem {
     }
 
     public double getSpeed() {
-        return beltTalon.getSpeed();
+        return beltTalon.getEncVelocity();
     }
 
     public double getClosedLoopError() {
