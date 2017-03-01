@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class ShootForTime extends CommandGroup {
     
-    public ShootForTime(int seconds) {
+    public ShootForTime(double seconds) {
         addSequential(new SpinupFlywheel());
         addSequential(new FireShooter());
         addSequential(new WaitCommand(seconds));
