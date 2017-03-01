@@ -1,16 +1,17 @@
 package org.team1540.robot2017.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import org.team1540.robot2017.Robot;
 
-public class ShootForTime extends Command {
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+
+public class ShootForTime extends CommandGroup {
     
     public ShootForTime() {
-        
-    }
-    
-    @Override
-    protected boolean isFinished() {
-        return false;
+        addSequential(new SpinupFlywheel());
+        addSequential(new FireShooter());
+        addSequential(new WaitCommand(Robot.tuning.getAutoShootingSeconds()));
+        addSequential(new TurnEverythingOff());
     }
     
 }

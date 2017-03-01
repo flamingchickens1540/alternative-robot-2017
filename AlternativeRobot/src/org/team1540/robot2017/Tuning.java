@@ -81,4 +81,9 @@ public class Tuning {
     public double getDriveRampRate() {
         return tuning.getDouble("Drive Ramp Rate", 0.025);
     }
+    
+    public double getAutoShootingSeconds() {
+        return tuning.getDouble("Auto Shooting Seconds", 10);
+    }
+    
 }
