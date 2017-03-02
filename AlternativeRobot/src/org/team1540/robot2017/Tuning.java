@@ -86,4 +86,36 @@ public class Tuning {
         return tuning.getDouble("Auto Shooting Seconds", 10);
     }
     
+    public double getAutoLineDriveBackwardSecs() {
+        return tuning.getDouble("Auto Line Drive Backward Secs", 2);
+    }
+    
+    public double getAutoLineDriveForwardSecs() {
+        return tuning.getDouble("Auto Line Drive Forward Secs", 2);
+    }
+    
+    public double getAutoLineDrivePower() {
+        return tuning.getDouble("Auto Line Drive Power", 0.5);
+    }
+    
+    public double getAutoLineDegreesToTurn() {
+        return tuning.getDouble("Auto Line Degrees To Turn", 90);
+    }
+    
+    public double getAutoTurningP() {
+        return tuning.getDouble("Auto Turning PID P", 0);
+    }
+    
+    public double getAutoTurningI() {
+        return tuning.getDouble("Auto Turning PID I", 0);
+    }
+    
+    public double getAutoTurningD() {
+        return tuning.getDouble("Auto Turning PID D", 0);
+    }
+    
+    public double getAutoTurningMarginOfError() {
+        return tuning.getDouble("Auto Turning Margin Of Error", 2);
+    }
+    
 }

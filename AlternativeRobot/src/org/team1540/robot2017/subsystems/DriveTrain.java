@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
         driveLeftTalon.set(RobotUtil.deadzone(left, 0.2));
     }
     
-    public void driveForward(double value) {
+    public void set(double value) {
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
@@ -69,15 +69,15 @@ public class DriveTrain extends Subsystem {
         driveLeftTalon.set(value);
     }
     
-    public void driveBackward(double value) {
+    public void stop() {
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
-        driveRightTalon.set(-value);
-        driveLeftTalon.set(-value);
+        driveRightTalon.set(0);
+        driveLeftTalon.set(0);
     }
 
     public void setRightFront(double value) {
@@ -139,12 +139,36 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveLeftCTalon.set(value);
     }
+    
+    public void setPositionRight(double position) {
+        driveRightTalon.changeControlMode(TalonControlMode.Position);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightTalon.setSetpoint(position);
+    }
+    
+    public void setPositionLeft(double position) {
+        driveLeftTalon.changeControlMode(TalonControlMode.Position);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftTalon.setSetpoint(position);
+    }
+    
+    public void setPID(double p, double i, double d) {
+        driveRightTalon.setPID(p, i, d);
+        driveLeftTalon.setPID(p, i, d);
+    }
+    
+    public void zeroEncoders() {
+        driveRightTalon.setEncPosition(0);
+        driveLeftTalon.setEncPosition(0);
+    }
 
-    public double getRightEncoder() {
+    public double getRightEncoderPosition() {
         return driveRightTalon.getEncPosition();
     }
 
-    public double getLeftEncoder() {
+    public double getLeftEncoderPosition() {
         return driveLeftTalon.getEncPosition();
     }
 
