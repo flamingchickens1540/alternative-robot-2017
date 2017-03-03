@@ -1,5 +1,6 @@
 package org.team1540.robot2017.commands;
 
+import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,9 +18,8 @@ public class FireShooter extends Command {
     protected void initialize() {
         Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
         Robot.belt.setSpeed(Robot.tuning.getBeltSpeed());
-        // todo: un-hardcose
-//        Robot.belt.set(-1.0);
         Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
+        System.out.println("firing shooter");
     }
 
     @Override
@@ -28,11 +28,16 @@ public class FireShooter extends Command {
         int feederSide = (int) ((time / Robot.tuning.getFeederSideSwitchPeriod()) % 3);
         Robot.feeder.setLeft(feederSide == 1 ? 0 : Robot.tuning.getFeederSideOutput());
         Robot.feeder.setRight(feederSide == 2 ? 0 : Robot.tuning.getFeederSideOutput());
+        System.out.println("fire shooter is executing");
+    }
+    
+    protected void end() {
+        System.out.println("fire shooter is ending");
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return OI.buttonSpindown.get();
     }
 
 }

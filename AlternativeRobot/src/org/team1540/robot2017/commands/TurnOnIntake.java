@@ -11,13 +11,13 @@ public class TurnOnIntake extends Command {
     }
 
     @Override
-    protected void execute() {
+    protected void initialize() {
         Robot.intake.set(1.0);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
 }

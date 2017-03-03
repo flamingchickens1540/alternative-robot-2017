@@ -1,7 +1,9 @@
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.AutoShoot;
+import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
-import org.team1540.robot2017.commands.SelfTest;
+//import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFire;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
@@ -46,7 +48,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     Command stopEverything;
-    SendableChooser<Command> chooser = new SendableChooser<>();
+    SendableChooser<Command> chooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -64,6 +66,11 @@ public class Robot extends IterativeRobot {
         intake = new Intake();
         shooter = new Shooter();
         
+        chooser = new SendableChooser<Command>();
+        chooser.addObject("Shoot", new AutoShoot());
+        chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
+        SmartDashboard.putData("Autonomous Mode Chooser", chooser);
+        
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
@@ -74,14 +81,16 @@ public class Robot extends IterativeRobot {
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
-        OI.buttonSelfTest.whenPressed(new SelfTest());
+//        OI.buttonSelfTest.whenPressed(new SelfTest());
     }
-
+    
     @Override
     public void robotPeriodic() {
         SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("Flywheel Target Speed", Robot.tuning.getShooterFlywheelSpeed());
         SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
-        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
+        SmartDashboard.putBoolean("Flywheel Up To Speed", Robot.shooter.upToSpeed());
+        SmartDashboard.putNumber("Flywheel Error", Math.abs(Robot.shooter.getSpeed() - Robot.tuning.getShooterFlywheelSpeed()));
         SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
         SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
         SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
@@ -90,6 +99,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
         SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
         SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+//        System.out.println("hello world");
     }
 
     /**

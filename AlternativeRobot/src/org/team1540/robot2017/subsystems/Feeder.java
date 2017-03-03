@@ -35,6 +35,12 @@ public class Feeder extends Subsystem {
         rightFeederTalon.changeControlMode(TalonControlMode.PercentVbus);
         rightFeederTalon.set(-output);
     }
+    
+    public void stop() {
+        setTop(0);
+        setLeft(0);
+        setRight(0);
+    }
 
     public double getTopCurrent() {
         return topFeederTalon.getOutputCurrent();

@@ -11,7 +11,7 @@ public class Tuning {
     }
 
     public double getShooterFlywheelSpeed() {
-        return tuning.getDouble("Shooter Flywheel Target Speed", 20000); // constant constant that you could change
+        return tuning.getDouble("Shooter Flywheel Target Speed", 20000);
     }
 
     public double getFeederTopPeriod() {
@@ -39,7 +39,7 @@ public class Tuning {
     }
     
     public double getFlywheelSpeedMarginOfError() {
-        return tuning.getDouble("Flywheel Speed Margin of Error", 200);
+        return tuning.getDouble("Flywheel Speed Margin of Error", 800);
     }
 
     public double getBeltSpeed() {
@@ -83,7 +83,7 @@ public class Tuning {
     }
     
     public double getAutoShootingSeconds() {
-        return tuning.getDouble("Auto Shooting Seconds", 10);
+        return tuning.getDouble("Auto Shooting Seconds", 5);
     }
     
     public double getAutoLineDriveBackwardSecs() {
@@ -99,7 +99,7 @@ public class Tuning {
     }
     
     public double getAutoLineDegreesToTurn() {
-        return tuning.getDouble("Auto Line Degrees To Turn", 90);
+        return tuning.getDouble("Auto Line Degrees To Turn", -180);
     }
     
     public double getAutoTurningP() {
