@@ -3,7 +3,6 @@ package org.team1540.robot2017.commands;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FireShooter extends Command {
 
@@ -17,8 +16,6 @@ public class FireShooter extends Command {
     protected void initialize() {
         Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
         Robot.belt.setSpeed(Robot.tuning.getBeltSpeed());
-        // todo: un-hardcose
-//        Robot.belt.set(-1.0);
         Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
     }
 

@@ -8,18 +8,10 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 import com.ctre.CANTalon.VelocityMeasurementPeriod;
 
-import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
-
-    
     private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
-    
-    private double bangBangTarget = 0.0;
-    private final Notifier bangBangNotifier = new Notifier(() -> {
-        setBangBang(bangBangTarget);
-    });
 
     public Shooter() {
         shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
@@ -76,15 +68,12 @@ public class Shooter extends Subsystem {
     }
 
     public void stop() {
-        disableBangBang();
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(0);
     }
 
     public double getSpeed() {
         return shooterFlywheelTalon.getSpeed();
-//        return shooterFlywheelTalon.getPosition();
-//        return shooterFlywheelTalon.getPulseWidthVelocity();
     }
 
     public double getSetpoint() {
@@ -107,13 +96,12 @@ public class Shooter extends Subsystem {
         return Math.abs(getSpeed() - Robot.tuning.getShooterFlywheelSpeed()) < Robot.tuning.getFlywheelSpeedMarginOfError();
     }
 
-    public double getFlywheelCurrentL() {
+    public double getFlywheelCurrent() {
         return shooterFlywheelTalon.getOutputCurrent();
     }
 
-    public double getFlywheelCurrentR() {
-//        return shooterRightFlywheelTalon.getOutputCurrent();
-        return 0;
+    public double getFlywheelVoltage() {
+        return shooterFlywheelTalon.getOutputVoltage();
     }
 
     public double getFlywheelEncoder() {
@@ -135,33 +123,6 @@ public class Shooter extends Subsystem {
 
     public double getLeftCurrent() {
         return shooterFlywheelTalon.getOutputCurrent();
-    }
-    
-    public void setBangBang(double target) {
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        
-        double output;
-        if (target > 0) {
-            output = shooterFlywheelTalon.getEncVelocity() < target ? -1.0 : 0.0;
-        } else if (target < 0) {
-            output = shooterFlywheelTalon.getEncVelocity() > target ? 1.0 : 0.0;
-        } else {
-            output = 0;
-        }
-        
-        shooterFlywheelTalon.set(output);
-    }
-    
-    public void enableBangBang(double target) {
-        bangBangTarget = -target;
-        bangBangNotifier.startPeriodic(0.001);
-    }
-    
-    public void disableBangBang() {
-        bangBangTarget = 0.0;
-        bangBangNotifier.stop();
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        shooterFlywheelTalon.set(0);
     }
 
     @Override

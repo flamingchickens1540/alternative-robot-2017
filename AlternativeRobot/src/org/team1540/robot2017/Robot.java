@@ -71,7 +71,6 @@ public class Robot extends IterativeRobot {
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
-//        OI.buttonSpinup.whenPressed(new SpinupFlywheel());
         OI.buttonSpinup.whenPressed(new SpinupFire());
         OI.buttonFire.whenPressed(new FireShooter());
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
@@ -87,8 +86,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
         SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getError());
         SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
-        SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
+        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrent());
+        SmartDashboard.putNumber("Flywheel Voltage Left", Robot.shooter.getFlywheelVoltage());
         SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
         SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
