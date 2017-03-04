@@ -6,6 +6,7 @@ import org.team1540.robot2017.RobotMap;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.CANTalon.VelocityMeasurementPeriod;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,7 +22,6 @@ public class Shooter extends Subsystem {
     });
 
     public Shooter() {
-
         shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
         shooterFlywheelTalon.reverseSensor(false);
         shooterFlywheelTalon.reverseOutput(false);
@@ -36,6 +36,8 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
+        shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_1Ms);
+        shooterFlywheelTalon.SetVelocityMeasurementWindow(5);
     }
 
     public void setPID(double p, double i, double d, double f) {
