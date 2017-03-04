@@ -14,7 +14,6 @@ public class Shooter extends Subsystem {
 
     
     private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
-    private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel);
     
     private double bangBangTarget = 0.0;
     private final Notifier bangBangNotifier = new Notifier(() -> {
@@ -22,9 +21,6 @@ public class Shooter extends Subsystem {
     });
 
     public Shooter() {
-//        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-//        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
-//        shooterRightFlywheelTalon.reverseOutput(true);
 
         shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
         shooterFlywheelTalon.reverseSensor(false);
@@ -40,25 +36,6 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
-//        shooterFlywheelTalon.setF(0);
-//        shooterFlywheelTalon.setP(0);
-//        shooterFlywheelTalon.setI(0);
-//        shooterFlywheelTalon.setD(0);
-//        /* set acceleration and vcruise velocity - see documentation */
-//        shooterFlywheelTalon.setMotionMagicCruiseVelocity(0);
-//        shooterFlywheelTalon.setMotionMagicAcceleration(0);
-        
-//        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-//        shooterFlywheelTalon.reverseSensor(true);
-//        shooterFlywheelTalon.configNominalOutputVoltage(+0.0f, -0.0f);
-//        shooterFlywheelTalon.configPeakOutputVoltage(+12.0f, -12.0f);
-//        shooterFlywheelTalon.setProfile(0);
-//        shooterFlywheelTalon.setF(1);
-//        shooterFlywheelTalon.setP(0);
-//        shooterFlywheelTalon.setI(0);
-//        shooterFlywheelTalon.setD(0);
-//        shooterFlywheelTalon.setMotionMagicCruiseVelocity(0);
-//        shooterFlywheelTalon.setMotionMagicAcceleration(0);
     }
 
     public void setPID(double p, double i, double d, double f) {
@@ -133,7 +110,8 @@ public class Shooter extends Subsystem {
     }
 
     public double getFlywheelCurrentR() {
-        return shooterRightFlywheelTalon.getOutputCurrent();
+//        return shooterRightFlywheelTalon.getOutputCurrent();
+        return 0;
     }
 
     public double getFlywheelEncoder() {
@@ -141,19 +119,16 @@ public class Shooter extends Subsystem {
     }
 
     public void setRight(double value) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        shooterRightFlywheelTalon.set(value);
     }
 
     public void setLeft(double value) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(value);
     }
 
     public double getRightCurrent() {
-        return shooterRightFlywheelTalon.getOutputCurrent();
+        return 0;
     }
 
     public double getLeftCurrent() {
@@ -161,8 +136,6 @@ public class Shooter extends Subsystem {
     }
     
     public void setBangBang(double target) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         
         double output;
