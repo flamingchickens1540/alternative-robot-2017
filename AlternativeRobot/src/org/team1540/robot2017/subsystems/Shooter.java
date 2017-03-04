@@ -22,14 +22,16 @@ public class Shooter extends Subsystem {
     });
 
     public Shooter() {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
-        shooterRightFlywheelTalon.reverseOutput(true);
+//        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
+//        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
+//        shooterRightFlywheelTalon.reverseOutput(true);
 
-        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterFlywheelTalon.reverseSensor(true);
+        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
+        shooterFlywheelTalon.reverseSensor(false);
+        shooterFlywheelTalon.reverseOutput(false);
         shooterFlywheelTalon.configNominalOutputVoltage(+0f, -0f);
         shooterFlywheelTalon.configPeakOutputVoltage(+12f, -12f);
+        shooterFlywheelTalon.configEncoderCodesPerRev(1024);
         shooterFlywheelTalon.setAllowableClosedLoopErr(0);
         shooterFlywheelTalon.setProfile(0);
         shooterFlywheelTalon.ClearIaccum();
@@ -38,6 +40,25 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
+//        shooterFlywheelTalon.setF(0);
+//        shooterFlywheelTalon.setP(0);
+//        shooterFlywheelTalon.setI(0);
+//        shooterFlywheelTalon.setD(0);
+//        /* set acceleration and vcruise velocity - see documentation */
+//        shooterFlywheelTalon.setMotionMagicCruiseVelocity(0);
+//        shooterFlywheelTalon.setMotionMagicAcceleration(0);
+        
+//        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//        shooterFlywheelTalon.reverseSensor(true);
+//        shooterFlywheelTalon.configNominalOutputVoltage(+0.0f, -0.0f);
+//        shooterFlywheelTalon.configPeakOutputVoltage(+12.0f, -12.0f);
+//        shooterFlywheelTalon.setProfile(0);
+//        shooterFlywheelTalon.setF(1);
+//        shooterFlywheelTalon.setP(0);
+//        shooterFlywheelTalon.setI(0);
+//        shooterFlywheelTalon.setD(0);
+//        shooterFlywheelTalon.setMotionMagicCruiseVelocity(0);
+//        shooterFlywheelTalon.setMotionMagicAcceleration(0);
     }
 
     public void setPID(double p, double i, double d, double f) {
@@ -66,10 +87,13 @@ public class Shooter extends Subsystem {
     }
 
     public void setSpeed(double rpm) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
         shooterFlywheelTalon.changeControlMode(TalonControlMode.Speed);
         shooterFlywheelTalon.setSetpoint(rpm);
+    }
+    
+    public void setSpeedCruise(double rpm) {
+        shooterFlywheelTalon.changeControlMode(TalonControlMode.MotionMagic);
+        shooterFlywheelTalon.set(rpm);
     }
 
     public void stop() {
@@ -80,10 +104,16 @@ public class Shooter extends Subsystem {
 
     public double getSpeed() {
         return shooterFlywheelTalon.getSpeed();
+//        return shooterFlywheelTalon.getPosition();
+//        return shooterFlywheelTalon.getPulseWidthVelocity();
     }
 
     public double getSetpoint() {
         return shooterFlywheelTalon.getSetpoint();
+    }
+    
+    public double getError() {
+        return shooterFlywheelTalon.getError();
     }
 
     public double getClosedLoopError() {

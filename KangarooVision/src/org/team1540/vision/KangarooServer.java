@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -29,6 +30,8 @@ public class KangarooServer {
     private static boolean needsNewImage = true;
 
     public static void main(String[] args) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        
         NetworkTable.setClientMode();
         NetworkTable.setIPAddress("RoboRIO-1540-FRC.local");
         table = NetworkTable.getTable("kangaroo");
@@ -85,6 +88,7 @@ public class KangarooServer {
                     float yawOffset = (float) Vision.horizontalAngleFromCenter(goal.center(), center,
                             68.5f / frameWidth);
                     transmitCameraUpdate(cFrameTime, yawOffset, true);
+                    System.out.println("hue " + table.getNumber("hue_lower", -1));
                 } else {
                     transmitCameraUpdate(cFrameTime, 0, false);
                 }

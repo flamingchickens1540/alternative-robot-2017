@@ -14,6 +14,7 @@ public class SpinupFlywheel extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+//        Robot.shooter.setSpeedCruise(Robot.tuning.getShooterFlywheelSpeed());
         Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
 //        Robot.shooter.enableBangBang(Robot.tuning.getShooterFlywheelSpeed());
     }

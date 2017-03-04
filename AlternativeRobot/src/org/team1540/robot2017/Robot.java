@@ -3,7 +3,6 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFire;
-import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
@@ -14,14 +13,15 @@ import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
 import org.team1540.robot2017.subsystems.GearMechanism;
 import org.team1540.robot2017.subsystems.Intake;
+import org.team1540.robot2017.subsystems.LedBar;
 import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,8 +41,10 @@ public class Robot extends IterativeRobot {
     public static Belt belt;
     public static Intake intake;
     public static Shooter shooter;
+    public static LedBar ledBar;
     public static Tuning tuning;
     public static OI oi;
+    public static NetworkTable kangarooTable;
 
     Command autonomousCommand;
     Command stopEverything;
@@ -63,6 +65,8 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
+        ledBar = new LedBar();
+        kangarooTable = NetworkTable.getTable("kangaroo");
         
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
@@ -81,7 +85,7 @@ public class Robot extends IterativeRobot {
     public void robotPeriodic() {
         SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
         SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
-        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getClosedLoopError());
+        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getError());
         SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
         SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
         SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
