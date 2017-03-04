@@ -16,33 +16,15 @@ public class TurnEverythingOff extends Command {
     @Override
     protected void initialize() {
         Robot.shooter.stop();
-        Robot.feeder.setTop(0);
-        Robot.feeder.setLeft(0);
-        Robot.feeder.setRight(0);
-        Robot.belt.set(0);
+        Robot.feeder.stop();
+        Robot.belt.stop();
         Robot.intake.set(0);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    protected void execute() {
-
+        System.out.println("turning everything off");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return true;
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
     }
 }

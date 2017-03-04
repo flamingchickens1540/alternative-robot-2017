@@ -8,7 +8,7 @@ public class SpinupFire extends CommandGroup {
     
     public SpinupFire() {
         if (Robot.shooter.upToSpeed()) {
-            addSequential(new FireShooter());
+            addSequential(new FireShooter(Robot.tuning.getBeltSpeed()));
         }
         else {
             addSequential(new SpinupFlywheel());

@@ -1,5 +1,8 @@
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.AutoCrossLine;
+import org.team1540.robot2017.commands.AutoDoNothing;
+import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFire;
@@ -48,7 +51,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     Command stopEverything;
-    SendableChooser<Command> chooser = new SendableChooser<>();
+    SendableChooser<Command> chooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -68,18 +71,24 @@ public class Robot extends IterativeRobot {
         ledBar = new LedBar();
         kangarooTable = NetworkTable.getTable("kangaroo");
         
+        chooser = new SendableChooser<Command>();
+        chooser.addObject("Do Nothing", new AutoDoNothing());
+        chooser.addObject("Shoot", new AutoShoot());
+        chooser.addObject("Cross Line", new AutoCrossLine());
+        SmartDashboard.putData("Autonomous Mode Chooser", chooser);
+        
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
         OI.buttonSpinup.whenPressed(new SpinupFire());
-        OI.buttonFire.whenPressed(new FireShooter());
+        OI.buttonFire.whenPressed(new FireShooter(tuning.getBeltSpeed()));
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
         OI.buttonSelfTest.whenPressed(new SelfTest());
     }
-
+    
     @Override
     public void robotPeriodic() {
         SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());

@@ -129,36 +129,36 @@ public class SelfTest extends CommandGroup {
         addSequential(new ResetSelfTest(this));
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Front", () -> Robot.driveTrain.setRightFront(0.7),
-                        () -> Robot.driveTrain.setRightFront(0.0), () -> Robot.driveTrain.getRightEncoder(),
+                        () -> Robot.driveTrain.setRightFront(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightFrontCurrent(), Robot.driveTrain),
                 0.5);
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Middle", () -> Robot.driveTrain.setRightMiddle(0.7),
-                        () -> Robot.driveTrain.setRightMiddle(0.0), () -> Robot.driveTrain.getRightEncoder(),
+                        () -> Robot.driveTrain.setRightMiddle(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightMiddleCurrent(), Robot.driveTrain),
                 0.5);
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Back", () -> Robot.driveTrain.setRightBack(0.7),
-                        () -> Robot.driveTrain.setRightBack(0.0), () -> Robot.driveTrain.getRightEncoder(),
+                        () -> Robot.driveTrain.setRightBack(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightBackCurrent(), Robot.driveTrain),
                 0.5);
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Left Front", () -> Robot.driveTrain.setLeftFront(0.7),
-                        () -> Robot.driveTrain.setLeftFront(0.0), () -> Robot.driveTrain.getLeftEncoder(),
+                        () -> Robot.driveTrain.setLeftFront(0.0), () -> Robot.driveTrain.getLeftEncoderPosition(),
                         () -> Robot.driveTrain.getLeftFrontCurrent(), Robot.driveTrain),
                 0.5);
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Left Middle", () -> Robot.driveTrain.setLeftMiddle(0.7),
-                        () -> Robot.driveTrain.setLeftMiddle(0.0), () -> Robot.driveTrain.getLeftEncoder(),
+                        () -> Robot.driveTrain.setLeftMiddle(0.0), () -> Robot.driveTrain.getLeftEncoderPosition(),
                         () -> Robot.driveTrain.getLeftMiddleCurrent(), Robot.driveTrain),
                 0.5);
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Drive Left Back", () -> Robot.driveTrain.setLeftBack(0.7),
-                () -> Robot.driveTrain.setLeftBack(0.0), () -> Robot.driveTrain.getLeftEncoder(),
+                () -> Robot.driveTrain.setLeftBack(0.0), () -> Robot.driveTrain.getLeftEncoderPosition(),
                 () -> Robot.driveTrain.getLeftBackCurrent(), Robot.driveTrain), 0.5);
 
         addSequential(
