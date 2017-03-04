@@ -61,5 +61,9 @@ public class OI {
     public static double getGearSliderJoystick() {
         return copilot.getRawAxis(leftAxisX);
     }
+    
+    public static double getLedJoystick() {
+        return copilot.getRawAxis(leftAxisY);
+    }
 
 }

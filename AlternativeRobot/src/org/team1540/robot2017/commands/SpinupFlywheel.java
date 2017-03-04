@@ -15,8 +15,6 @@ public class SpinupFlywheel extends Command {
     @Override
     protected void initialize() {
         Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed());
-//        Robot.shooter.enableBangBang(Robot.tuning.getShooterFlywheelSpeed());
-        System.out.println("spinning up flywheel");
     }
 
     // Make this return true when this Command no longer needs to run execute()

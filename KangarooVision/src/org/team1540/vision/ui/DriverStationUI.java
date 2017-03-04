@@ -26,9 +26,12 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 public class DriverStationUI {
     private static HSVThresholdPicker picker = new HSVThresholdPicker(360, 20, 100);
     private static WebcamPanel webcamPanel = new WebcamPanel();
+    private static NetworkTable table;
 
     private static BufferedImage thresholdImage(BufferedImage image) {
         Mat imageMat = Vision.imageToMat(image);
@@ -100,15 +103,20 @@ public class DriverStationUI {
         frame.setVisible(true);
 
         Webcam.setDriver(new IpCamDriver());
-        IpCamDeviceRegistry.register("Webcam", "http://10.15.40.68/?action=stream", IpCamMode.PUSH);
+        IpCamDeviceRegistry.register("Webcam", "http://1540kangaroo.frc-robot.local:8080/?action=stream", IpCamMode.PUSH);
         Webcam webcam = Webcam.getDefault();
         webcam.open();
+        
+        NetworkTable.setClientMode();
+        NetworkTable.setIPAddress("RoboRIO-1540-FRC.local");
+        table = NetworkTable.getTable("kangaroo");
 
         Thread thing = new Thread(() -> {
             while (true) {
                 System.out.println("Hue L " + picker.getHueLower() + " | " + "Hue U " + picker.getHueUpper() + " | "
                         + "Sat L " + picker.getSaturationLower() + " | " + "Sat U " + picker.getSaturationUpper()
                         + " | " + "Val L " + picker.getValueLower() + " | " + "Val L " + picker.getValueUpper());
+                table.putNumber("hue_lower", picker.getHueLower());
                 try {
                     Thread.sleep(5000);
                 } catch (Exception e) {

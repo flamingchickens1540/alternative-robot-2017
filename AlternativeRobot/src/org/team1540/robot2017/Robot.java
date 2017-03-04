@@ -16,6 +16,7 @@ import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
 import org.team1540.robot2017.subsystems.GearMechanism;
 import org.team1540.robot2017.subsystems.Intake;
+import org.team1540.robot2017.subsystems.LedBar;
 import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -42,8 +44,10 @@ public class Robot extends IterativeRobot {
     public static Belt belt;
     public static Intake intake;
     public static Shooter shooter;
+    public static LedBar ledBar;
     public static Tuning tuning;
     public static OI oi;
+    public static NetworkTable kangarooTable;
 
     Command autonomousCommand;
     Command stopEverything;
@@ -64,6 +68,8 @@ public class Robot extends IterativeRobot {
         belt = new Belt();
         intake = new Intake();
         shooter = new Shooter();
+        ledBar = new LedBar();
+        kangarooTable = NetworkTable.getTable("kangaroo");
         
         chooser = new SendableChooser<Command>();
         chooser.addObject("Do Nothing", new AutoDoNothing());
@@ -85,25 +91,17 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void robotPeriodic() {
-        SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
-        SmartDashboard.putNumber("Flywheel Target Speed", tuning.getShooterFlywheelSpeed());
-        SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
-        SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed());
-        SmartDashboard.putNumber("Flywheel Error", Math.abs(shooter.getSpeed() - tuning.getShooterFlywheelSpeed()));
-        SmartDashboard.putNumber("Flywheel Output", shooter.getMotorOutput());
-        SmartDashboard.putNumber("Flywheel Current Left", shooter.getFlywheelCurrentL());
-        SmartDashboard.putNumber("Flywheel Current Right", shooter.getFlywheelCurrentR());
-        SmartDashboard.putNumber("Climber Top Current Draw", climber.getTopClimberCurrent());
-        SmartDashboard.putNumber("Climber Bottom Current Draw", climber.getBottomClimberCurrent());
-        SmartDashboard.putNumber("Belt PID", belt.getPIDOutput());
-        SmartDashboard.putNumber("Belt Current Draw", belt.getCurrent());
-        SmartDashboard.putNumber("Belt Speed", belt.getSpeed());
-        SmartDashboard.putNumber("Drive Left Encoder Position", driveTrain.getLeftEncoderPosition());
-        SmartDashboard.putNumber("Drive Right Encoder Position", driveTrain.getRightEncoderPosition());
-        SmartDashboard.putNumber("Drive Left Motor Output", driveTrain.getLeftMotorOutput());
-        SmartDashboard.putNumber("Drive Right Motor Output", driveTrain.getRightMotorOutput());
-        SmartDashboard.putNumber("Drive Left Setpoint", driveTrain.getLeftSetpoint());
-        SmartDashboard.putNumber("Drive Right Setpoint", driveTrain.getRightSetpoint());
+        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getError());
+        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
+        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrent());
+        SmartDashboard.putNumber("Flywheel Voltage Left", Robot.shooter.getFlywheelVoltage());
+        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
+        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
+        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
+        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
+        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
     }
 
     /**
