@@ -3,7 +3,6 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.AutoCrossLine;
 import org.team1540.robot2017.commands.AutoDoNothing;
 import org.team1540.robot2017.commands.AutoShoot;
-import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFire;
@@ -11,7 +10,6 @@ import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
 import org.team1540.robot2017.commands.UnJamFeeder;
-import org.team1540.robot2017.commands.ZeroDriveEncoders;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -83,7 +81,6 @@ public class Robot extends IterativeRobot {
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
         OI.buttonSelfTest.whenPressed(new SelfTest());
-        OI.buttonTest.whenPressed(new ZeroDriveEncoders());
     }
     
     @Override
@@ -107,7 +104,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Drive Right Motor Output", driveTrain.getRightMotorOutput());
         SmartDashboard.putNumber("Drive Left Setpoint", driveTrain.getLeftSetpoint());
         SmartDashboard.putNumber("Drive Right Setpoint", driveTrain.getRightSetpoint());
-//        System.out.println("hello world");
     }
 
     /**

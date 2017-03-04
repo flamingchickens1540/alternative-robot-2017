@@ -15,7 +15,6 @@ public class DriveDistance extends Command {
     }
     
     protected void initialize() {
-//        Robot.driveTrain.zeroEncoders();
         Robot.driveTrain.setPIDLeft(Robot.tuning.getAutoDrivingLeftP(), Robot.tuning.getAutoDrivingLeftI(), 
                 Robot.tuning.getAutoDrivingLeftD(), Robot.tuning.getAutoDrivingLeftF());
         Robot.driveTrain.setPIDRight(Robot.tuning.getAutoDrivingRightP(), Robot.tuning.getAutoDrivingRightI(), 

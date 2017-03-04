@@ -116,13 +116,7 @@ public class Tuning {
         return tuning.getDouble("Auto Line Drive 2 Set", 0.3);
     }
     
-//    public double getAutoLineDriveBackwardSecs() {
-//        return tuning.getDouble("Auto Line Drive Backward Secs", 2);
-//    }
-//    
-//    public double getAutoLineDriveForwardSecs() {
-//        return tuning.getDouble("Auto Line Drive Forward Secs", 2);
-//    }
+    /////////////////////////////////////////////////////////////////////////////////
     
     public double getAutoLineDriveBackwardDist() {
         return tuning.getDouble("Auto Line Drive Backward Distance", 10);

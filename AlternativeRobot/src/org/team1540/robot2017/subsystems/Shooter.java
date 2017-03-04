@@ -16,11 +16,6 @@ public class Shooter extends Subsystem {
     private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
     private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel);
     
-    private double bangBangTarget = 0.0;
-    private final Notifier bangBangNotifier = new Notifier(() -> {
-        setBangBang(bangBangTarget);
-    });
-
     public Shooter() {
         shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
         shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
@@ -73,7 +68,6 @@ public class Shooter extends Subsystem {
     }
 
     public void stop() {
-        disableBangBang();
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(0);
     }
@@ -130,35 +124,6 @@ public class Shooter extends Subsystem {
         return shooterFlywheelTalon.getOutputCurrent();
     }
     
-    public void setBangBang(double target) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        
-        double output;
-        if (target > 0) {
-            output = shooterFlywheelTalon.getEncVelocity() < target ? -1.0 : 0.0;
-        } else if (target < 0) {
-            output = shooterFlywheelTalon.getEncVelocity() > target ? 1.0 : 0.0;
-        } else {
-            output = 0;
-        }
-        
-        shooterFlywheelTalon.set(output);
-    }
-    
-    public void enableBangBang(double target) {
-        bangBangTarget = -target;
-        bangBangNotifier.startPeriodic(0.001);
-    }
-    
-    public void disableBangBang() {
-        bangBangTarget = 0.0;
-        bangBangNotifier.stop();
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        shooterFlywheelTalon.set(0);
-    }
-
     @Override
     protected void initDefaultCommand() {
 

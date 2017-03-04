@@ -15,7 +15,6 @@ public class TurnDegrees extends Command {
     }
     
     protected void initialize() {
-        Robot.driveTrain.zeroEncoders();
         Robot.driveTrain.setPIDLeft(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
                 Robot.tuning.getAutoTurningD(), Robot.tuning.getAutoTuningF());
         Robot.driveTrain.setPIDRight(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 

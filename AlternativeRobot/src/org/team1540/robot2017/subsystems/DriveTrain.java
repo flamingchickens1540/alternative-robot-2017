@@ -190,11 +190,6 @@ public class DriveTrain extends Subsystem {
         driveRightTalon.setPID(p, i, d);
         driveRightTalon.setF(f);
     }
-    
-    public void zeroEncoders() { /////////////////////////////////////////////
-        driveRightTalon.setEncPosition(0);
-        driveLeftTalon.setEncPosition(0);
-    }
 
     public double getRightEncoderPosition() {
         return driveRightTalon.getPosition();
