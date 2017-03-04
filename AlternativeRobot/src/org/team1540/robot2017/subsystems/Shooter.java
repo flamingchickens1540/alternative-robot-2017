@@ -6,23 +6,20 @@ import org.team1540.robot2017.RobotMap;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.CANTalon.VelocityMeasurementPeriod;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
-
     private final CANTalon shooterFlywheelTalon = new CANTalon(RobotMap.shooterLeftFlywheel);
-    private final CANTalon shooterRightFlywheelTalon = new CANTalon(RobotMap.shooterRightFlywheel);
 
     public Shooter() {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
-        shooterRightFlywheelTalon.reverseOutput(true);
-
-        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterFlywheelTalon.reverseSensor(true);
+        shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
+        shooterFlywheelTalon.reverseSensor(false);
+        shooterFlywheelTalon.reverseOutput(false);
         shooterFlywheelTalon.configNominalOutputVoltage(+0f, -0f);
         shooterFlywheelTalon.configPeakOutputVoltage(+12f, -12f);
+        shooterFlywheelTalon.configEncoderCodesPerRev(1024);
         shooterFlywheelTalon.setAllowableClosedLoopErr(0);
         shooterFlywheelTalon.setProfile(0);
         shooterFlywheelTalon.ClearIaccum();
@@ -31,6 +28,8 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
+        shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_1Ms);
+        shooterFlywheelTalon.SetVelocityMeasurementWindow(5);
     }
 
     public void setPID(double p, double i, double d, double f) {
@@ -59,10 +58,13 @@ public class Shooter extends Subsystem {
     }
 
     public void setSpeed(double rpm) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.Follower);
-        shooterRightFlywheelTalon.set(shooterFlywheelTalon.getDeviceID());
         shooterFlywheelTalon.changeControlMode(TalonControlMode.Speed);
         shooterFlywheelTalon.setSetpoint(rpm);
+    }
+    
+    public void setSpeedCruise(double rpm) {
+        shooterFlywheelTalon.changeControlMode(TalonControlMode.MotionMagic);
+        shooterFlywheelTalon.set(rpm);
     }
 
     public void stop() {
@@ -77,6 +79,10 @@ public class Shooter extends Subsystem {
     public double getSetpoint() {
         return shooterFlywheelTalon.getSetpoint();
     }
+    
+    public double getError() {
+        return shooterFlywheelTalon.getError();
+    }
 
     public double getClosedLoopError() {
         return shooterFlywheelTalon.getClosedLoopError();
@@ -90,12 +96,12 @@ public class Shooter extends Subsystem {
         return Math.abs(getSpeed() - Robot.tuning.getShooterFlywheelSpeed()) < Robot.tuning.getFlywheelSpeedMarginOfError();
     }
 
-    public double getFlywheelCurrentL() {
+    public double getFlywheelCurrent() {
         return shooterFlywheelTalon.getOutputCurrent();
     }
 
-    public double getFlywheelCurrentR() {
-        return shooterRightFlywheelTalon.getOutputCurrent();
+    public double getFlywheelVoltage() {
+        return shooterFlywheelTalon.getOutputVoltage();
     }
 
     public double getFlywheelEncoder() {
@@ -103,19 +109,16 @@ public class Shooter extends Subsystem {
     }
 
     public void setRight(double value) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-        shooterRightFlywheelTalon.set(value);
     }
 
     public void setLeft(double value) {
-        shooterRightFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(value);
     }
 
     public double getRightCurrent() {
-        return shooterRightFlywheelTalon.getOutputCurrent();
+        return 0;
     }
 
     public double getLeftCurrent() {
