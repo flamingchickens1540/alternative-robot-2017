@@ -19,8 +19,6 @@ public class JoystickDrive extends Command {
     @Override
     protected void execute() {
         Robot.driveTrain.tankDrive(OI.getDriveLeftJoystick(), OI.getDriveRightJoystick());
-        Robot.driveTrain.set(OI.getDriveRightTrigger());
-        Robot.driveTrain.set(-OI.getDriveLeftTrigger());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,15 +1,17 @@
 package org.team1540.robot2017;
 
+import org.team1540.robot2017.commands.AutoCrossLine;
+import org.team1540.robot2017.commands.AutoDoNothing;
 import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
-//import org.team1540.robot2017.commands.SelfTest;
+import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFire;
-import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
 import org.team1540.robot2017.commands.UnJamFeeder;
+import org.team1540.robot2017.commands.ZeroDriveEncoders;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -20,7 +22,6 @@ import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -67,38 +68,45 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
         
         chooser = new SendableChooser<Command>();
+        chooser.addObject("Do Nothing", new AutoDoNothing());
         chooser.addObject("Shoot", new AutoShoot());
-        chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
+        chooser.addObject("Cross Line", new AutoCrossLine());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
-//        OI.buttonSpinup.whenPressed(new SpinupFlywheel());
         OI.buttonSpinup.whenPressed(new SpinupFire());
-        OI.buttonFire.whenPressed(new FireShooter());
+        OI.buttonFire.whenPressed(new FireShooter(tuning.getBeltSpeed()));
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
-//        OI.buttonSelfTest.whenPressed(new SelfTest());
+        OI.buttonSelfTest.whenPressed(new SelfTest());
+        OI.buttonTest.whenPressed(new ZeroDriveEncoders());
     }
     
     @Override
     public void robotPeriodic() {
-        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-        SmartDashboard.putNumber("Flywheel Target Speed", Robot.tuning.getShooterFlywheelSpeed());
-        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
-        SmartDashboard.putBoolean("Flywheel Up To Speed", Robot.shooter.upToSpeed());
-        SmartDashboard.putNumber("Flywheel Error", Math.abs(Robot.shooter.getSpeed() - Robot.tuning.getShooterFlywheelSpeed()));
-        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrentL());
-        SmartDashboard.putNumber("Flywheel Current Right", Robot.shooter.getFlywheelCurrentR());
-        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
-        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
-        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
-        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
-        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+        SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
+        SmartDashboard.putNumber("Flywheel Target Speed", tuning.getShooterFlywheelSpeed());
+        SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
+        SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed());
+        SmartDashboard.putNumber("Flywheel Error", Math.abs(shooter.getSpeed() - tuning.getShooterFlywheelSpeed()));
+        SmartDashboard.putNumber("Flywheel Output", shooter.getMotorOutput());
+        SmartDashboard.putNumber("Flywheel Current Left", shooter.getFlywheelCurrentL());
+        SmartDashboard.putNumber("Flywheel Current Right", shooter.getFlywheelCurrentR());
+        SmartDashboard.putNumber("Climber Top Current Draw", climber.getTopClimberCurrent());
+        SmartDashboard.putNumber("Climber Bottom Current Draw", climber.getBottomClimberCurrent());
+        SmartDashboard.putNumber("Belt PID", belt.getPIDOutput());
+        SmartDashboard.putNumber("Belt Current Draw", belt.getCurrent());
+        SmartDashboard.putNumber("Belt Speed", belt.getSpeed());
+        SmartDashboard.putNumber("Drive Left Encoder Position", driveTrain.getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Encoder Position", driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive Left Motor Output", driveTrain.getLeftMotorOutput());
+        SmartDashboard.putNumber("Drive Right Motor Output", driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Drive Left Setpoint", driveTrain.getLeftSetpoint());
+        SmartDashboard.putNumber("Drive Right Setpoint", driveTrain.getRightSetpoint());
 //        System.out.println("hello world");
     }
 

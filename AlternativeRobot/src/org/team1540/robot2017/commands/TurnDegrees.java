@@ -16,14 +16,16 @@ public class TurnDegrees extends Command {
     
     protected void initialize() {
         Robot.driveTrain.zeroEncoders();
-        Robot.driveTrain.setPID(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
-                Robot.tuning.getAutoTurningD());
+        Robot.driveTrain.setPIDLeft(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
+                Robot.tuning.getAutoTurningD(), Robot.tuning.getAutoTuningF());
+        Robot.driveTrain.setPIDRight(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
+                Robot.tuning.getAutoTurningD(), Robot.tuning.getAutoTuningF());
         double cTurning = 24 * Math.PI;
         double cWheel = 4 * Math.PI;
-        double ticksPerRev = 125 * 15;
-        position = degrees * (1/360) * cTurning * (1/cWheel) * ticksPerRev;
-        Robot.driveTrain.setPositionRight(position);
-        Robot.driveTrain.setPositionLeft(-position);
+        double ticksPerRev = 1024;
+        position = degrees * (1.0/360.0) * cTurning * (1.0/cWheel) * ticksPerRev;
+        Robot.driveTrain.setRelativePositionRight(position);
+        Robot.driveTrain.setRelativePositionLeft(-position);
     }
     
     @Override
