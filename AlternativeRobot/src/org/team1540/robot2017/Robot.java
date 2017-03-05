@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
         stopEverything.setRunWhenDisabled(true);
 
 //        OI.buttonSpinup.whenPressed(new SpinupFire());
-        OI.buttonSpinup.whenPressed(new SpinupFlywheel(tuning.getAutoFlywheelSpeed()));
-        OI.buttonFire.whenPressed(new FireShooter(tuning.getBeltSpeed()));
+        OI.buttonSpinup.whenPressed(new SpinupFlywheel("Shooter Flywheel Target Speed", 9000));
+        OI.buttonFire.whenPressed(new FireShooter("Belt Target Speed", 2400));
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());

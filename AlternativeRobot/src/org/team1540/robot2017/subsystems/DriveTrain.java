@@ -2,7 +2,6 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
-import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
