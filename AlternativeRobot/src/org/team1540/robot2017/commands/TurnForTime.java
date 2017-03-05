@@ -15,7 +15,7 @@ public class TurnForTime extends TimedCommand {
     }
     
     protected void initialize() {
-        Robot.driveTrain.tankDrive(set, -set);
+        Robot.driveTrain.set(set, -set);
     }
     
     protected void end() {

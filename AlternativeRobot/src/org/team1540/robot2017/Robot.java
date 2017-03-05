@@ -3,9 +3,10 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.AutoCrossLine;
 import org.team1540.robot2017.commands.AutoDoNothing;
 import org.team1540.robot2017.commands.AutoShoot;
+import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
-import org.team1540.robot2017.commands.SpinupFire;
+import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
@@ -75,13 +76,15 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Do Nothing", new AutoDoNothing());
         chooser.addObject("Shoot", new AutoShoot());
         chooser.addObject("Cross Line", new AutoCrossLine());
+        chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
-        OI.buttonSpinup.whenPressed(new SpinupFire());
-        OI.buttonFire.whenPressed(new FireShooter(tuning.getBeltSpeed()));
+//        OI.buttonSpinup.whenPressed(new SpinupFire());
+        OI.buttonSpinup.whenPressed(new SpinupFlywheel("Shooter Flywheel Target Speed", 9000));
+        OI.buttonFire.whenPressed(new FireShooter("Belt Target Speed", 2400));
         OI.buttonSpindown.whenPressed(new TurnEverythingOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
@@ -102,6 +105,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
         SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
         SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+        SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
+        SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
     }
 
     /**
@@ -136,7 +141,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+//        autonomousCommand = chooser.getSelected();
+        autonomousCommand = new AutoShootAndCrossLine();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",

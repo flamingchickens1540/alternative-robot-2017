@@ -1,14 +1,12 @@
 package org.team1540.robot2017.commands;
 
-import org.team1540.robot2017.Robot;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class ShootForTime extends CommandGroup {
     
     public ShootForTime(double seconds) {
-        addSequential(new SpinupFlywheel());
-        addSequential(new FireShooter(Robot.tuning.getAutoBeltSpeed()), seconds);
+        addSequential(new SpinupFlywheel("Auto Flywheel Target Speed", 9000));
+        addSequential(new FireShooter("Auto Belt Target Speed", 2400), seconds);
         addSequential(new TurnEverythingOff());
     }
     

@@ -50,7 +50,7 @@ public class OI {
     }
     
     public static double getDriveRightTrigger() {
-        return -driver.getRawAxis(rightTrigger);
+        return driver.getRawAxis(rightTrigger);
     }
     
     public static double getDriveLeftTrigger() {

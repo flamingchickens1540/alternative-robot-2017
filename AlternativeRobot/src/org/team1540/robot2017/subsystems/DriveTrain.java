@@ -2,7 +2,6 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
-import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
@@ -54,7 +53,7 @@ public class DriveTrain extends Subsystem {
         setDefaultCommand(new JoystickDrive());
     }
 
-    public void tankDrive(double left, double right) {
+    public void tankDrive(double left, double right, double triggerL, double triggerR) {
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
@@ -65,8 +64,28 @@ public class DriveTrain extends Subsystem {
         driveRightCTalon.set(driveRightTalon.getDeviceID());
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
-        driveRightTalon.set(RobotUtil.deadzone(-right, 0.2));
-        driveLeftTalon.set(RobotUtil.deadzone(left, 0.2));
+        double deadzone = 0.15;
+        double exponent = 1.5;
+        double rUnadj = right + triggerR - triggerL;
+        double lUnadj = left - triggerR + triggerL;
+        if (Math.abs(rUnadj) > deadzone) { //TODO make deadzone tunable
+            if (rUnadj > 0) {
+                driveRightTalon.set(Math.pow((rUnadj - deadzone) / (1 - deadzone), exponent));
+            } else {
+                driveRightTalon.set(-Math.pow(-(rUnadj + deadzone) / (1 - deadzone), exponent));
+            }
+        } else {
+            driveRightTalon.set(0);
+        }
+        if (Math.abs(lUnadj) > deadzone) {
+            if (lUnadj > 0) {
+                driveLeftTalon.set(Math.pow((lUnadj - deadzone) / (1 - deadzone), exponent));
+            } else {
+                driveLeftTalon.set(-Math.pow(-(lUnadj + deadzone) / (1 - deadzone), exponent));
+            }
+        } else {
+            driveLeftTalon.set(0);
+        }
     }
     
     public void set(double value) {
@@ -81,7 +100,22 @@ public class DriveTrain extends Subsystem {
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
         driveRightTalon.set(value);
-        driveLeftTalon.set(value);
+        driveLeftTalon.set(-value);
+    }
+    
+    public void set(double left, double right) {
+        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightBTalon.set(driveRightTalon.getDeviceID());
+        driveRightCTalon.set(driveRightTalon.getDeviceID());
+        driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        driveRightTalon.set(right);
+        driveLeftTalon.set(-left);
     }
     
     public void stop() {

@@ -29,7 +29,7 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
         shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_1Ms);
-        shooterFlywheelTalon.SetVelocityMeasurementWindow(5);
+        shooterFlywheelTalon.SetVelocityMeasurementWindow(2);
     }
 
     public void setPID(double p, double i, double d, double f) {
@@ -92,8 +92,8 @@ public class Shooter extends Subsystem {
         return shooterFlywheelTalon.getOutputVoltage() / shooterFlywheelTalon.getBusVoltage();
     }
 
-    public boolean upToSpeed() {
-        return Math.abs(getSpeed() - Robot.tuning.getShooterFlywheelSpeed()) < Robot.tuning.getFlywheelSpeedMarginOfError();
+    public boolean upToSpeed(double targetSpeed) {
+        return Math.abs(getSpeed() - targetSpeed) < Robot.tuning.getFlywheelSpeedMarginOfError();
     }
 
     public double getFlywheelCurrent() {

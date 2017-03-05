@@ -13,6 +13,10 @@ public class Tuning {
     public double getShooterFlywheelSpeed() {
         return tuning.getDouble("Shooter Flywheel Target Speed", 20000);
     }
+    
+    public double getAutoFlywheelSpeed() {
+        return tuning.getDouble("Auto Flywheel Target Speed", 20500);
+    }
 
     public double getFeederTopPeriod() {
         return tuning.getDouble("Feeder Top Period", 250);
