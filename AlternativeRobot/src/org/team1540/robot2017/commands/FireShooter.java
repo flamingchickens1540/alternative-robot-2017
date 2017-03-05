@@ -19,9 +19,8 @@ public class FireShooter extends Command {
     @Override
     protected void initialize() {
         Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
-        Robot.belt.setSpeed(beltSpeed);
+        Robot.belt.setSpeed(-beltSpeed);
         Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
-        System.out.println("firing shooter");
     }
 
     @Override
@@ -30,13 +29,8 @@ public class FireShooter extends Command {
         int feederSide = (int) ((time / Robot.tuning.getFeederSideSwitchPeriod()) % 3);
         Robot.feeder.setLeft(feederSide == 1 ? 0 : Robot.tuning.getFeederSideOutput());
         Robot.feeder.setRight(feederSide == 2 ? 0 : Robot.tuning.getFeederSideOutput());
-        System.out.println("fire shooter is executing");
     }
     
-    protected void end() {
-        System.out.println("fire shooter is ending");
-    }
-
     @Override
     protected boolean isFinished() {
         return OI.buttonSpindown.get();

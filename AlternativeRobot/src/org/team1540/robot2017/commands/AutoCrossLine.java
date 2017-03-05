@@ -11,5 +11,4 @@ public class AutoCrossLine extends CommandGroup {
         addSequential(new TurnForTime(Robot.tuning.getAutoLineTurnSecs(), Robot.tuning.getAutoLineTurnSet()));
         addSequential(new DriveForTime(Robot.tuning.getAutoLineDrive2Secs(), Robot.tuning.getAutoLineDrive2Set()));
     }
-    
 }
