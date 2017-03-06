@@ -65,7 +65,7 @@ public class DriveTrain extends Subsystem {
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
         double deadzone = 0.15;
-        double exponent = 1.5;
+        double exponent = 2.0;
         double rUnadj = right + triggerR - triggerL;
         double lUnadj = left - triggerR + triggerL;
         if (Math.abs(rUnadj) > deadzone) { //TODO make deadzone tunable

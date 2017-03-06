@@ -41,7 +41,7 @@ public class Belt extends Subsystem {
 
     public void setSpeed(double rpm) {
         beltTalon.changeControlMode(TalonControlMode.Speed);
-        beltTalon.setSetpoint(rpm);
+        beltTalon.setSetpoint(-rpm);
     }
 
     public void stop() {

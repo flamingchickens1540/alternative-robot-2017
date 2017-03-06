@@ -187,8 +187,10 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
-        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
-        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
+//        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
+//        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
+        OI.copilot.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed()) ? 0.5 : 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed()) ? 0.5 : 0.0);
     }
 
     /**
