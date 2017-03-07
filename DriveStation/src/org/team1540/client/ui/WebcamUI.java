@@ -44,6 +44,7 @@ import javax.swing.JTextField;
 import org.fmarot.swing.SingleComponentAspectRatioKeeperLayout;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamException;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamShutdownHook;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
@@ -171,9 +172,12 @@ public class WebcamUI {
 		}
 		URL = urlBar.getText();
 		try {
-			IpCamDeviceRegistry.register(URL, URL, IpCamMode.PUSH);
+			if (!IpCamDeviceRegistry.isRegistered(URL)) {
+				IpCamDeviceRegistry.register(URL, URL, IpCamMode.PUSH);
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+			IpCamDeviceRegistry.unregisterAll();
 			return;
 		}
 		if (Webcam.getWebcams().size() > 1) {
@@ -185,7 +189,12 @@ public class WebcamUI {
 		}
 		Webcam currentWebcam = Webcam.getWebcams().get(0);	
 		
-		webcamView = new WebcamPanel(currentWebcam);
+		try {
+			webcamView = new WebcamPanel(currentWebcam);
+		} catch (WebcamException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
 		webcamView.setLayout(new BorderLayout());
 		
 		webcamView.add(boxPanel, BorderLayout.CENTER);
