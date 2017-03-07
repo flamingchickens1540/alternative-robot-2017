@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveDistance extends Command {
     
-    double distance;
-    double position;
+    private double distance;
+    private double position;
     
     public DriveDistance(double distance) {
         requires(Robot.driveTrain);
@@ -22,8 +22,26 @@ public class DriveDistance extends Command {
         double cWheel = 4 * Math.PI;
         double ticksPerRev = 1024;
         position = distance * (1/cWheel) * ticksPerRev;
-        Robot.driveTrain.setRelativePositionRight(-position);
-        Robot.driveTrain.setRelativePositionLeft(position);
+        Robot.driveTrain.zeroEncoders();
+        Robot.driveTrain.setSpeed(Math.signum(position)*200, Math.signum(position)*200);
+    }
+    
+    protected void execute() {
+        boolean r = Math.abs(Robot.driveTrain.getRightEncoderPosition() - position) 
+                < Robot.tuning.getAutoDrivingMarginOfError();
+        boolean l = Math.abs(Robot.driveTrain.getLeftEncoderPosition() - position) 
+                < Robot.tuning.getAutoDrivingMarginOfError();
+        if (r) {
+            Robot.driveTrain.setRightSpeed(0);
+        }
+        
+        if (l) {
+            Robot.driveTrain.setLeftSpeed(0);
+        }
+    }
+    
+    protected void end() {
+        Robot.driveTrain.set(0);
     }
     
     @Override

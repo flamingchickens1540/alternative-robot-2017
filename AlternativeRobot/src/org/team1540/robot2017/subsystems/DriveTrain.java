@@ -194,25 +194,62 @@ public class DriveTrain extends Subsystem {
     }
     
     public void setRelativePositionRight(double position) {
+        driveRightTalon.setPosition(0);
         driveRightTalon.changeControlMode(TalonControlMode.Position);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
         driveRightBTalon.set(driveRightTalon.getDeviceID());
         driveRightCTalon.set(driveRightTalon.getDeviceID());
-//        driveRightTalon.setSetpoint(position + driveRightTalon.getEncPosition());
-        driveRightTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Right Relative Position", position);
+        driveRightTalon.setSetpoint(position);
     }
     
     public void setRelativePositionLeft(double position) {
+        driveLeftTalon.setPosition(0);
         driveLeftTalon.changeControlMode(TalonControlMode.Position);
         driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
-//        driveLeftTalon.setSetpoint(position + driveLeftTalon.getEncPosition());
-        driveLeftTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Left Relative Position", position);
+        driveLeftTalon.setSetpoint(position);
+    }
+    
+    public void setSpeed(double left, double right) {
+        driveLeftTalon.changeControlMode(TalonControlMode.Speed);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftTalon.setSetpoint(left);
+        
+        driveRightTalon.changeControlMode(TalonControlMode.Speed);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightBTalon.set(driveRightTalon.getDeviceID());
+        driveRightCTalon.set(driveRightTalon.getDeviceID());
+        driveRightTalon.setSetpoint(right);
+    }
+    
+    public void setRightSpeed(double right) {
+        driveRightTalon.changeControlMode(TalonControlMode.Speed);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightBTalon.set(driveRightTalon.getDeviceID());
+        driveRightCTalon.set(driveRightTalon.getDeviceID());
+        driveRightTalon.setSetpoint(right);
+    }
+    
+    public void setLeftSpeed(double left) {
+        driveLeftTalon.changeControlMode(TalonControlMode.Speed);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftTalon.setSetpoint(left);
+    }
+    
+    public void zeroEncoders() {
+        driveLeftTalon.setPosition(0);
+        driveRightTalon.setPosition(0);
     }
     
     public void setPIDLeft(double p, double i, double d, double f) {

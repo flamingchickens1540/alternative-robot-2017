@@ -2,6 +2,7 @@ package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.AutoCrossLine;
 import org.team1540.robot2017.commands.AutoDoNothing;
+import org.team1540.robot2017.commands.AutoGearLeft;
 import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
@@ -107,6 +108,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Drive Left Position", Robot.driveTrain.getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Position", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
+        SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
     }
 
     /**
@@ -142,7 +147,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
 //        autonomousCommand = chooser.getSelected();
-        autonomousCommand = new AutoShootAndCrossLine();
+        autonomousCommand = new AutoGearLeft();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",
