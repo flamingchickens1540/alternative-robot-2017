@@ -108,17 +108,9 @@ public class Shooter extends Subsystem {
         return shooterFlywheelTalon.getEncPosition();
     }
 
-    public void setRight(double value) {
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-    }
-
     public void setLeft(double value) {
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(value);
-    }
-
-    public double getRightCurrent() {
-        return 0;
     }
 
     public double getLeftCurrent() {

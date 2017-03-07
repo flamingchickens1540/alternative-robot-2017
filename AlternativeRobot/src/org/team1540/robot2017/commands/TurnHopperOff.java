@@ -4,14 +4,12 @@ import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnEverythingOff extends Command {
-    public TurnEverythingOff() {
+public class TurnHopperOff extends Command {
+    public TurnHopperOff() {
         requires(Robot.shooter);
         requires(Robot.feeder);
         requires(Robot.belt);
         requires(Robot.intake);
-        requires(Robot.climber);
-        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -21,8 +19,6 @@ public class TurnEverythingOff extends Command {
         Robot.feeder.stop();
         Robot.belt.stop();
         Robot.intake.set(0);
-        Robot.climber.set(0);
-        Robot.driveTrain.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()

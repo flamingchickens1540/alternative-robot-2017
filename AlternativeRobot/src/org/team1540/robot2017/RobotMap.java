@@ -19,19 +19,13 @@ public class RobotMap {
     public static final int feederFunnelingRollerLeft = 5;
 
     // GearMechanism
-    public static final int gearSliderTalon = 3;
-    // public static final int gearServoRight = 1;
-    // public static final int gearServoLeft = 2;
     public static final int gearServoRight = 7;
     public static final int gearServoLeft = 6;
-    public static final int gearLeftLimitSwitch = 1;
-    public static final int gearRightLimitSwitch = 0;
 
     // Intake
     public static final int intakeRollers = 16;
 
     // Shooter
-    public static final int shooterRightFlywheel = 10;
     public static final int shooterLeftFlywheel = 13;
 
     // DriveTrain
