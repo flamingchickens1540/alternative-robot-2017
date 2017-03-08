@@ -53,7 +53,7 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 public class WebcamUI {
 
-	public String URL = "http://webcam1.lpl.org/axis-cgi/mjpg/video.cgi";
+	public String URL = "http://1540kangaroo.frc-robot.local:8080/?action=stream";
 	//http://89.203.137.209/axis-cgi/mjpg/video.cgi
 	//http://webcam1.lpl.org/axis-cgi/mjpg/video.cgi
 	public Dimension windowSize;
@@ -177,7 +177,6 @@ public class WebcamUI {
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			IpCamDeviceRegistry.unregisterAll();
 			return;
 		}
 		if (Webcam.getWebcams().size() > 1) {
