@@ -2,10 +2,9 @@ package org.team1540.client.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Toolkit;
@@ -14,11 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
-import java.io.BufferedReader;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +23,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -45,8 +39,8 @@ import org.fmarot.swing.SingleComponentAspectRatioKeeperLayout;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
+import com.github.sarxos.webcam.WebcamImageTransformer;
 import com.github.sarxos.webcam.WebcamPanel;
-import com.github.sarxos.webcam.WebcamShutdownHook;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
@@ -59,12 +53,15 @@ public class WebcamUI {
 	public Dimension windowSize;
 	public int dpi = 113;
 	private Color boxColor = new Color(255,255,255); 
+	private boolean isRotated = false;
 	
 	//indents show hierarchy, bottom to top
 		private JTextField urlBar;
 				private BoxPanel boxPanel = new BoxPanel();
+				private Webcam currentWebcam;
 			private WebcamPanel webcamView;
 		private JPanel webcamContainer = new JPanel();
+			private JButton rotateWebcam = new JButton("Rotate webcam");
 			private JPanel colorViewer = new JPanel();
 			private JButton pickColor = new JButton("Pick color");
 			private JButton writeToFile = new JButton("Write coordinates to file");
@@ -96,6 +93,7 @@ public class WebcamUI {
 		initialize();
 	}
 	
+	@SuppressWarnings("static-access")
 	private void initialize() {
 		log = new JTextArea((int) (windowSize.getHeight()/dpi*6*.1),
 				(int) (windowSize.getWidth()/dpi*6*1));
@@ -126,6 +124,54 @@ public class WebcamUI {
 		updateWebcam();
 		boxPanel.setAlignmentX(boxPanel.CENTER_ALIGNMENT);
 		boxPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		rotateWebcam.addActionListener(new ActionListener() {
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				isRotated = !isRotated;
+				
+				if (isRotated) {
+					currentWebcam.setImageTransformer(new WebcamImageTransformer() {
+
+			            @Override
+			            public BufferedImage transform(BufferedImage image) {
+	
+			                int w = image.getWidth();
+			                int h = image.getHeight();			          
+	
+			                BufferedImage bi = new BufferedImage(
+			                		w, h, BufferedImage.TYPE_INT_BGR);
+			                Graphics2D g2 = bi.createGraphics();
+			                g2.rotate(Math.PI, w/2, h/2);
+			                g2.drawImage(image, 0, 0, null);
+			                g2.dispose();
+			                bi.flush();
+	
+			                return bi;
+			            }
+					});
+		        } else {
+		        	currentWebcam.setImageTransformer(new WebcamImageTransformer() {
+
+						@Override
+						public BufferedImage transform(BufferedImage image) {
+							// Does nothing to the image since I couldn't find a way
+							// to remove the image transformer
+							return image;
+						}
+		        		
+		        	});
+		        };
+		        
+		        webcamView.revalidate();
+		        webcamView.repaint();
+			}
+		});
+		rotateWebcam.setAlignmentX(rotateWebcam.CENTER_ALIGNMENT);
+		rightSide.add(rotateWebcam);
 		colorViewer.setBackground(boxColor);
 		colorViewer.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createMatteBorder(10, 10, 10, 10, 
@@ -186,7 +232,7 @@ public class WebcamUI {
 			webcamContainer.remove(webcamView);
 			//mainWindow.remove(webcamContainer);
 		}
-		Webcam currentWebcam = Webcam.getWebcams().get(0);	
+		currentWebcam = Webcam.getWebcams().get(0);	
 		
 		try {
 			webcamView = new WebcamPanel(currentWebcam);
@@ -201,7 +247,6 @@ public class WebcamUI {
 		
 		webcamView.setPreferredSize(currentWebcam.getViewSize());
 		
-		//TODO make this not stupid so it scales while maintaining aspect ratio
 		webcamContainer.setLayout(new SingleComponentAspectRatioKeeperLayout());
 		//webcamContainer.setLayout(new BorderLayout());
 		webcamContainer.add(webcamView);
@@ -223,6 +268,11 @@ public class WebcamUI {
 	
 	private class BoxPanel extends JPanel {
 		
+		/**
+		 * Deeefffaaauuulllttt
+		 */
+		private static final long serialVersionUID = 1L;
+
 		////////////
 		// 0,0 | 1,0
 		// 0,1 | 1,1
