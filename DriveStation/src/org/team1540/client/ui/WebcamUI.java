@@ -181,7 +181,7 @@ public class WebcamUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				selectFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				selectFile.showOpenDialog(writeToFile);
+				selectFile.showSaveDialog(writeToFile);
 				if (selectFile.getSelectedFile() != null) {
 					writeCoordinatesToFile(selectFile.getSelectedFile());
 					selectFile.setSelectedFile(selectFile.getSelectedFile());
