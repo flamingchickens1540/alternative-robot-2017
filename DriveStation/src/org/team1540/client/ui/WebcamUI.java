@@ -429,8 +429,9 @@ public class WebcamUI {
 			for (int y = 0; y<=1 ; y++) {
 				for (int x = 0; x<=1 ; x++) {
 					Point point = boxPanel.points[x][y];
-					writer.write((point.getX()/viewSize.getWidth())*realSize.getWidth()
-							+","+(point.getY()/viewSize.getHeight())*realSize.getHeight()+"\t");
+					writer.write((point.getX()/viewSize.getWidth())*realSize.getWidth()+
+							","+(point.getY()/viewSize.getHeight())*realSize.getHeight()
+							+"\t");
 				}
 				writer.write("\n");
 			}
@@ -448,7 +449,7 @@ public class WebcamUI {
 	 */
 	public void readCoordinatesFromFile(File toReadFrom) {
 		if (toReadFrom.isDirectory()) {
-			System.err.println("writeToFile: Is directory");
+			System.err.println("readFromFile: Is directory");
 			return;
 		}
 		try {
