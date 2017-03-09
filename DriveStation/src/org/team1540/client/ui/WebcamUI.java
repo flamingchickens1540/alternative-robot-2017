@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,6 +49,7 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 public class WebcamUI {
 
 	public String URL = "http://1540kangaroo.frc-robot.local:8080/?action=stream";
+	//http://1540kangaroo.frc-robot.local:8080/?action=stream
 	//http://89.203.137.209/axis-cgi/mjpg/video.cgi
 	//http://webcam1.lpl.org/axis-cgi/mjpg/video.cgi
 	public Dimension windowSize;
