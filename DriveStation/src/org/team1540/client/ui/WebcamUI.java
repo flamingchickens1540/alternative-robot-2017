@@ -225,6 +225,9 @@ public class WebcamUI {
 		try {
 			if (!IpCamDeviceRegistry.isRegistered(URL)) {
 				IpCamDeviceRegistry.register(URL, URL, IpCamMode.PUSH);
+				if (currentWebcam != null) {
+					currentWebcam.close();
+				}
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
