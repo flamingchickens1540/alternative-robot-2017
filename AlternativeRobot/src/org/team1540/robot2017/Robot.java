@@ -23,6 +23,9 @@ import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.LedBar;
 import org.team1540.robot2017.subsystems.Shooter;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -62,6 +65,13 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        UsbCamera camera0 = new UsbCamera("Front", 0);
+        UsbCamera camera1 = new UsbCamera("Back", 1);
+        MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
+        MjpegServer mjpegServer1 = new MjpegServer("Back Server", 1182);
+        mjpegServer0.setSource(camera0);
+        mjpegServer1.setSource(camera1);
+        
         tuning = new Tuning();
         driveTrain = new DriveTrain();
         climber = new Climber();
@@ -107,6 +117,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
         SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
         SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+        SmartDashboard.putNumber("Belt Setpoint", Robot.belt.getSetpoint());
+        SmartDashboard.putNumber("Belt Encoder", Robot.belt.getBeltEncoder());
+        SmartDashboard.putNumber("Belt Error", Robot.belt.getError());
+        SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
     }

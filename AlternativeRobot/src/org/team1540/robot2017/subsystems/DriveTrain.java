@@ -67,8 +67,8 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
         double deadzone = 0.15;
         double exponent = 2.0;
-        driveRightTalon.set(RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent));
-        driveLeftTalon.set(RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent));
+        driveRightTalon.set(RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
+        driveLeftTalon.set(RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent)*Robot.tuning.getLeftDriveMultiplier());
     }
     
     public void set(double value) {

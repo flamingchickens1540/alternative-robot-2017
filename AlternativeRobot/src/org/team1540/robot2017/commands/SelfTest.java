@@ -128,40 +128,41 @@ public class SelfTest extends CommandGroup {
 
     public SelfTest() {
         double wait = 1;
+        double timeout = 1;
         addSequential(new ResetSelfTest(this));
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Front", () -> Robot.driveTrain.setRightFront(0.7),
                         () -> Robot.driveTrain.setRightFront(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightFrontCurrent(), Robot.driveTrain),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Middle", () -> Robot.driveTrain.setRightMiddle(0.7),
                         () -> Robot.driveTrain.setRightMiddle(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightMiddleCurrent(), Robot.driveTrain),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Right Back", () -> Robot.driveTrain.setRightBack(0.7),
                         () -> Robot.driveTrain.setRightBack(0.0), () -> Robot.driveTrain.getRightEncoderPosition(),
                         () -> Robot.driveTrain.getRightBackCurrent(), Robot.driveTrain),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Left Front", () -> Robot.driveTrain.setLeftFront(0.7),
                         () -> Robot.driveTrain.setLeftFront(0.0), () -> Robot.driveTrain.getLeftEncoderPosition(),
                         () -> Robot.driveTrain.getLeftFrontCurrent(), Robot.driveTrain),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Drive Left Middle", () -> Robot.driveTrain.setLeftMiddle(0.7),
                         () -> Robot.driveTrain.setLeftMiddle(0.0), () -> Robot.driveTrain.getLeftEncoderPosition(),
                         () -> Robot.driveTrain.getLeftMiddleCurrent(), Robot.driveTrain),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Drive Left Back", () -> Robot.driveTrain.setLeftBack(0.7),
@@ -172,30 +173,30 @@ public class SelfTest extends CommandGroup {
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Belt", () -> Robot.belt.set(0.7), () -> Robot.belt.set(0.0),
                         () -> Robot.belt.getBeltEncoder(), () -> Robot.belt.getCurrent(), Robot.belt),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Climber Top", () -> Robot.climber.setTop(0.7),
-                () -> Robot.climber.setTop(0.0), null, () -> Robot.climber.getTopClimberCurrent(), Robot.climber), 0.5);
+                () -> Robot.climber.setTop(0.0), null, () -> Robot.climber.getTopClimberCurrent(), Robot.climber), timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Climber Bottom", () -> Robot.climber.setBottom(0.7),
                 () -> Robot.climber.setBottom(0.0), null, () -> Robot.climber.getBottomClimberCurrent(), Robot.climber),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Feeder Top", () -> Robot.feeder.setTop(0.7),
-                () -> Robot.feeder.setTop(0.0), null, () -> Robot.feeder.getTopCurrent(), Robot.feeder), 0.5);
+                () -> Robot.feeder.setTop(0.0), null, () -> Robot.feeder.getTopCurrent(), Robot.feeder), timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Feeder Left", () -> Robot.feeder.setLeft(0.7),
-                () -> Robot.feeder.setLeft(0.0), null, () -> Robot.feeder.getLeftCurrent(), Robot.feeder), 0.5);
+                () -> Robot.feeder.setLeft(0.0), null, () -> Robot.feeder.getLeftCurrent(), Robot.feeder), timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(
                 new SelfTestOutputEncoderCurrent(this, "Feeder Right", () -> Robot.feeder.setRight(0.7),
                         () -> Robot.feeder.setRight(0.0), null, () -> Robot.feeder.getRightCurrent(), Robot.feeder),
-                0.5);
+                timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new ToggleGearServos());
@@ -203,21 +204,21 @@ public class SelfTest extends CommandGroup {
         
         addSequential(new SelfTestOutputEncoderCurrent(this, "Gear Servo Left",
                 () -> Robot.gearMechanism.toggleServos(), () -> {
-                }, () -> Robot.gearMechanism.getServoLeftPosition(), null, Robot.gearMechanism), 0.5);
+                }, () -> Robot.gearMechanism.getServoLeftPosition(), null, Robot.gearMechanism), timeout);
         addSequential(new WaitCommand(wait));
         
         addSequential(new SelfTestOutputEncoderCurrent(this, "Gear Servo Right",
                 () -> Robot.gearMechanism.toggleServos(), () -> {
-                }, () -> Robot.gearMechanism.getServoRightPosition(), null, Robot.gearMechanism), 0.5);
+                }, () -> Robot.gearMechanism.getServoRightPosition(), null, Robot.gearMechanism), timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Intake", () -> Robot.intake.set(0.7),
-                () -> Robot.intake.set(0.0), null, () -> Robot.intake.getIntakeCurrent(), Robot.intake), 0.5);
+                () -> Robot.intake.set(0.0), null, () -> Robot.intake.getIntakeCurrent(), Robot.intake), timeout);
         addSequential(new WaitCommand(wait));
 
         addSequential(new SelfTestOutputEncoderCurrent(this, "Shooter Left", () -> Robot.shooter.setLeft(0.7),
                 () -> Robot.shooter.setLeft(0.0), () -> Robot.shooter.getFlywheelEncoder(),
-                () -> Robot.shooter.getLeftCurrent(), Robot.shooter), 0.5);
+                () -> Robot.shooter.getLeftCurrent(), Robot.shooter), timeout);
         addSequential(new WaitCommand(wait));
     }
 }

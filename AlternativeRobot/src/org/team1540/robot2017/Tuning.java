@@ -9,6 +9,10 @@ public class Tuning {
     public Tuning() {
         tuning = Preferences.getInstance();
     }
+    
+    public double getDouble(String name, double defaultValue) {
+        return tuning.getDouble(name, defaultValue);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////// shooter flywheel
     
@@ -98,6 +102,10 @@ public class Tuning {
 
     public double getDriveRampRate() {
         return tuning.getDouble("Drive Ramp Rate", 0.025);
+    }
+    
+    public double getShooterRampRate() {
+        return tuning.getDouble("Shooter Ramp Rate", 0.001);
     }
     
     ///////////////////////////////////////////////////////////////////////////////// auto dead-reckoning
@@ -200,4 +208,11 @@ public class Tuning {
         return tuning.getDouble("Auto Driving Margin Of Error", 10);
     }
     
+    public double getRightDriveMultiplier() {
+        return tuning.getDouble("Drive Right Multiplier", 1.0);
+    }
+    
+    public double getLeftDriveMultiplier() {
+        return tuning.getDouble("Drive Left Multiplier", 1.0);
+    }
 }

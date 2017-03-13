@@ -4,12 +4,16 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot2 extends IterativeRobot {
 
+    private CANTalon[] talons = new CANTalon[17];
+    
     SendableChooser<Integer> talonChooser;
     int talon;
     
@@ -25,9 +29,10 @@ public class Robot2 extends IterativeRobot {
         talonChooser.addObject(RobotMap.intakeRollers + ": Intake", RobotMap.intakeRollers);
         talonChooser.addObject(RobotMap.feederFunnelingRollerTop + ": Feeder Top", RobotMap.feederFunnelingRollerTop);
         talonChooser.addObject(RobotMap.feederFunnelingRollerRight + ": Feeder Right", RobotMap.feederFunnelingRollerRight);
-        talonChooser.addObject(RobotMap.feederFunnelingRollerLeft + ": Feeder Left", RobotMap.feederFunnelingRollerTop);
+        talonChooser.addObject(RobotMap.feederFunnelingRollerLeft + ": Feeder Left", RobotMap.feederFunnelingRollerLeft);
         talonChooser.addObject(RobotMap.feederBelt + ": Feeder Belt", RobotMap.feederBelt);
         talonChooser.addObject(RobotMap.shooterLeftFlywheel + ": Shooter Flywheel", RobotMap.shooterLeftFlywheel);
+//        talonChooser.addObject(10 + ": Shooter Flywheel", 10);
         talonChooser.addObject(RobotMap.driveTalonRightA + ": Drive Right Front", RobotMap.driveTalonRightA);
         talonChooser.addObject(RobotMap.driveTalonRightB + ": Drive Right Middle", RobotMap.driveTalonRightB);
         talonChooser.addObject(RobotMap.driveTalonRightC + ": Drive Right Back", RobotMap.driveTalonRightC);
@@ -36,31 +41,38 @@ public class Robot2 extends IterativeRobot {
         talonChooser.addObject(RobotMap.driveTalonLeftC + ": Drive Left Back", RobotMap.driveTalonLeftC);
         SmartDashboard.putData("Motor Chooser", talonChooser);
         
-        OI.buttonSpinup.whileHeld(new Command() {
-            CANTalon talon;
+        OI.buttonSpinup.whenPressed(new Command() {
             @Override
             protected void initialize() {
-                talon = new CANTalon(talonChooser.getSelected());
-                talon.changeControlMode(TalonControlMode.PercentVbus);
-                talon.set(0.5);
+                System.out.println(talonChooser.getSelected());
+                
+                if (talons[talonChooser.getSelected()] == null){
+                    talons[talonChooser.getSelected()] = new CANTalon(talonChooser.getSelected());
+                }
+                talons[talonChooser.getSelected()].changeControlMode(TalonControlMode.PercentVbus);
+                talons[talonChooser.getSelected()].set(0.5);
             }
+            
             @Override
             protected void execute() {
-                SmartDashboard.putNumber("Output", talon.getOutputVoltage() / talon.getBusVoltage());
+                SmartDashboard.putNumber("Output", talons[talonChooser.getSelected()].getOutputVoltage() / talons[talonChooser.getSelected()].getBusVoltage());
             }
+            
             @Override
             protected void end() {
-                talon.set(0);
+                talons[talonChooser.getSelected()].set(0);
             }
+            
             @Override
             protected boolean isFinished() {
-                return false;
+                return !OI.buttonSpinup.get();
             }
         });
     }
 
     @Override
     public void robotPeriodic() {
+        Scheduler.getInstance().run();
     }
 
     /**
