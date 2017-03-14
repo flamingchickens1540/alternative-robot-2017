@@ -2,6 +2,7 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
+import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
@@ -66,26 +67,8 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
         double deadzone = 0.15;
         double exponent = 2.0;
-        double rUnadj = right + triggerR - triggerL;
-        double lUnadj = left - triggerR + triggerL;
-        if (Math.abs(rUnadj) > deadzone) { //TODO make deadzone tunable
-            if (rUnadj > 0) {
-                driveRightTalon.set(Math.pow((rUnadj - deadzone) / (1 - deadzone), exponent));
-            } else {
-                driveRightTalon.set(-Math.pow(-(rUnadj + deadzone) / (1 - deadzone), exponent));
-            }
-        } else {
-            driveRightTalon.set(0);
-        }
-        if (Math.abs(lUnadj) > deadzone) {
-            if (lUnadj > 0) {
-                driveLeftTalon.set(Math.pow((lUnadj - deadzone) / (1 - deadzone), exponent));
-            } else {
-                driveLeftTalon.set(-Math.pow(-(lUnadj + deadzone) / (1 - deadzone), exponent));
-            }
-        } else {
-            driveLeftTalon.set(0);
-        }
+        driveRightTalon.set(RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
+        driveLeftTalon.set(RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent)*Robot.tuning.getLeftDriveMultiplier());
     }
     
     public void set(double value) {

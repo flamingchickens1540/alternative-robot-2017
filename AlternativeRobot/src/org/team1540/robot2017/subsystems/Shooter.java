@@ -16,7 +16,7 @@ public class Shooter extends Subsystem {
     public Shooter() {
         shooterFlywheelTalon.setFeedbackDevice(FeedbackDevice.EncRising);
         shooterFlywheelTalon.reverseSensor(false);
-        shooterFlywheelTalon.reverseOutput(false);
+        shooterFlywheelTalon.reverseOutput(true);
         shooterFlywheelTalon.configNominalOutputVoltage(+0f, -0f);
         shooterFlywheelTalon.configPeakOutputVoltage(+12f, -12f);
         shooterFlywheelTalon.configEncoderCodesPerRev(1024);
@@ -28,8 +28,10 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setP(Robot.tuning.getFlywheelP());
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
-        shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_1Ms);
-        shooterFlywheelTalon.SetVelocityMeasurementWindow(2);
+        shooterFlywheelTalon.setVoltageRampRate(Robot.tuning.getShooterRampRate());
+        shooterFlywheelTalon.enableBrakeMode(false);
+        shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_2Ms);
+        shooterFlywheelTalon.SetVelocityMeasurementWindow(3);
     }
 
     public void setPID(double p, double i, double d, double f) {
@@ -108,17 +110,9 @@ public class Shooter extends Subsystem {
         return shooterFlywheelTalon.getEncPosition();
     }
 
-    public void setRight(double value) {
-        shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
-    }
-
     public void setLeft(double value) {
         shooterFlywheelTalon.changeControlMode(TalonControlMode.PercentVbus);
         shooterFlywheelTalon.set(value);
-    }
-
-    public double getRightCurrent() {
-        return 0;
     }
 
     public double getLeftCurrent() {

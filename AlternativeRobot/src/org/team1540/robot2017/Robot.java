@@ -1,14 +1,17 @@
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.AutoCrossLine;
+import org.team1540.robot2017.commands.AutoCrossLineBlue;
+import org.team1540.robot2017.commands.AutoCrossLineRed;
 import org.team1540.robot2017.commands.AutoDoNothing;
 import org.team1540.robot2017.commands.AutoShoot;
-import org.team1540.robot2017.commands.AutoShootAndCrossLine;
+import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
+import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.SelfTest;
-import org.team1540.robot2017.commands.SpinupFlywheel;
+import org.team1540.robot2017.commands.SpinupFlywheelTeleop;
 import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
+import org.team1540.robot2017.commands.TurnHopperOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
 import org.team1540.robot2017.commands.UnJamFeeder;
 import org.team1540.robot2017.subsystems.Belt;
@@ -20,6 +23,9 @@ import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.LedBar;
 import org.team1540.robot2017.subsystems.Shooter;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -47,7 +53,6 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static LedBar ledBar;
     public static Tuning tuning;
-    public static OI oi;
     public static NetworkTable kangarooTable;
 
     Command autonomousCommand;
@@ -60,7 +65,13 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        oi = new OI();
+        UsbCamera camera0 = new UsbCamera("Front", 0);
+        UsbCamera camera1 = new UsbCamera("Back", 1);
+        MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
+        MjpegServer mjpegServer1 = new MjpegServer("Back Server", 1182);
+        mjpegServer0.setSource(camera0);
+        mjpegServer1.setSource(camera1);
+        
         tuning = new Tuning();
         driveTrain = new DriveTrain();
         climber = new Climber();
@@ -73,19 +84,20 @@ public class Robot extends IterativeRobot {
         kangarooTable = NetworkTable.getTable("kangaroo");
         
         chooser = new SendableChooser<Command>();
-        chooser.addObject("Do Nothing", new AutoDoNothing());
+        chooser.addDefault("Do Nothing", new AutoDoNothing());
         chooser.addObject("Shoot", new AutoShoot());
-        chooser.addObject("Cross Line", new AutoCrossLine());
-        chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
+        chooser.addObject("Cross Line RED", new AutoCrossLineRed());
+        chooser.addObject("Cross Line BLUE", new AutoCrossLineBlue());
+        chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
+        chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
         stopEverything.setRunWhenDisabled(true);
 
-//        OI.buttonSpinup.whenPressed(new SpinupFire());
-        OI.buttonSpinup.whenPressed(new SpinupFlywheel("Shooter Flywheel Target Speed", 9000));
+        OI.buttonSpinup.whenPressed(new SpinupFlywheelTeleop());
         OI.buttonFire.whenPressed(new FireShooter("Belt Target Speed", 2400));
-        OI.buttonSpindown.whenPressed(new TurnEverythingOff());
+        OI.buttonSpindown.whenPressed(new TurnHopperOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
@@ -105,6 +117,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
         SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
         SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+        SmartDashboard.putNumber("Belt Setpoint", Robot.belt.getSetpoint());
+        SmartDashboard.putNumber("Belt Encoder", Robot.belt.getBeltEncoder());
+        SmartDashboard.putNumber("Belt Error", Robot.belt.getError());
+        SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
     }
@@ -141,8 +157,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-//        autonomousCommand = chooser.getSelected();
-        autonomousCommand = new AutoShootAndCrossLine();
+        autonomousCommand = chooser.getSelected();
+//        autonomousCommand = new AutoShootAndCrossLine();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -187,10 +203,16 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
-//        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
-//        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.5 : 0.0);
-        OI.copilot.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed()) ? 0.5 : 0.0);
-        OI.driver.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed()) ? 0.5 : 0.0);
+        
+        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);
+
+        OI.copilot.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed() 
+                + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
+                * Robot.tuning.getFlywheelSpeedChangeCoefficient()) ? 0.7 : 0.0);
+        OI.driver.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed() 
+                + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
+                * Robot.tuning.getFlywheelSpeedChangeCoefficient()) ? 0.7 : 0.0);
     }
 
     /**

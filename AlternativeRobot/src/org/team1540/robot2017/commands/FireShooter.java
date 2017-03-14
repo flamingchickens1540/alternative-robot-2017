@@ -21,8 +21,9 @@ public class FireShooter extends Command {
 
     @Override
     protected void initialize() {
+        Robot.belt.setPID(Robot.tuning.getBeltP(), Robot.tuning.getBeltI(), Robot.tuning.getBeltD(), Robot.tuning.getBeltF());
         Robot.feeder.setTop(Robot.tuning.getFeederTopOutput());
-        Robot.belt.setSpeed(SmartDashboard.getNumber(networkTableName, defaultValue));
+        Robot.belt.setSpeed(Robot.tuning.getDouble(networkTableName, defaultValue));
         Robot.intake.set(Robot.tuning.getIntakeShootingOutput());
     }
 

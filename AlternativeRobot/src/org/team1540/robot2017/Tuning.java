@@ -9,21 +9,19 @@ public class Tuning {
     public Tuning() {
         tuning = Preferences.getInstance();
     }
+    
+    public double getDouble(String name, double defaultValue) {
+        return tuning.getDouble(name, defaultValue);
+    }
 
+    ///////////////////////////////////////////////////////////////////////////////// shooter flywheel
+    
     public double getShooterFlywheelSpeed() {
         return tuning.getDouble("Shooter Flywheel Target Speed", 20000);
     }
     
     public double getAutoFlywheelSpeed() {
         return tuning.getDouble("Auto Flywheel Target Speed", 20500);
-    }
-
-    public double getFeederTopPeriod() {
-        return tuning.getDouble("Feeder Top Period", 250);
-    }
-
-    public double getFeederSideSwitchPeriod() {
-        return tuning.getDouble("Feeder Side Switch Period", 250);
     }
 
     public double getFlywheelP() {
@@ -45,7 +43,13 @@ public class Tuning {
     public double getFlywheelSpeedMarginOfError() {
         return tuning.getDouble("Flywheel Speed Margin of Error", 800);
     }
+    
+    public double getFlywheelSpeedChangeCoefficient() {
+        return tuning.getDouble("Flywheel Speed Change Coefficient", 1000); /////////////////////////////////
+    }
 
+    ///////////////////////////////////////////////////////////////////////////////// belt
+    
     public double getBeltSpeed() {
         return tuning.getDouble("Belt Target Speed", 5000);
     }
@@ -70,12 +74,22 @@ public class Tuning {
         return tuning.getDouble("Belt PID F", 0.0001);
     }
 
+    ///////////////////////////////////////////////////////////////////////////////// intake, feeder, driving
+    
     public double getIntakeRegularOutput() {
         return tuning.getDouble("Intake Regular Output", 1);
     }
 
     public double getIntakeShootingOutput() {
         return tuning.getDouble("Intake Shooting Output", 1);
+    }
+    
+    public double getFeederTopPeriod() {
+        return tuning.getDouble("Feeder Top Period", 250);
+    }
+
+    public double getFeederSideSwitchPeriod() {
+        return tuning.getDouble("Feeder Side Switch Period", 250);
     }
 
     public double getFeederTopOutput() {
@@ -90,7 +104,11 @@ public class Tuning {
         return tuning.getDouble("Drive Ramp Rate", 0.025);
     }
     
-    /////////////////////////////////////////////////////////////////////////////////
+    public double getShooterRampRate() {
+        return tuning.getDouble("Shooter Ramp Rate", 0.001);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////// auto dead-reckoning
     
     public double getAutoShootingSeconds() {
         return tuning.getDouble("Auto Shooting Seconds", 5);
@@ -120,7 +138,7 @@ public class Tuning {
         return tuning.getDouble("Auto Line Drive 2 Set", 0.3);
     }
     
-    /////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////// auto more accurate
     
     public double getAutoLineDriveBackwardDist() {
         return tuning.getDouble("Auto Line Drive Backward Distance", 10);
@@ -190,4 +208,11 @@ public class Tuning {
         return tuning.getDouble("Auto Driving Margin Of Error", 10);
     }
     
+    public double getRightDriveMultiplier() {
+        return tuning.getDouble("Drive Right Multiplier", 1.0);
+    }
+    
+    public double getLeftDriveMultiplier() {
+        return tuning.getDouble("Drive Left Multiplier", 1.0);
+    }
 }
