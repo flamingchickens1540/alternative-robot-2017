@@ -48,7 +48,7 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 public class WebcamUI {
 
-	public String URL = "http://1540kangaroo.frc-robot.local:8080/?action=stream";
+	public String URL = "http://localhost:1181/stream.mjpg";
 	//http://1540kangaroo.frc-robot.local:8080/?action=stream
 	//http://89.203.137.209/axis-cgi/mjpg/video.cgi
 	//http://webcam1.lpl.org/axis-cgi/mjpg/video.cgi
@@ -81,7 +81,7 @@ public class WebcamUI {
 	 */
 	public WebcamUI() {
 		windowSize = Toolkit.getDefaultToolkit().getScreenSize();
-		windowSize.setSize(windowSize.getWidth()/2, windowSize.getHeight()/2);
+		windowSize.setSize(windowSize.getWidth(), windowSize.getHeight());
 
 		initialize();
 	}
