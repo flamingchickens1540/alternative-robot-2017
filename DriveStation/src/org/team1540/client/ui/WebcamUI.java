@@ -81,7 +81,7 @@ public class WebcamUI {
 	 */
 	public WebcamUI() {
 		windowSize = Toolkit.getDefaultToolkit().getScreenSize();
-		windowSize.setSize(windowSize.getWidth(), windowSize.getHeight());
+		windowSize.setSize(windowSize.getWidth()/2, windowSize.getHeight()/2);
 
 		initialize();
 	}
@@ -123,13 +123,12 @@ public class WebcamUI {
 			}
 		});
 		mainWindow.add(urlBar, BorderLayout.NORTH);
-
+		
 		boxPanel.setOpaque(false);
 		Webcam.setDriver(new IpCamDriver());
 		updateWebcam();
 		boxPanel.setAlignmentX(boxPanel.CENTER_ALIGNMENT);
 		boxPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
 		
 		rotateWebcam.addActionListener(new ActionListener() {
 
@@ -155,7 +154,6 @@ public class WebcamUI {
 		});
 		flipWebcam.setAlignmentX(rotateWebcam.CENTER_ALIGNMENT);
 		rightSide.add(flipWebcam);
-		
 		
 		colorViewer.setBackground(boxColor);
 		colorViewer.setBorder(BorderFactory.createCompoundBorder(
@@ -215,9 +213,25 @@ public class WebcamUI {
 		mainWindow.add(logWindow, BorderLayout.SOUTH);
 
 		mainWindow.setVisible(true);
+		
+		Thread reconnectTimeout = new Thread(() -> {
+			while (true) {
+				if (currentWebcam != null && !currentWebcam.isOpen()) {
+					updateWebcam();
+				}
+				
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e1) {
+				}
+			}
+		});
+		
+		reconnectTimeout.setDaemon(true);
+		reconnectTimeout.start();
 	}
 
-	private void updateWebcam() {
+	private synchronized void updateWebcam() {
 		if (URL.equals(urlBar.getText()) && webcamView != null) {
 			return;
 		}
@@ -240,7 +254,7 @@ public class WebcamUI {
 			webcamContainer.remove(webcamView);
 			//mainWindow.remove(webcamContainer);
 		}
-		currentWebcam = Webcam.getWebcams().get(0);	
+		currentWebcam = Webcam.getWebcams().get(0);
 
 		currentWebcam.setImageTransformer(new WebcamImageTransformer() {
 
