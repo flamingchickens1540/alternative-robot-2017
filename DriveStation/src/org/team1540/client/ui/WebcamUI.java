@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -49,7 +48,8 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 
 public class WebcamUI {
 
-	public String URL = "http://1540kangaroo.frc-robot.local:8080/?action=stream";
+	public String URL = "http://localhost:1181/stream.mjpg";
+	//http://1540kangaroo.frc-robot.local:8080/?action=stream
 	//http://89.203.137.209/axis-cgi/mjpg/video.cgi
 	//http://webcam1.lpl.org/axis-cgi/mjpg/video.cgi
 	public Dimension windowSize;
@@ -123,13 +123,12 @@ public class WebcamUI {
 			}
 		});
 		mainWindow.add(urlBar, BorderLayout.NORTH);
-
+		
 		boxPanel.setOpaque(false);
 		Webcam.setDriver(new IpCamDriver());
 		updateWebcam();
 		boxPanel.setAlignmentX(boxPanel.CENTER_ALIGNMENT);
 		boxPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
 		
 		rotateWebcam.addActionListener(new ActionListener() {
 
@@ -156,7 +155,6 @@ public class WebcamUI {
 		flipWebcam.setAlignmentX(rotateWebcam.CENTER_ALIGNMENT);
 		rightSide.add(flipWebcam);
 		
-		
 		colorViewer.setBackground(boxColor);
 		colorViewer.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createMatteBorder(10, 10, 10, 10, 
@@ -181,7 +179,7 @@ public class WebcamUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				selectFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				selectFile.showOpenDialog(writeToFile);
+				selectFile.showSaveDialog(writeToFile);
 				if (selectFile.getSelectedFile() != null) {
 					writeCoordinatesToFile(selectFile.getSelectedFile());
 					selectFile.setSelectedFile(selectFile.getSelectedFile());
@@ -215,9 +213,25 @@ public class WebcamUI {
 		mainWindow.add(logWindow, BorderLayout.SOUTH);
 
 		mainWindow.setVisible(true);
+		
+		Thread reconnectTimeout = new Thread(() -> {
+			while (true) {
+				if (currentWebcam != null && !currentWebcam.isOpen()) {
+					updateWebcam();
+				}
+				
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e1) {
+				}
+			}
+		});
+		
+		reconnectTimeout.setDaemon(true);
+		reconnectTimeout.start();
 	}
 
-	private void updateWebcam() {
+	private synchronized void updateWebcam() {
 		if (URL.equals(urlBar.getText()) && webcamView != null) {
 			return;
 		}
@@ -225,6 +239,9 @@ public class WebcamUI {
 		try {
 			if (!IpCamDeviceRegistry.isRegistered(URL)) {
 				IpCamDeviceRegistry.register(URL, URL, IpCamMode.PUSH);
+				if (currentWebcam != null) {
+					currentWebcam.close();
+				}
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -237,7 +254,7 @@ public class WebcamUI {
 			webcamContainer.remove(webcamView);
 			//mainWindow.remove(webcamContainer);
 		}
-		currentWebcam = Webcam.getWebcams().get(0);	
+		currentWebcam = Webcam.getWebcams().get(0);
 
 		currentWebcam.setImageTransformer(new WebcamImageTransformer() {
 
@@ -429,8 +446,9 @@ public class WebcamUI {
 			for (int y = 0; y<=1 ; y++) {
 				for (int x = 0; x<=1 ; x++) {
 					Point point = boxPanel.points[x][y];
-					writer.write((point.getX()/viewSize.getWidth())*realSize.getWidth()
-							+","+(point.getY()/viewSize.getHeight())*realSize.getHeight()+"\t");
+					writer.write((point.getX()/viewSize.getWidth())*realSize.getWidth()+
+							","+(point.getY()/viewSize.getHeight())*realSize.getHeight()
+							+"\t");
 				}
 				writer.write("\n");
 			}
@@ -448,7 +466,7 @@ public class WebcamUI {
 	 */
 	public void readCoordinatesFromFile(File toReadFrom) {
 		if (toReadFrom.isDirectory()) {
-			System.err.println("writeToFile: Is directory");
+			System.err.println("readFromFile: Is directory");
 			return;
 		}
 		try {
