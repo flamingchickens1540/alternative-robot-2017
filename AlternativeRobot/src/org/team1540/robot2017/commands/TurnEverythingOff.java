@@ -11,6 +11,7 @@ public class TurnEverythingOff extends Command {
         requires(Robot.belt);
         requires(Robot.intake);
         requires(Robot.climber);
+        requires(Robot.gearMechanism);
         requires(Robot.driveTrain);
     }
 
@@ -22,6 +23,7 @@ public class TurnEverythingOff extends Command {
         Robot.belt.stop();
         Robot.intake.set(0);
         Robot.climber.set(0);
+        Robot.gearMechanism.stop();
         Robot.driveTrain.stop();
     }
 

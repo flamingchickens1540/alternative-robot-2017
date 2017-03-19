@@ -4,7 +4,6 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot2 extends IterativeRobot {
 
-    private CANTalon[] talons = new CANTalon[17];
+    private CANTalon[] talons = new CANTalon[18];
     
     SendableChooser<Integer> talonChooser;
     int talon;
@@ -26,19 +25,21 @@ public class Robot2 extends IterativeRobot {
         talonChooser = new SendableChooser<Integer>();
         talonChooser.addObject(RobotMap.climberTop + ": Climber Top", RobotMap.climberTop);
         talonChooser.addObject(RobotMap.climberBottom + ": Climber Bottom", RobotMap.climberBottom);
+        talonChooser.addObject(RobotMap.climberNew + ": Climber New", RobotMap.climberNew);
         talonChooser.addObject(RobotMap.intakeRollers + ": Intake", RobotMap.intakeRollers);
         talonChooser.addObject(RobotMap.feederFunnelingRollerTop + ": Feeder Top", RobotMap.feederFunnelingRollerTop);
         talonChooser.addObject(RobotMap.feederFunnelingRollerRight + ": Feeder Right", RobotMap.feederFunnelingRollerRight);
         talonChooser.addObject(RobotMap.feederFunnelingRollerLeft + ": Feeder Left", RobotMap.feederFunnelingRollerLeft);
         talonChooser.addObject(RobotMap.feederBelt + ": Feeder Belt", RobotMap.feederBelt);
         talonChooser.addObject(RobotMap.shooterLeftFlywheel + ": Shooter Flywheel", RobotMap.shooterLeftFlywheel);
-//        talonChooser.addObject(10 + ": Shooter Flywheel", 10);
         talonChooser.addObject(RobotMap.driveTalonRightA + ": Drive Right Front", RobotMap.driveTalonRightA);
         talonChooser.addObject(RobotMap.driveTalonRightB + ": Drive Right Middle", RobotMap.driveTalonRightB);
         talonChooser.addObject(RobotMap.driveTalonRightC + ": Drive Right Back", RobotMap.driveTalonRightC);
         talonChooser.addObject(RobotMap.driveTalonLeftA + ": Drive Left Front", RobotMap.driveTalonLeftA);
         talonChooser.addObject(RobotMap.driveTalonLeftB + ": Drive Left Middle", RobotMap.driveTalonLeftB);
         talonChooser.addObject(RobotMap.driveTalonLeftC + ": Drive Left Back", RobotMap.driveTalonLeftC);
+        talonChooser.addObject(RobotMap.gearRoller + ": Gear Roller", RobotMap.gearRoller);
+        talonChooser.addObject(RobotMap.gearWrist + ": Gear Wrist", RobotMap.gearWrist);
         SmartDashboard.putData("Motor Chooser", talonChooser);
         
         OI.buttonSpinup.whenPressed(new Command() {
@@ -50,7 +51,7 @@ public class Robot2 extends IterativeRobot {
                     talons[talonChooser.getSelected()] = new CANTalon(talonChooser.getSelected());
                 }
                 talons[talonChooser.getSelected()].changeControlMode(TalonControlMode.PercentVbus);
-                talons[talonChooser.getSelected()].set(0.5);
+                talons[talonChooser.getSelected()].set(-0.5);
             }
             
             @Override
@@ -86,6 +87,7 @@ public class Robot2 extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
+        Scheduler.getInstance().run();
     }
 
     /**
@@ -108,6 +110,7 @@ public class Robot2 extends IterativeRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
     }
 
     @Override
@@ -119,6 +122,7 @@ public class Robot2 extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
+        Scheduler.getInstance().run();
     }
 
     /**

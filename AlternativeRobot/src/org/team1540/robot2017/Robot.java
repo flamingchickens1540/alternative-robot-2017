@@ -7,9 +7,11 @@ import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.PickUpGear;
+import org.team1540.robot2017.commands.PlaceGear;
+import org.team1540.robot2017.commands.ResetGearMechanism;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheelTeleop;
-import org.team1540.robot2017.commands.ToggleGearServos;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnHopperOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
@@ -25,7 +27,6 @@ import org.team1540.robot2017.subsystems.Shooter;
 
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -100,7 +101,9 @@ public class Robot extends IterativeRobot {
         OI.buttonSpindown.whenPressed(new TurnHopperOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
-        OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
+        OI.buttonPickUpGear.whenPressed(new PickUpGear());
+        OI.buttonPlaceGear.whileHeld(new PlaceGear());
+        OI.buttonResetGearMech.whenPressed(new ResetGearMechanism());
         OI.buttonSelfTest.whenPressed(new SelfTest());
     }
     
@@ -123,6 +126,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearMechanism.getWristCurrent());
+        SmartDashboard.putNumber("Gear Roller Current", Robot.gearMechanism.getRollerCurrent());
     }
 
     /**
@@ -158,7 +163,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         autonomousCommand = chooser.getSelected();
-//        autonomousCommand = new AutoShootAndCrossLine();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -191,8 +195,7 @@ public class Robot extends IterativeRobot {
 
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD(), tuning.getFlywheelF());
         belt.setPID(tuning.getBeltP(), tuning.getBeltI(), tuning.getBeltD(), tuning.getBeltF());
-
-        gearMechanism.closeServos();
+        
     }
 
     /**
@@ -201,8 +204,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        OI.copilot.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
-        OI.driver.setRumble(RumbleType.kLeftRumble, gearMechanism.getServoOpen() ? 0.5 : 0.0);
         
         OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);
         OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);

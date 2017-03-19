@@ -1,66 +1,55 @@
 package org.team1540.robot2017.subsystems;
 
+import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 
-import edu.wpi.first.wpilibj.Servo;
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearMechanism extends Subsystem {
-    private final Servo gearRightDeployServo = new Servo(RobotMap.gearServoRight);
-    private final Servo gearLeftDeployServo = new Servo(RobotMap.gearServoLeft);
-    private boolean gearLock;
-
+    
+    private final CANTalon gearWristTalon = new CANTalon(RobotMap.gearWrist);
+    private final CANTalon gearRollersTalon = new CANTalon(RobotMap.gearRoller);
+    
     public GearMechanism() {
+        gearWristTalon.reverseOutput(true);
+        gearWristTalon.changeControlMode(TalonControlMode.PercentVbus);
+        gearRollersTalon.changeControlMode(TalonControlMode.PercentVbus);
     }
-
-    public boolean isRightSwitchSet() {
-        return false;
+    
+    public void setWrist(double value) {
+        gearWristTalon.set(value);
     }
-
-    public boolean isLeftSwitchSet() {
-        return false;
+    
+    public void setRollers(double value) {
+        gearRollersTalon.set(value);
     }
-
+    
+    public void stop() {
+        gearWristTalon.set(0);
+        gearRollersTalon.set(0);
+    }
+    
+    public double getWristCurrent() {
+        return gearWristTalon.getOutputCurrent();
+    }
+    
+    public double getRollerCurrent() {
+        return gearRollersTalon.getOutputCurrent();
+    }
+    
+    public boolean wristCurrentTooHigh() {
+        return getWristCurrent() > Robot.tuning.getGearWristCurrentThreshold();
+    }
+    
+    public boolean rollerCurrentTooHigh() {
+        return getRollerCurrent() > Robot.tuning.getGearRollerCurrentThreshold();
+    }
+    
     @Override
     protected void initDefaultCommand() {
     }
-
-
-    public void toggleServos() {
-        if (gearLock) {
-            gearRightDeployServo.set(1.0);
-            gearLeftDeployServo.set(0.0);
-        } else {
-            gearRightDeployServo.set(0.0);
-            gearLeftDeployServo.set(1.0);
-        }
-//        if (gearLock) {
-//            gearRightDeployServo.set(0.0);
-//            gearLeftDeployServo.set(1.0);
-//        } else {
-//            gearRightDeployServo.set(1.0);
-//            gearLeftDeployServo.set(0.0);
-//        }
-        gearLock = !gearLock;
-    }
-
-    public void closeServos() {
-        gearLock = true;
-        gearRightDeployServo.set(0.0);
-        gearLeftDeployServo.set(1.0);
-//        gearRightDeployServo.set(1.0);
-//        gearLeftDeployServo.set(0.0);
-    }
-
-    public boolean getServoOpen() {
-        return !gearLock;
-    }
-
-    public double getServoRightPosition() {
-        return gearRightDeployServo.get();
-    }
-
-    public double getServoLeftPosition() {
-        return gearRightDeployServo.get();
-    }
+    
 }

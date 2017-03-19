@@ -28,9 +28,10 @@ public class OI {
 
     public static final JoystickButton buttonIntakeOn = new JoystickButton(copilot, 3);
     
-    public static final JoystickButton buttonToggleGearServos = new JoystickButton(copilot, 4);
+    public static final JoystickButton buttonPickUpGear = new JoystickButton(copilot, 4);
+    public static final JoystickButton buttonPlaceGear = new JoystickButton(copilot, 5);
     
-    public static final JoystickButton buttonTest = new JoystickButton(copilot, 5);
+    public static final JoystickButton buttonResetGearMech = new JoystickButton(copilot, 8);
     
     public static final JoystickButton buttonSelfTest = new JoystickButton(driver, 7);
 
@@ -61,8 +62,13 @@ public class OI {
         return -copilot.getRawAxis(leftAxisY);
     }
     
-    public static double getLedJoystick() {
-        return copilot.getRawAxis(leftAxisY);
+    // Testing
+    public static double getL() {
+        return -copilot.getRawAxis(leftAxisY);
+    }
+    
+    public static double getR() {
+        return -copilot.getRawAxis(rightAxisY);
     }
 
 }
