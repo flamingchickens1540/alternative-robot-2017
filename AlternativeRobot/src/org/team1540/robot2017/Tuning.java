@@ -219,11 +219,11 @@ public class Tuning {
     ///////////////////////////////////////////////////////////////////////////////// gear mech
     
     public double getGearWristCurrentThreshold() {
-        return tuning.getDouble("Gear Mechanism Current Threshold", 8);
+        return tuning.getDouble("Gear Wrist Current Threshold", 8);
     }
     
     public double getGearRollerCurrentThreshold() {
-        return tuning.getDouble("Gear Mechanism Current Threshold", 12);
+        return tuning.getDouble("Gear Roller Current Threshold", 8);
     }
     
     public double getGearWristOutput() {

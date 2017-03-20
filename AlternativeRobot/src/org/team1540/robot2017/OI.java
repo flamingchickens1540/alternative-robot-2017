@@ -34,12 +34,7 @@ public class OI {
     public static final JoystickButton buttonResetGearMech = new JoystickButton(copilot, 8);
     
     public static final JoystickButton buttonSelfTest = new JoystickButton(driver, 7);
-
-    // Climber
-    public static double getClimberJoystick() {
-        return copilot.getRawAxis(rightAxisY);
-    }
-
+    
     // DriveTrain
     public static double getDriveRightJoystick() {
         return -driver.getRawAxis(rightAxisY);
@@ -56,6 +51,11 @@ public class OI {
     public static double getDriveLeftTrigger() {
         return driver.getRawAxis(leftTrigger);
     }
+    
+    // Climber
+    public static double getClimberJoystick() {
+        return copilot.getRawAxis(rightAxisY);
+    }
 
     // Shooter
     public static double getFlywheelSpeedJoystick() {
@@ -69,6 +69,11 @@ public class OI {
     
     public static double getR() {
         return -copilot.getRawAxis(rightAxisY);
+    }
+    
+    // Gear Mech
+    public static int getGearPOV() {
+        return copilot.getPOV();
     }
 
 }

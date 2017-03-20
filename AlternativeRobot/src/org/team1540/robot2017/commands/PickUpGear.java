@@ -8,11 +8,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PickUpGear extends CommandGroup {
     
     public PickUpGear() {
+        requires(Robot.gearMechanism);
         addSequential(new Command() {
+            @Override
             protected void initialize() {
                 Robot.gearMechanism.setWrist(Robot.tuning.getGearWristOutput());
                 Robot.gearMechanism.setRollers(-Robot.tuning.getGearRollerOutput());
             }
+            @Override
             protected void end() {
                 Robot.gearMechanism.setWrist(0);
             }
@@ -22,6 +25,7 @@ public class PickUpGear extends CommandGroup {
             }
         });
         addSequential(new Command() {
+            @Override
             protected void end() {
                 Robot.gearMechanism.stop();
             }
@@ -31,9 +35,11 @@ public class PickUpGear extends CommandGroup {
             }
         });
         addSequential(new Command() {
+            @Override
             protected void initialize() {
                 Robot.gearMechanism.setWrist(-Robot.tuning.getGearWristOutput());
             }
+            @Override
             protected void end() {
                 Robot.gearMechanism.stop();
             }

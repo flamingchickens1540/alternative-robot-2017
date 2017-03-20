@@ -9,6 +9,7 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem {
+    
     private final CANTalon climberTopTalon = new CANTalon(RobotMap.climberTop);
     private final CANTalon climberBottomTalon = new CANTalon(RobotMap.climberBottom);
 
@@ -46,4 +47,5 @@ public class Climber extends Subsystem {
     public double getBottomClimberCurrent() {
         return climberBottomTalon.getOutputCurrent();
     }
+    
 }

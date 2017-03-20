@@ -2,6 +2,7 @@ package org.team1540.robot2017.subsystems;
 
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
+import org.team1540.robot2017.commands.ManualGearControl;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -17,6 +18,11 @@ public class GearMechanism extends Subsystem {
         gearWristTalon.reverseOutput(true);
         gearWristTalon.changeControlMode(TalonControlMode.PercentVbus);
         gearRollersTalon.changeControlMode(TalonControlMode.PercentVbus);
+    }
+    
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new ManualGearControl());
     }
     
     public void setWrist(double value) {
@@ -46,10 +52,6 @@ public class GearMechanism extends Subsystem {
     
     public boolean rollerCurrentTooHigh() {
         return getRollerCurrent() > Robot.tuning.getGearRollerCurrentThreshold();
-    }
-    
-    @Override
-    protected void initDefaultCommand() {
     }
     
 }

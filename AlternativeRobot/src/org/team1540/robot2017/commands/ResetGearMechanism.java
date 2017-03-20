@@ -10,11 +10,13 @@ public class ResetGearMechanism extends Command {
         requires(Robot.gearMechanism);
     }
     
-    protected void ititialize() {
+    @Override
+    protected void initialize() {
         Robot.gearMechanism.stop();
         Robot.gearMechanism.setWrist(-Robot.tuning.getGearWristOutput());
     }
     
+    @Override
     protected void end() {
         Robot.gearMechanism.stop();
     }

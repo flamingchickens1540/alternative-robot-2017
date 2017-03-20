@@ -101,9 +101,11 @@ public class Robot extends IterativeRobot {
         OI.buttonSpindown.whenPressed(new TurnHopperOff());
         OI.buttonIntakeOn.whenPressed(new TurnOnIntake());
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
+        
         OI.buttonPickUpGear.whenPressed(new PickUpGear());
         OI.buttonPlaceGear.whileHeld(new PlaceGear());
         OI.buttonResetGearMech.whenPressed(new ResetGearMechanism());
+        
         OI.buttonSelfTest.whenPressed(new SelfTest());
     }
     
