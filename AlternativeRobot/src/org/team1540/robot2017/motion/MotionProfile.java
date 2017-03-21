@@ -28,6 +28,7 @@ public class MotionProfile {
         _profile = profile;
         _totalCnt = totalCnt;
         _loaded = 0;
+        
         /*
          * since our MP is 10ms per point, set the control frame rate and the
          * notifer to half that
@@ -124,6 +125,11 @@ public class MotionProfile {
                     if (_status.isUnderrun == false) {
                         _loopTimeout = kNumLoopsTimeout;
                     }
+                    
+                    if (_loaded < _totalCnt) {
+                        continueFilling(_profile, _totalCnt, _loaded);
+                    }
+                    
                     /*
                      * If we are executing an MP and the MP finished, start loading
                      * another. We will go into hold state so robot servo's
@@ -194,20 +200,6 @@ public class MotionProfile {
         /* create an empty point */
         CANTalon.TrajectoryPoint point = new CANTalon.TrajectoryPoint();
 
-        /* did we get an underrun condition since last time we checked ? */
-        if (_status.hasUnderrun) {
-            /*
-             * clear the error. This flag does not auto clear, this way 
-             * we never miss logging it.
-             */
-            _talon.clearMotionProfileHasUnderrun();
-        }
-        /*
-         * just in case we are interrupting another MP and there is still buffer
-         * points in memory, clear it.
-         */
-        _talon.clearMotionProfileTrajectories();
-
         /* This is fast since it's just into our TOP buffer */
         for (int i = current; i < totalCnt; ++i) {
             if (i == _status.topBufferRem) {
@@ -236,11 +228,11 @@ public class MotionProfile {
         return totalCnt-current;
     }
 
-    void startMotionProfile() {
+    public void startMotionProfile() {
         _bStart = true;
     }
 
-    CANTalon.SetValueMotionProfile getSetValue() {
+    public CANTalon.SetValueMotionProfile getSetValue() {
         return _setValue;
     }
 }

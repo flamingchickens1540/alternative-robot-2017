@@ -2,10 +2,11 @@ package org.team1540.robot2017;
 
 import org.team1540.robot2017.commands.AutoCrossLine;
 import org.team1540.robot2017.commands.AutoDoNothing;
-import org.team1540.robot2017.commands.AutoGearLeft;
 import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLine;
 import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.RecordMotionProfile;
+import org.team1540.robot2017.commands.RunMotionProfile;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheel;
 import org.team1540.robot2017.commands.ToggleGearServos;
@@ -78,6 +79,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Shoot", new AutoShoot());
         chooser.addObject("Cross Line", new AutoCrossLine());
         chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
+        chooser.addObject("Run Motion Profile", new RunMotionProfile());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
@@ -91,6 +93,7 @@ public class Robot extends IterativeRobot {
         OI.buttonUnJam.whenPressed(new UnJamFeeder());
         OI.buttonToggleGearServos.whenPressed(new ToggleGearServos());
         OI.buttonSelfTest.whenPressed(new SelfTest());
+        OI.buttonRecord.whenPressed(new RecordMotionProfile());
     }
     
     @Override
@@ -112,6 +115,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Drive Right Position", Robot.driveTrain.getRightEncoderPosition());
         SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
         SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
+        SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
+        SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
     }
 
     /**
@@ -146,8 +151,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-//        autonomousCommand = chooser.getSelected();
-        autonomousCommand = new AutoGearLeft();
+        autonomousCommand = chooser.getSelected();
+//        autonomousCommand = new AutoGearLeft();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",

@@ -34,6 +34,8 @@ public class OI {
     public static final JoystickButton buttonTest = new JoystickButton(copilot, 5);
     
     public static final JoystickButton buttonSelfTest = new JoystickButton(driver, 7);
+    
+    public static final JoystickButton buttonRecord = new JoystickButton(driver, 8);
 
     // Climber
     public static double getClimberJoystick() {

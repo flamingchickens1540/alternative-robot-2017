@@ -1,15 +1,18 @@
 package org.team1540.robot2017.subsystems;
 
+import java.io.IOException;
+
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.commands.JoystickDrive;
+import org.team1540.robot2017.motion.CSVMotionProfile;
+import org.team1540.robot2017.motion.MotionProfile;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
     private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveTalonRightA);
@@ -20,8 +23,20 @@ public class DriveTrain extends Subsystem {
     private final CANTalon driveLeftCTalon = new CANTalon(RobotMap.driveTalonLeftC);
     private final CANTalon[] talons = { driveRightTalon, driveRightBTalon, driveRightCTalon, driveLeftTalon,
             driveLeftBTalon, driveLeftCTalon };
+    
+    private final MotionProfile leftProfile;
+    private final MotionProfile rightProfile;
 
     public DriveTrain() {
+        try {
+            CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/left.csv"));
+            CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/right.csv"));
+            leftProfile = new MotionProfile(driveLeftTalon, leftProfilePoints.points, leftProfilePoints.kNumPoints);
+            rightProfile = new MotionProfile(driveRightTalon, rightProfilePoints.points, rightProfilePoints.kNumPoints);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
         for (CANTalon talon : talons) {
             talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
             talon.enableBrakeMode(true);
@@ -308,5 +323,39 @@ public class DriveTrain extends Subsystem {
 
     public double getLeftBackCurrent() {
         return driveLeftCTalon.getOutputCurrent();
+    }
+    
+    public double getLeftSpeed() {
+        return driveLeftTalon.getSpeed();
+    }
+    
+    public double getRightSpeed() {
+        return driveRightTalon.getSpeed();
+    }
+    
+    public void controlMotionProfile() {
+        leftProfile.control();
+        driveLeftTalon.changeControlMode(TalonControlMode.MotionProfile);
+        CANTalon.SetValueMotionProfile setOutputLeft = leftProfile.getSetValue();
+        driveLeftTalon.set(setOutputLeft.value);
+        
+        rightProfile.control();
+        driveRightTalon.changeControlMode(TalonControlMode.MotionProfile);
+        CANTalon.SetValueMotionProfile setOutputRight = rightProfile.getSetValue();
+        driveRightTalon.set(setOutputRight.value);
+    }
+    
+    public void startMotionProfile() {
+        leftProfile.startMotionProfile();
+        rightProfile.startMotionProfile();
+    }
+    
+    public void stopMotionProfile() {
+        leftProfile.reset();
+        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveLeftTalon.set(0);
+        rightProfile.reset();
+        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveRightTalon.set(0);
     }
 }
