@@ -3,6 +3,7 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.AutoCrossLineBlue;
 import org.team1540.robot2017.commands.AutoCrossLineRed;
 import org.team1540.robot2017.commands.AutoDoNothing;
+import org.team1540.robot2017.commands.AutoDrivePath;
 import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
@@ -123,6 +124,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Drive Left Encoder Position", Robot.driveTrain.getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Encoder Position", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive Left Encoder Error", Robot.driveTrain.getLeftError());
+        SmartDashboard.putNumber("Drive Right Encoder Error", Robot.driveTrain.getRightError());
+        SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
+        SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
     }
 
     /**
@@ -157,8 +164,9 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+//        autonomousCommand = chooser.getSelected();
 //        autonomousCommand = new AutoShootAndCrossLine();
+        autonomousCommand = new AutoDrivePath();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",

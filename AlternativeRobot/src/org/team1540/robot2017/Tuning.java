@@ -169,15 +169,16 @@ public class Tuning {
     }
     
     public double getAutoDrivingLeftP() {
-        return tuning.getDouble("Auto Driving Left PID P", 0.01);
+        return tuning.getDouble("Auto Driving Left PID P", 0.0001);
     }
     
     public double getAutoDrivingLeftI() {
-        return tuning.getDouble("Auto Driving Left PID I", 1.0e-5);
+//        return tuning.getDouble("Auto Driving Left PID I", 1.0e-5);
+        return tuning.getDouble("Auto Driving Right PID I", 0);
     }
     
     public double getAutoDrivingLeftD() {
-        return tuning.getDouble("Auto Driving Left PID D", 0.01);
+        return tuning.getDouble("Auto Driving Left PID D", 0.00);
     }
     
     public double getAutoDrivingLeftF() {
@@ -185,15 +186,16 @@ public class Tuning {
     }
     
     public double getAutoDrivingRightP() {
-        return tuning.getDouble("Auto Driving Right PID P", 0.1);
+        return tuning.getDouble("Auto Driving Right PID P", 0.0001);
     }
     
     public double getAutoDrivingRightI() {
-        return tuning.getDouble("Auto Driving Right PID I", 1.0e-5);
+//        return tuning.getDouble("Auto Driving Right PID I", 1.0e-5);
+        return tuning.getDouble("Auto Driving Right PID I", 0);
     }
     
     public double getAutoDrivingRightD() {
-        return tuning.getDouble("Auto Driving Right PID D", 0.01);
+        return tuning.getDouble("Auto Driving Right PID D", 0.00);
     }
     
     public double getAutoDrivingRightF() {
@@ -214,5 +216,9 @@ public class Tuning {
     
     public double getLeftDriveMultiplier() {
         return tuning.getDouble("Drive Left Multiplier", 1.0);
+    }
+    
+    public double getAutoDegreesToTurn() {
+        return tuning.getDouble("Auto DegreesToTurn", 180.0);
     }
 }

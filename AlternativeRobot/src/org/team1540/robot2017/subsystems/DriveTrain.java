@@ -182,9 +182,10 @@ public class DriveTrain extends Subsystem {
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
         driveRightBTalon.set(driveRightTalon.getDeviceID());
         driveRightCTalon.set(driveRightTalon.getDeviceID());
-//        driveRightTalon.setSetpoint(position + driveRightTalon.getEncPosition());
-        driveRightTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Right Relative Position", position);
+        SmartDashboard.putNumber("Drive Right Relative Position", 
+                driveRightTalon.getEncPosition());
+        driveRightTalon.setSetpoint((driveRightTalon.getEncPosition()));
+//        driveRightTalon.setSetpoint(100);
     }
     
     public void setRelativePositionLeft(double position) {
@@ -193,9 +194,10 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
-//        driveLeftTalon.setSetpoint(position + driveLeftTalon.getEncPosition());
-        driveLeftTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Left Relative Position", position);
+        SmartDashboard.putNumber("Drive Left Relative Position",
+                driveLeftTalon.getEncPosition());
+        driveLeftTalon.setSetpoint((driveLeftTalon.getEncPosition()));
+//        driveLeftTalon.setSetpoint(100);
     }
     
     public void setPIDLeft(double p, double i, double d, double f) {
@@ -209,11 +211,45 @@ public class DriveTrain extends Subsystem {
     }
 
     public double getRightEncoderPosition() {
-        return driveRightTalon.getPosition();
+        return driveRightTalon.getEncPosition();
     }
 
     public double getLeftEncoderPosition() {
-        return driveLeftTalon.getPosition();
+        return driveLeftTalon.getEncPosition();
+    }
+    
+    public double getRightError() {
+        return driveRightTalon.getError();
+    }
+    
+    public double getLeftError() {
+        return driveLeftTalon.getError();
+    }
+    
+    public void reverseOutputLeft() {
+        driveLeftTalon.reverseOutput(true);
+    }
+    
+    public void reverseOutputRight() {
+        driveRightTalon.reverseOutput(true);
+    }
+    
+    public void unreverseOutput() {
+        driveLeftTalon.reverseOutput(false);
+        driveLeftBTalon.reverseOutput(false);
+        driveLeftCTalon.reverseOutput(false);
+        driveRightTalon.reverseOutput(false);
+        driveRightBTalon.reverseOutput(false);
+        driveRightCTalon.reverseOutput(false);
+    }
+    
+    public void configurePeakOutputVoltage(double value) {
+        driveLeftTalon.configPeakOutputVoltage(value, -value);
+        driveLeftBTalon.configPeakOutputVoltage(value, -value);
+        driveLeftCTalon.configPeakOutputVoltage(value, -value);
+        driveRightTalon.configPeakOutputVoltage(value, -value);
+        driveRightBTalon.configPeakOutputVoltage(value, -value);
+        driveRightCTalon.configPeakOutputVoltage(value, -value);
     }
     
     public double getRightMotorOutput() {
