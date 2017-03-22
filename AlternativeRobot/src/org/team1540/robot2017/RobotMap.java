@@ -11,6 +11,7 @@ public class RobotMap {
     // Climber
     public static final int climberTop = 12;
     public static final int climberBottom = 11;
+    public static final int climberNew = 3;
 
     // Feeder
     public static final int feederBelt = 13 /* 2*/;
@@ -19,8 +20,8 @@ public class RobotMap {
     public static final int feederFunnelingRollerLeft = 5;
 
     // GearMechanism
-    public static final int gearServoRight = 7;
-    public static final int gearServoLeft = 6;
+    public static final int gearWrist = 17;
+    public static final int gearRoller = 10;
 
     // Intake
     public static final int intakeRollers = 16;

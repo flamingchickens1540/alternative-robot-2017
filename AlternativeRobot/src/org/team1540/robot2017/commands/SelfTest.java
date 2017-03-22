@@ -199,19 +199,8 @@ public class SelfTest extends CommandGroup {
                 timeout);
         addSequential(new WaitCommand(wait));
 
-        addSequential(new ToggleGearServos());
         addSequential(new WaitCommand(wait));
         
-        addSequential(new SelfTestOutputEncoderCurrent(this, "Gear Servo Left",
-                () -> Robot.gearMechanism.toggleServos(), () -> {
-                }, () -> Robot.gearMechanism.getServoLeftPosition(), null, Robot.gearMechanism), timeout);
-        addSequential(new WaitCommand(wait));
-        
-        addSequential(new SelfTestOutputEncoderCurrent(this, "Gear Servo Right",
-                () -> Robot.gearMechanism.toggleServos(), () -> {
-                }, () -> Robot.gearMechanism.getServoRightPosition(), null, Robot.gearMechanism), timeout);
-        addSequential(new WaitCommand(wait));
-
         addSequential(new SelfTestOutputEncoderCurrent(this, "Intake", () -> Robot.intake.set(0.7),
                 () -> Robot.intake.set(0.0), null, () -> Robot.intake.getIntakeCurrent(), Robot.intake), timeout);
         addSequential(new WaitCommand(wait));

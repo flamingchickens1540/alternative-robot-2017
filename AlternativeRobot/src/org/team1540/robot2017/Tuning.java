@@ -45,7 +45,7 @@ public class Tuning {
     }
     
     public double getFlywheelSpeedChangeCoefficient() {
-        return tuning.getDouble("Flywheel Speed Change Coefficient", 1000); /////////////////////////////////
+        return tuning.getDouble("Flywheel Speed Change Coefficient", 1000);
     }
 
     ///////////////////////////////////////////////////////////////////////////////// belt
@@ -215,4 +215,35 @@ public class Tuning {
     public double getLeftDriveMultiplier() {
         return tuning.getDouble("Drive Left Multiplier", 1.0);
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////// gear mech
+    
+    public double getGearWristCurrentThreshold() {
+        return tuning.getDouble("Gear Wrist Current Threshold", 8);
+    }
+    
+    public double getGearRollerCurrentThreshold() {
+        return tuning.getDouble("Gear Roller Current Threshold", 5);
+    }
+    
+    public double getGearWristOutput() {
+        return tuning.getDouble("Gear Wrist Output", 0.4);
+    }
+    
+    public double getGearRollerOutput() {
+        return tuning.getDouble("Gear Roller Output", 1.0);
+    }
+    
+    public double getGearPlacementWristDownSecs() {
+        return tuning.getDouble("Gear Placement Wrist Down Secs", 0.3);
+    }
+    
+    public double getAutoGearPlacementSecs() {
+        return tuning.getDouble("Auto Gear Placement Secs", 0.4);
+    }
+    
+    public double getGearInitRollerSpinSecs() {
+        return tuning.getDouble("Gear Init Roller Spin Secs", 0.5);
+    }
+    
 }
