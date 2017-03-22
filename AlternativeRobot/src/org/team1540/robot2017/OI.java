@@ -15,7 +15,6 @@ public class OI {
     
     // Axes
     private static final int rightAxisY = 5;
-    private static final int leftAxisX = 0;
     private static final int leftAxisY = 1;
 
     private static final int rightTrigger = 3;
@@ -59,9 +58,9 @@ public class OI {
         return driver.getRawAxis(leftTrigger);
     }
 
-    // GearMechanism
-    public static double getGearSliderJoystick() {
-        return copilot.getRawAxis(leftAxisX);
+    // Shooter
+    public static double getFlywheelSpeedJoystick() {
+        return -copilot.getRawAxis(leftAxisY);
     }
     
     public static double getLedJoystick() {

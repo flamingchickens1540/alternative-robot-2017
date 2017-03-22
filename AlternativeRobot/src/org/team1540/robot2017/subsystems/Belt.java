@@ -16,13 +16,13 @@ public class Belt extends Subsystem {
     public Belt() {
         beltTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         beltTalon.reverseSensor(false);
-        beltTalon.reverseOutput(false);
+        beltTalon.reverseOutput(true);
         beltTalon.configNominalOutputVoltage(+0f, -0f);
         beltTalon.configPeakOutputVoltage(+12f, -12f);
         beltTalon.setAllowableClosedLoopErr(0);
+        beltTalon.configEncoderCodesPerRev(1024);
         beltTalon.setProfile(0);
         beltTalon.ClearIaccum();
-        beltTalon.enable();
         beltTalon.setP(Robot.tuning.getBeltP());
         beltTalon.setI(Robot.tuning.getBeltI());
         beltTalon.setD(Robot.tuning.getBeltD());
@@ -36,12 +36,12 @@ public class Belt extends Subsystem {
 
     public void set(double output) {
         beltTalon.changeControlMode(TalonControlMode.PercentVbus);
-        beltTalon.set(output);
+        beltTalon.set(-output);
     }
 
     public void setSpeed(double rpm) {
         beltTalon.changeControlMode(TalonControlMode.Speed);
-        beltTalon.setSetpoint(-rpm);
+        beltTalon.setSetpoint(rpm);
     }
 
     public void stop() {
@@ -55,6 +55,11 @@ public class Belt extends Subsystem {
 
     public double getSpeed() {
         return beltTalon.getEncVelocity();
+//        return beltTalon.getSpeed();
+    }
+    
+    public double getError() {
+        return beltTalon.getError();
     }
 
     public double getClosedLoopError() {
@@ -66,11 +71,15 @@ public class Belt extends Subsystem {
     }
 
     public double getBeltEncoder() {
-        return beltTalon.getEncPosition();
+        return beltTalon.getPosition();
     }
 
     public double getCurrent() {
         return beltTalon.getOutputCurrent();
+    }
+    
+    public double getSetpoint() {
+        return beltTalon.getSetpoint();
     }
 
     @Override

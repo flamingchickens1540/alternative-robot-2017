@@ -27,29 +27,29 @@ public class GearMechanism extends Subsystem {
 
 
     public void toggleServos() {
-//        if (gearLock) {
-//            gearRightDeployServo.set(1.0);
-//            gearLeftDeployServo.set(0.0);
-//        } else {
-//            gearRightDeployServo.set(0.0);
-//            gearLeftDeployServo.set(1.0);
-//        }
         if (gearLock) {
-            gearRightDeployServo.set(0.0);
-            gearLeftDeployServo.set(1.0);
-        } else {
             gearRightDeployServo.set(1.0);
             gearLeftDeployServo.set(0.0);
+        } else {
+            gearRightDeployServo.set(0.0);
+            gearLeftDeployServo.set(1.0);
         }
+//        if (gearLock) {
+//            gearRightDeployServo.set(0.0);
+//            gearLeftDeployServo.set(1.0);
+//        } else {
+//            gearRightDeployServo.set(1.0);
+//            gearLeftDeployServo.set(0.0);
+//        }
         gearLock = !gearLock;
     }
 
     public void closeServos() {
         gearLock = true;
-//        gearRightDeployServo.set(0.0);
-//        gearLeftDeployServo.set(1.0);
-        gearRightDeployServo.set(1.0);
-        gearLeftDeployServo.set(0.0);
+        gearRightDeployServo.set(0.0);
+        gearLeftDeployServo.set(1.0);
+//        gearRightDeployServo.set(1.0);
+//        gearLeftDeployServo.set(0.0);
     }
 
     public boolean getServoOpen() {
