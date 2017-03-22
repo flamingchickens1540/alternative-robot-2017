@@ -8,44 +8,45 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PickUpGear extends CommandGroup {
     
     public PickUpGear() {
-        requires(Robot.gearMechanism);
+        requires(Robot.gearWrist);
+        requires(Robot.gearRollers);
         addSequential(new Command() {
             @Override
             protected void initialize() {
-                Robot.gearMechanism.setWrist(Robot.tuning.getGearWristOutput());
-                Robot.gearMechanism.setRollers(-Robot.tuning.getGearRollerOutput());
+                Robot.gearWrist.setWrist(Robot.tuning.getGearWristOutput());
+                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
             }
             @Override
             protected void end() {
-                Robot.gearMechanism.setWrist(0);
+                Robot.gearWrist.stop();
             }
             @Override
             protected boolean isFinished() {
-                return Robot.gearMechanism.wristCurrentTooHigh();
+                return Robot.gearWrist.wristCurrentTooHigh();
             }
         });
         addSequential(new Command() {
             @Override
             protected void end() {
-                Robot.gearMechanism.stop();
+                Robot.gearRollers.stop();
             }
             @Override
             protected boolean isFinished() {
-                return Robot.gearMechanism.rollerCurrentTooHigh();
+                return Robot.gearRollers.rollerCurrentTooHigh();
             }
         });
         addSequential(new Command() {
             @Override
             protected void initialize() {
-                Robot.gearMechanism.setWrist(-Robot.tuning.getGearWristOutput());
+                Robot.gearWrist.setWrist(-Robot.tuning.getGearWristOutput());
             }
             @Override
             protected void end() {
-                Robot.gearMechanism.stop();
+                Robot.gearWrist.stop();
             }
             @Override
             protected boolean isFinished() {
-                return Robot.gearMechanism.wristCurrentTooHigh();
+                return Robot.gearWrist.wristCurrentTooHigh();
             }
         });
     }

@@ -62,18 +62,18 @@ public class OI {
         return -copilot.getRawAxis(leftAxisY);
     }
     
-    // Testing
-    public static double getL() {
-        return -copilot.getRawAxis(leftAxisY);
-    }
-    
-    public static double getR() {
-        return -copilot.getRawAxis(rightAxisY);
-    }
-    
     // Gear Mech
     public static int getGearPOV() {
         return copilot.getPOV();
+    }
+    
+    public static double getCopilotRightTrigger() {
+        return -copilot.getRawAxis(rightTrigger);
+                
+    }
+    
+    public static double getCopilotLeftTrigger() {
+        return copilot.getRawAxis(leftTrigger);
     }
 
 }

@@ -223,7 +223,7 @@ public class Tuning {
     }
     
     public double getGearRollerCurrentThreshold() {
-        return tuning.getDouble("Gear Roller Current Threshold", 8);
+        return tuning.getDouble("Gear Roller Current Threshold", 5);
     }
     
     public double getGearWristOutput() {
@@ -232,6 +232,14 @@ public class Tuning {
     
     public double getGearRollerOutput() {
         return tuning.getDouble("Gear Roller Output", 1.0);
+    }
+    
+    public double getGearPlacementWristDownSecs() {
+        return tuning.getDouble("Gear Placement Wrist Down Secs", 0.3);
+    }
+    
+    public double getGearInitRollerSpinSecs() {
+        return tuning.getDouble("Gear Init Roller Spin Secs", 0.5);
     }
     
 }

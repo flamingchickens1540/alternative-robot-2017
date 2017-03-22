@@ -1,14 +1,10 @@
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.subsystems.GearMechanism;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot3 extends IterativeRobot {
     
-    public static GearMechanism gearMechanism;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -16,16 +12,11 @@ public class Robot3 extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        gearMechanism = new GearMechanism();
     }
 
     @Override
     public void robotPeriodic() {
         Scheduler.getInstance().run();
-        gearMechanism.setWrist(RobotUtil.deadzone(OI.getR(), 0.1));
-        gearMechanism.setRollers(RobotUtil.deadzone(OI.getL(), 0.1));
-        SmartDashboard.putNumber("Gear Roller Current", gearMechanism.getRollerCurrent());
-        SmartDashboard.putNumber("Gear Wrist Current", gearMechanism.getWristCurrent());
     }
 
     /**

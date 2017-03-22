@@ -7,6 +7,7 @@ import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.GearInit;
 import org.team1540.robot2017.commands.PickUpGear;
 import org.team1540.robot2017.commands.PlaceGear;
 import org.team1540.robot2017.commands.ResetGearMechanism;
@@ -20,7 +21,8 @@ import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
 import org.team1540.robot2017.subsystems.Feeder;
-import org.team1540.robot2017.subsystems.GearMechanism;
+import org.team1540.robot2017.subsystems.GearRollers;
+import org.team1540.robot2017.subsystems.GearWrist;
 import org.team1540.robot2017.subsystems.Intake;
 import org.team1540.robot2017.subsystems.LedBar;
 import org.team1540.robot2017.subsystems.Shooter;
@@ -30,6 +32,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -47,7 +50,8 @@ public class Robot extends IterativeRobot {
 
     public static DriveTrain driveTrain;
     public static Climber climber;
-    public static GearMechanism gearMechanism;
+    public static GearWrist gearWrist;
+    public static GearRollers gearRollers;
     public static Feeder feeder;
     public static Belt belt;
     public static Intake intake;
@@ -76,7 +80,8 @@ public class Robot extends IterativeRobot {
         tuning = new Tuning();
         driveTrain = new DriveTrain();
         climber = new Climber();
-        gearMechanism = new GearMechanism();
+        gearWrist = new GearWrist();
+        gearRollers = new GearRollers();
         feeder = new Feeder();
         belt = new Belt();
         intake = new Intake();
@@ -128,8 +133,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
-        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearMechanism.getWristCurrent());
-        SmartDashboard.putNumber("Gear Roller Current", Robot.gearMechanism.getRollerCurrent());
+        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
+        SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
     }
 
     /**
@@ -164,7 +169,12 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+        autonomousCommand = new CommandGroup() {
+            {
+                addParallel(new GearInit());
+                addParallel(chooser.getSelected());
+            }
+        };
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -207,15 +217,20 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        OI.copilot.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);
-        OI.driver.setRumble(RumbleType.kRightRumble, intake.isIntaking() ? 0.3 : 0.0);
-
-        OI.copilot.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed() 
+        double intakeRumble = intake.isIntaking() ? 0.3 : 0.0;
+        OI.copilot.setRumble(RumbleType.kRightRumble, intakeRumble);
+        OI.driver.setRumble(RumbleType.kRightRumble, intakeRumble);
+        
+        double flywheelRumble = shooter.upToSpeed(tuning.getShooterFlywheelSpeed() 
                 + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
-                * Robot.tuning.getFlywheelSpeedChangeCoefficient()) ? 0.7 : 0.0);
-        OI.driver.setRumble(RumbleType.kRightRumble, shooter.upToSpeed(tuning.getShooterFlywheelSpeed() 
-                + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
-                * Robot.tuning.getFlywheelSpeedChangeCoefficient()) ? 0.7 : 0.0);
+                * Robot.tuning.getFlywheelSpeedChangeCoefficient()) ? 0.7 : 0.0;
+        OI.copilot.setRumble(RumbleType.kRightRumble, flywheelRumble);
+        OI.driver.setRumble(RumbleType.kRightRumble, flywheelRumble);
+        
+        double gearRumble = gearRollers.rollersIntaking() ? 0.5 : 0.0;
+        OI.copilot.setRumble(RumbleType.kLeftRumble, gearRumble);
+        OI.driver.setRumble(RumbleType.kLeftRumble, gearRumble);
+        
     }
 
     /**

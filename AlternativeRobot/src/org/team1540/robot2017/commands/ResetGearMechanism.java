@@ -7,23 +7,24 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ResetGearMechanism extends Command {
     
     public ResetGearMechanism() {
-        requires(Robot.gearMechanism);
+        requires(Robot.gearWrist);
+        requires(Robot.gearRollers);
     }
     
     @Override
     protected void initialize() {
-        Robot.gearMechanism.stop();
-        Robot.gearMechanism.setWrist(-Robot.tuning.getGearWristOutput());
+        Robot.gearRollers.stop();
+        Robot.gearWrist.setWrist(-Robot.tuning.getGearWristOutput());
     }
     
     @Override
     protected void end() {
-        Robot.gearMechanism.stop();
+        Robot.gearWrist.stop();
     }
     
     @Override
     protected boolean isFinished() {
-        return Robot.gearMechanism.wristCurrentTooHigh();
+        return Robot.gearWrist.wristCurrentTooHigh();
     }
     
 }
