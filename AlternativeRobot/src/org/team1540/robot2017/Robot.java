@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Shoot", new AutoShoot());
         chooser.addObject("Cross Line", new AutoCrossLine());
         chooser.addObject("Shoot and Cross Line", new AutoShootAndCrossLine());
-        chooser.addObject("Run Motion Profile", new RunMotionProfile());
+        chooser.addObject("Run Motion Profile", new RunMotionProfile("test"));
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();

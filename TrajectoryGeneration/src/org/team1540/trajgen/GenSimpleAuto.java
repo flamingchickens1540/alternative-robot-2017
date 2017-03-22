@@ -11,9 +11,9 @@ public class GenSimpleAuto {
 	public static void main(String[] args) throws IOException {
 		// 3 Waypoints
 		Waypoint[] points = new Waypoint[] {
-		    new Waypoint(-8, -2, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-		    new Waypoint(-4, -4, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
-		    new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+		    new Waypoint(0, 0, 0),
+		    new Waypoint(5, 0, 0),
+		    new Waypoint(10, 5, 0)
 		};
 
 		// Create the Trajectory Configuration
@@ -27,13 +27,19 @@ public class GenSimpleAuto {
 		// Max Velocity:        1.7 m/s
 		// Max Acceleration:    2.0 m/s/s
 		// Max Jerk:            60.0 m/s/s/s
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.02, 250, 250, 2000);
+		Trajectory.Config config = new Trajectory.Config(
+				Trajectory.FitMethod.HERMITE_CUBIC, 
+				Trajectory.Config.SAMPLES_HIGH, 
+				0.02, 
+				250, 
+				100, 
+				2000);
 		
 		// Generate the trajectory
 		Trajectory trajectory = Pathfinder.generate(points, config);
 		
 		// The distance between the left and right sides of the wheelbase is 0.6m
-		double wheelbase_width = 0.6;
+		double wheelbase_width = 5.0;
 
 		// Create the Modifier Object
 		TankModifier modifier = new TankModifier(trajectory);
@@ -43,5 +49,6 @@ public class GenSimpleAuto {
 		modifier.modify(wheelbase_width);
 		
 		CSVExporter.exportTrajectory("/Users/jake/left2.csv", "/Users/jake/right2.csv", modifier.getLeftTrajectory(), modifier.getRightTrajectory());
+		System.out.println("Successfully wrote to files " + "left2.csv" + " and " + "right2.csv");
 	}
 }

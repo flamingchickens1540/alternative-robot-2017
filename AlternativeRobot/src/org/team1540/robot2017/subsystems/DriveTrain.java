@@ -12,6 +12,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -24,10 +25,20 @@ public class DriveTrain extends Subsystem {
     private final CANTalon[] talons = { driveRightTalon, driveRightBTalon, driveRightCTalon, driveLeftTalon,
             driveLeftBTalon, driveLeftCTalon };
     
-    private final MotionProfile leftProfile;
-    private final MotionProfile rightProfile;
+    private MotionProfile leftProfile;
+    private MotionProfile rightProfile;
 
+    class PeriodicRunnable implements java.lang.Runnable {
+        public void run() {  
+            driveLeftTalon.processMotionProfileBuffer();
+            driveRightTalon.processMotionProfileBuffer();
+        }
+    }
+    Notifier _notifer = new Notifier(new PeriodicRunnable());
+    
     public DriveTrain() {
+        _notifer.startPeriodic(0.005);
+        
         try {
             CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/left.csv"));
             CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/right.csv"));
@@ -63,6 +74,14 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
     }
 
+    public void setRightProfile(CSVMotionProfile profile) {
+        rightProfile = new MotionProfile(driveRightTalon, profile.points, profile.kNumPoints);
+    }
+    
+    public void setLeftProfile(CSVMotionProfile profile) {
+        leftProfile = new MotionProfile(driveLeftTalon, profile.points, profile.kNumPoints);
+    }
+    
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickDrive());

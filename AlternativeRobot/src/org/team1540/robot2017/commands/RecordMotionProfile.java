@@ -54,15 +54,19 @@ public class RecordMotionProfile extends Command {
         System.out.println("finished profiling");
         
         StringBuilder leftCsv = new StringBuilder();
-        leftCsv.append("Kp,Kv,dt\n");
-        for (double[] p : pointsLeft) {
-            leftCsv.append(p[0] + "," + p[1] + "," + p[2] + "\n");
+        for (int i=0; i<pointsLeft.size(); ++i) {
+            if (i > 0) {
+                double[] p = pointsLeft.get(i);
+                leftCsv.append(p[0] + "," + p[1] + "," + p[2] + "\n");
+            }
         }
         
         StringBuilder rightCsv = new StringBuilder();
-        rightCsv.append("Kp,Kv,dt\n");
-        for (double[] p : pointsRight) {
-            rightCsv.append(p[0] + "," + p[1] + "," + p[2] + "\n");
+        for (int i=0; i<pointsRight.size(); ++i) {
+            if (i > 0) {
+                double[] p = pointsRight.get(i);
+                rightCsv.append(p[0] + "," + p[1] + "," + p[2] + "\n");
+            }
         }
         
         try {

@@ -18,11 +18,6 @@ public class MotionProfile {
     private static final int kMinPointsInTalon = 5;
     private static final int kNumLoopsTimeout = 10;
     
-    class PeriodicRunnable implements java.lang.Runnable {
-        public void run() {  _talon.processMotionProfileBuffer();    }
-    }
-    Notifier _notifer = new Notifier(new PeriodicRunnable());
-    
     public MotionProfile(CANTalon talon, double[][] profile, int totalCnt) {
         _talon = talon;
         _profile = profile;
@@ -34,7 +29,6 @@ public class MotionProfile {
          * notifer to half that
          */
         _talon.changeMotionControlFramePeriod(5);
-        _notifer.startPeriodic(0.005);
     }
     
     public void reset() {
