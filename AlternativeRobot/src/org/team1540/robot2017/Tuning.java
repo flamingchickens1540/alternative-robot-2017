@@ -238,6 +238,10 @@ public class Tuning {
         return tuning.getDouble("Gear Placement Wrist Down Secs", 0.3);
     }
     
+    public double getAutoGearPlacementSecs() {
+        return tuning.getDouble("Auto Gear Placement Secs", 0.4);
+    }
+    
     public double getGearInitRollerSpinSecs() {
         return tuning.getDouble("Gear Init Roller Spin Secs", 0.5);
     }
