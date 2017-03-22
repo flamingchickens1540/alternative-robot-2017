@@ -208,6 +208,13 @@ public class Tuning {
         return tuning.getDouble("Auto Driving Margin Of Error", 10);
     }
     
+    public double getAutoDrivingGearBackoffTime() {
+        return tuning.getDouble("Auto Driving Gear Backoff Time", 1.0);
+    }
+    
+    public double getAutoDrivingGearBackoffSet() {
+        return tuning.getDouble("Auto Driving Gear Backoff Set", 0.3);
+
     public double getRightDriveMultiplier() {
         return tuning.getDouble("Drive Right Multiplier", 1.0);
     }

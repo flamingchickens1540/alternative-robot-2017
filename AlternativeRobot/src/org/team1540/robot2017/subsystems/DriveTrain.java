@@ -1,16 +1,20 @@
 package org.team1540.robot2017.subsystems;
 
+import java.io.IOException;
+
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
 import org.team1540.robot2017.commands.JoystickDrive;
+import org.team1540.robot2017.motion.CSVMotionProfile;
+import org.team1540.robot2017.motion.MotionProfile;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
     private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveTalonRightA);
@@ -21,8 +25,30 @@ public class DriveTrain extends Subsystem {
     private final CANTalon driveLeftCTalon = new CANTalon(RobotMap.driveTalonLeftC);
     private final CANTalon[] talons = { driveRightTalon, driveRightBTalon, driveRightCTalon, driveLeftTalon,
             driveLeftBTalon, driveLeftCTalon };
+    
+    private MotionProfile leftProfile;
+    private MotionProfile rightProfile;
 
+    class PeriodicRunnable implements java.lang.Runnable {
+        public void run() {  
+            driveLeftTalon.processMotionProfileBuffer();
+            driveRightTalon.processMotionProfileBuffer();
+        }
+    }
+    Notifier _notifer = new Notifier(new PeriodicRunnable());
+    
     public DriveTrain() {
+        _notifer.startPeriodic(0.005);
+        
+        try {
+            CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/left.csv"));
+            CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/right.csv"));
+            leftProfile = new MotionProfile(driveLeftTalon, leftProfilePoints.points, leftProfilePoints.kNumPoints);
+            rightProfile = new MotionProfile(driveRightTalon, rightProfilePoints.points, rightProfilePoints.kNumPoints);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
         for (CANTalon talon : talons) {
             talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
             talon.enableBrakeMode(true);
@@ -49,6 +75,14 @@ public class DriveTrain extends Subsystem {
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
     }
 
+    public void setRightProfile(CSVMotionProfile profile) {
+        rightProfile = new MotionProfile(driveRightTalon, profile.points, profile.kNumPoints);
+    }
+    
+    public void setLeftProfile(CSVMotionProfile profile) {
+        leftProfile = new MotionProfile(driveLeftTalon, profile.points, profile.kNumPoints);
+    }
+    
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickDrive());
@@ -177,25 +211,62 @@ public class DriveTrain extends Subsystem {
     }
     
     public void setRelativePositionRight(double position) {
+        driveRightTalon.setPosition(0);
         driveRightTalon.changeControlMode(TalonControlMode.Position);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
         driveRightBTalon.set(driveRightTalon.getDeviceID());
         driveRightCTalon.set(driveRightTalon.getDeviceID());
-//        driveRightTalon.setSetpoint(position + driveRightTalon.getEncPosition());
-        driveRightTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Right Relative Position", position);
+        driveRightTalon.setSetpoint(position);
     }
     
     public void setRelativePositionLeft(double position) {
+        driveLeftTalon.setPosition(0);
         driveLeftTalon.changeControlMode(TalonControlMode.Position);
         driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
-//        driveLeftTalon.setSetpoint(position + driveLeftTalon.getEncPosition());
-        driveLeftTalon.setSetpoint(100);
-        SmartDashboard.putNumber("Drive Left Relative Position", position);
+        driveLeftTalon.setSetpoint(position);
+    }
+    
+    public void setSpeed(double left, double right) {
+        driveLeftTalon.changeControlMode(TalonControlMode.Speed);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftTalon.setSetpoint(left);
+        
+        driveRightTalon.changeControlMode(TalonControlMode.Speed);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightBTalon.set(driveRightTalon.getDeviceID());
+        driveRightCTalon.set(driveRightTalon.getDeviceID());
+        driveRightTalon.setSetpoint(right);
+    }
+    
+    public void setRightSpeed(double right) {
+        driveRightTalon.changeControlMode(TalonControlMode.Speed);
+        driveRightBTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightCTalon.changeControlMode(TalonControlMode.Follower);
+        driveRightBTalon.set(driveRightTalon.getDeviceID());
+        driveRightCTalon.set(driveRightTalon.getDeviceID());
+        driveRightTalon.setSetpoint(right);
+    }
+    
+    public void setLeftSpeed(double left) {
+        driveLeftTalon.changeControlMode(TalonControlMode.Speed);
+        driveLeftBTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftCTalon.changeControlMode(TalonControlMode.Follower);
+        driveLeftBTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        driveLeftTalon.setSetpoint(left);
+    }
+    
+    public void zeroEncoders() {
+        driveLeftTalon.setPosition(0);
+        driveRightTalon.setPosition(0);
     }
     
     public void setPIDLeft(double p, double i, double d, double f) {
@@ -254,5 +325,39 @@ public class DriveTrain extends Subsystem {
 
     public double getLeftBackCurrent() {
         return driveLeftCTalon.getOutputCurrent();
+    }
+    
+    public double getLeftSpeed() {
+        return driveLeftTalon.getSpeed();
+    }
+    
+    public double getRightSpeed() {
+        return driveRightTalon.getSpeed();
+    }
+    
+    public void controlMotionProfile() {
+        leftProfile.control();
+        driveLeftTalon.changeControlMode(TalonControlMode.MotionProfile);
+        CANTalon.SetValueMotionProfile setOutputLeft = leftProfile.getSetValue();
+        driveLeftTalon.set(setOutputLeft.value);
+        
+        rightProfile.control();
+        driveRightTalon.changeControlMode(TalonControlMode.MotionProfile);
+        CANTalon.SetValueMotionProfile setOutputRight = rightProfile.getSetValue();
+        driveRightTalon.set(setOutputRight.value);
+    }
+    
+    public void startMotionProfile() {
+        leftProfile.startMotionProfile();
+        rightProfile.startMotionProfile();
+    }
+    
+    public void stopMotionProfile() {
+        leftProfile.reset();
+        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveLeftTalon.set(0);
+        rightProfile.reset();
+        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+        driveRightTalon.set(0);
     }
 }

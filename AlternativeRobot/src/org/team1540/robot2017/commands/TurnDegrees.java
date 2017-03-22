@@ -11,20 +11,20 @@ public class TurnDegrees extends Command {
     
     public TurnDegrees(double degreesR) {
         requires(Robot.driveTrain);
-        degrees = degreesR;
+        this.degrees = degreesR;
     }
     
     protected void initialize() {
-        Robot.driveTrain.setPIDLeft(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
-                Robot.tuning.getAutoTurningD(), Robot.tuning.getAutoTuningF());
-        Robot.driveTrain.setPIDRight(Robot.tuning.getAutoTurningP(), Robot.tuning.getAutoTurningI(), 
-                Robot.tuning.getAutoTurningD(), Robot.tuning.getAutoTuningF());
+        Robot.driveTrain.setPIDLeft(Robot.tuning.getAutoDrivingLeftP(), Robot.tuning.getAutoDrivingLeftI(), 
+                Robot.tuning.getAutoDrivingLeftD(), Robot.tuning.getAutoDrivingLeftF());
+        Robot.driveTrain.setPIDRight(Robot.tuning.getAutoDrivingRightP(), Robot.tuning.getAutoDrivingRightI(), 
+                Robot.tuning.getAutoDrivingRightD(), Robot.tuning.getAutoDrivingRightF());
         double cTurning = 24 * Math.PI;
         double cWheel = 4 * Math.PI;
         double ticksPerRev = 1024;
         position = degrees * (1.0/360.0) * cTurning * (1.0/cWheel) * ticksPerRev;
         Robot.driveTrain.setRelativePositionRight(position);
-        Robot.driveTrain.setRelativePositionLeft(-position);
+        Robot.driveTrain.setRelativePositionLeft(position);
     }
     
     @Override

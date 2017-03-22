@@ -7,6 +7,8 @@ import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.RecordMotionProfile;
+import org.team1540.robot2017.commands.RunMotionProfile;
 import org.team1540.robot2017.commands.GearInit;
 import org.team1540.robot2017.commands.PickUpGear;
 import org.team1540.robot2017.commands.PlaceGear;
@@ -96,6 +98,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Cross Line BLUE", new AutoCrossLineBlue());
         chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
         chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
+        chooser.addObject("Run Motion Profile", new RunMotionProfile("test"));
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
@@ -112,6 +115,7 @@ public class Robot extends IterativeRobot {
         OI.buttonResetGearMech.whenPressed(new ResetGearMechanism());
         
         OI.buttonSelfTest.whenPressed(new SelfTest());
+        OI.buttonRecord.whenPressed(new RecordMotionProfile());
     }
     
     @Override
@@ -133,6 +137,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
         SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
         SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Drive Left Position", Robot.driveTrain.getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Position", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
+        SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
+        SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
+        SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
         SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
         SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
     }
@@ -169,19 +179,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = new CommandGroup() {
-            {
-                addParallel(new GearInit());
-                addParallel(chooser.getSelected());
-            }
-        };
-
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
+        autonomousCommand = chooser.getSelected();
 
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
