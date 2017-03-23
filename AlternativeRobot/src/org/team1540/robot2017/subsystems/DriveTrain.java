@@ -40,15 +40,6 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
         _notifer.startPeriodic(0.005);
         
-        try {
-            CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/left.csv"));
-            CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/right.csv"));
-            leftProfile = new MotionProfile(driveLeftTalon, leftProfilePoints.points, leftProfilePoints.kNumPoints);
-            rightProfile = new MotionProfile(driveRightTalon, rightProfilePoints.points, rightProfilePoints.kNumPoints);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        
         for (CANTalon talon : talons) {
             talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
             talon.enableBrakeMode(true);

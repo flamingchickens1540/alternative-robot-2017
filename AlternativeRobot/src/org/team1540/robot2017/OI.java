@@ -37,11 +37,6 @@ public class OI {
     
     public static final JoystickButton buttonRecord = new JoystickButton(driver, 8);
 
-    // Climber
-    public static double getClimberJoystick() {
-        return copilot.getRawAxis(rightAxisY);
-    }
-
     // DriveTrain
     public static double getDriveRightJoystick() {
         return -driver.getRawAxis(rightAxisY);

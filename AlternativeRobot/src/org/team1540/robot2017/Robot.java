@@ -1,24 +1,26 @@
 package org.team1540.robot2017;
 
-import org.team1540.robot2017.commands.AutoCrossLineBlue;
-import org.team1540.robot2017.commands.AutoCrossLineRed;
-import org.team1540.robot2017.commands.AutoDoNothing;
-import org.team1540.robot2017.commands.AutoShoot;
-import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
-import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.FireShooter;
-import org.team1540.robot2017.commands.RecordMotionProfile;
-import org.team1540.robot2017.commands.RunMotionProfile;
-import org.team1540.robot2017.commands.GearInit;
 import org.team1540.robot2017.commands.PickUpGear;
 import org.team1540.robot2017.commands.PlaceGear;
+import org.team1540.robot2017.commands.RecordMotionProfile;
 import org.team1540.robot2017.commands.ResetGearMechanism;
+import org.team1540.robot2017.commands.RunMotionProfile;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheelTeleop;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnHopperOff;
 import org.team1540.robot2017.commands.TurnOnIntake;
 import org.team1540.robot2017.commands.UnJamFeeder;
+import org.team1540.robot2017.commands.auto.AutoCrossLineBlue;
+import org.team1540.robot2017.commands.auto.AutoCrossLineRed;
+import org.team1540.robot2017.commands.auto.AutoDoNothing;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearCenter;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearLeft;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearRight;
+import org.team1540.robot2017.commands.auto.AutoShoot;
+import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineBlue;
+import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -34,7 +36,6 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -99,6 +100,9 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
         chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
         chooser.addObject("Run Motion Profile", new RunMotionProfile("test"));
+        chooser.addObject("Place Gear LEFT", new AutoPlaceGearLeft());
+        chooser.addObject("Place Gear CENTER", new AutoPlaceGearCenter());
+        chooser.addObject("Place Gear RIGHT", new AutoPlaceGearRight());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
@@ -145,6 +149,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
         SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
         SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
+        SmartDashboard.putBoolean("Gear Rollers Current Too High", Robot.gearRollers.rollerCurrentTooHigh());
     }
 
     /**

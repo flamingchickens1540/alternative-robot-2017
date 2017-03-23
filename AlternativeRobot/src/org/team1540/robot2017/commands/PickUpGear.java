@@ -14,7 +14,7 @@ public class PickUpGear extends CommandGroup {
             @Override
             protected void initialize() {
                 Robot.gearWrist.setWrist(Robot.tuning.getGearWristOutput());
-                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+//                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
             }
             @Override
             protected void end() {
@@ -26,6 +26,11 @@ public class PickUpGear extends CommandGroup {
             }
         });
         addSequential(new Command() {
+            @Override
+            protected void initialize() {
+                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+            }
+            
             @Override
             protected void end() {
                 Robot.gearRollers.stop();
