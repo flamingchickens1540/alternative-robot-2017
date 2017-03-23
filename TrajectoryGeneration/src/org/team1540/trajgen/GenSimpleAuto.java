@@ -11,9 +11,7 @@ public class GenSimpleAuto {
 	public static void main(String[] args) throws IOException {
 		// 3 Waypoints
 		Waypoint[] points = new Waypoint[] {
-		    new Waypoint(0, 0, 0),
-		    new Waypoint(5, 0, 0),
-		    new Waypoint(10, 5, 0)
+		    new Waypoint(0, 0, 0)
 		};
 
 		// Create the Trajectory Configuration
@@ -31,7 +29,7 @@ public class GenSimpleAuto {
 				Trajectory.FitMethod.HERMITE_CUBIC, 
 				Trajectory.Config.SAMPLES_HIGH, 
 				0.02, 
-				250, 
+				250,
 				100, 
 				2000);
 		
@@ -49,6 +47,7 @@ public class GenSimpleAuto {
 		modifier.modify(wheelbase_width);
 		
 		CSVExporter.exportTrajectory("/Users/jake/left2.csv", "/Users/jake/right2.csv", modifier.getLeftTrajectory(), modifier.getRightTrajectory());
+		CSVExporter.exportPath("/Users/jake/path.csv", modifier.getLeftTrajectory());
 		System.out.println("Successfully wrote to files " + "left2.csv" + " and " + "right2.csv");
 	}
 }

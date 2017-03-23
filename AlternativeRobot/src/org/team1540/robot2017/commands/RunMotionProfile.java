@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class RunMotionProfile extends Command {
     private String profile;
+    private boolean isEnd = false;
     
     public RunMotionProfile(String profile) {
         requires(Robot.driveTrain);
@@ -24,14 +25,18 @@ public class RunMotionProfile extends Command {
             throw new RuntimeException(e);
         }
         
-        Robot.driveTrain.setPIDLeft(0.2, 0, 0.2, 0.09);
-        Robot.driveTrain.setPIDRight(0.2, 0, 0.2, 0.09);
+        Robot.driveTrain.stopMotionProfile();
+        Robot.driveTrain.setPIDLeft(0.1, 1e-5, 0.1, 7.795473596);
+        Robot.driveTrain.setPIDRight(0.1, 1e-5, 0.1, 7.795473596);
+
+//      Robot.driveTrain.setPIDLeft(0.0, 0, 0.0, 7.795473596);
+//      Robot.driveTrain.setPIDRight(0.0, 0, 0.0, 7.795473596);
         Robot.driveTrain.startMotionProfile();
     }
     
     @Override
     protected void execute() {
-        Robot.driveTrain.controlMotionProfile();
+        isEnd = Robot.driveTrain.controlMotionProfile();
     }
 
     @Override
@@ -41,6 +46,6 @@ public class RunMotionProfile extends Command {
     
     @Override
     public boolean isFinished() {
-        return false;
+        return isEnd;
     }
 }

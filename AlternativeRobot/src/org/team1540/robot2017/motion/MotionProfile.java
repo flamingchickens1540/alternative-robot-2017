@@ -17,6 +17,7 @@ public class MotionProfile {
     private int _loaded;
     private static final int kMinPointsInTalon = 5;
     private static final int kNumLoopsTimeout = 10;
+    private boolean _isStarting = true;
     
     public MotionProfile(CANTalon talon, double[][] profile, int totalCnt) {
         _talon = talon;
@@ -49,9 +50,10 @@ public class MotionProfile {
          * button press
          */
         _bStart = false;
+        _isStarting = true;
     }
     
-    public void control() {
+    public boolean control() {
         /* Get the motion profile status every loop */
         _talon.getMotionProfileStatus(_status);
 
@@ -138,9 +140,16 @@ public class MotionProfile {
                         _state = 0;
                         _loopTimeout = -1;
                     }
+                    
+                    if (_status.activePoint.isLastPoint) {
+                        return true;
+                    }
+                    
                     break;
             }
         }
+        
+        return false;
     }
     
     private int startFilling(double[][] profile, int totalCnt) {

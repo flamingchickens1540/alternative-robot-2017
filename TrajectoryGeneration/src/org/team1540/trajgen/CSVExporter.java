@@ -24,4 +24,14 @@ public class CSVExporter {
 		Files.write(Paths.get(leftFilename), l.toString().getBytes());
 		Files.write(Paths.get(rightFilename), r.toString().getBytes());
 	}
+	
+	public static void exportPath(String filename, Trajectory path) throws IOException {
+		StringBuilder p = new StringBuilder();
+		for (int i=0; i<path.segments.length; ++i) {
+			Segment s = path.segments[i];
+			p.append(s.dt + "," + s.heading + "," + s.x + "," + s.y + "\n");
+		}
+		
+		Files.write(Paths.get(filename), p.toString().getBytes());
+	}
 }

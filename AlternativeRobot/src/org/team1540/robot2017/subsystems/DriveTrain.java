@@ -326,16 +326,18 @@ public class DriveTrain extends Subsystem {
         return driveRightTalon.getSpeed();
     }
     
-    public void controlMotionProfile() {
-        leftProfile.control();
+    public boolean controlMotionProfile() {
+        boolean isEnd = leftProfile.control();
         driveLeftTalon.changeControlMode(TalonControlMode.MotionProfile);
         CANTalon.SetValueMotionProfile setOutputLeft = leftProfile.getSetValue();
         driveLeftTalon.set(setOutputLeft.value);
         
-        rightProfile.control();
+        isEnd = isEnd || rightProfile.control();
         driveRightTalon.changeControlMode(TalonControlMode.MotionProfile);
         CANTalon.SetValueMotionProfile setOutputRight = rightProfile.getSetValue();
         driveRightTalon.set(setOutputRight.value);
+        
+        return isEnd;
     }
     
     public void startMotionProfile() {
