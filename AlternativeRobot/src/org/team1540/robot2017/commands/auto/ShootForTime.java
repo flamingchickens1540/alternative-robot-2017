@@ -1,4 +1,8 @@
-package org.team1540.robot2017.commands;
+package org.team1540.robot2017.commands.auto;
+
+import org.team1540.robot2017.commands.FireShooter;
+import org.team1540.robot2017.commands.SpinupFlywheel;
+import org.team1540.robot2017.commands.TurnEverythingOff;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

@@ -1,7 +1,6 @@
 package org.team1540.robot2017.commands.auto;
 
 import org.team1540.robot2017.Robot;
-import org.team1540.robot2017.commands.ShootForTime;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

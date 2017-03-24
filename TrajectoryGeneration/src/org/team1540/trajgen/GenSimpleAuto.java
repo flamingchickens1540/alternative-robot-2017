@@ -46,8 +46,8 @@ public class GenSimpleAuto {
 		// as the centre
 		modifier.modify(wheelbase_width);
 		
-		CSVExporter.exportTrajectory("/Users/jake/left2.csv", "/Users/jake/right2.csv", modifier.getLeftTrajectory(), modifier.getRightTrajectory());
-		CSVExporter.exportPath("/Users/jake/path.csv", modifier.getLeftTrajectory());
+		CSVExporter.exportTrajectory("/Users/merrillam/auto/left2.csv", "/Users/merrillam/auto/right2.csv", modifier.getLeftTrajectory(), modifier.getRightTrajectory());
+		CSVExporter.exportPath("/Users/merrillam/auto/path.csv", modifier.getLeftTrajectory());
 		System.out.println("Successfully wrote to files " + "left2.csv" + " and " + "right2.csv");
 	}
 }
