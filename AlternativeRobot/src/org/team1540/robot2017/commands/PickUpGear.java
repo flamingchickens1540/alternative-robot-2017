@@ -4,6 +4,7 @@ import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PickUpGear extends CommandGroup {
     
@@ -26,18 +27,24 @@ public class PickUpGear extends CommandGroup {
             }
         });
         addSequential(new Command() {
+            private long startTime;
             @Override
             protected void initialize() {
                 Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+                startTime = System.currentTimeMillis();
             }
-            
+            @Override
+            protected void execute() {
+                SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
+            }
             @Override
             protected void end() {
                 Robot.gearRollers.stop();
             }
             @Override
             protected boolean isFinished() {
-                return Robot.gearRollers.rollerCurrentTooHigh();
+                return Robot.gearRollers.rollerCurrentTooHigh() && 
+                        System.currentTimeMillis() - startTime > Robot.tuning.getGearRollerTurnOnMillis();
             }
         });
         addSequential(new Command() {

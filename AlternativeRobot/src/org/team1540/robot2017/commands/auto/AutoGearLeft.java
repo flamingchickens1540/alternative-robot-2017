@@ -1,7 +1,5 @@
 package org.team1540.robot2017.commands.auto;
 
-import org.team1540.robot2017.commands.DriveDistance;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoGearLeft extends CommandGroup {

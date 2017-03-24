@@ -12,7 +12,7 @@ points_right = []
 points_left = []
 
 def save_to_csv():
-    with open('/Users/jake/right.csv', 'w') as r, open('/Users/jake/left.csv', 'w') as l:
+    with open('/Users/merrillam/auto/right.csv', 'w') as r, open('/Users/merrillam/auto/left.csv', 'w') as l:
         for (p, v, dt) in points_right:
             r.write(str(p) + ',' + str(v) + ',' + str(math.floor(dt*1000)) + '\n')
         for (p, v, dt) in points_left:
@@ -49,12 +49,12 @@ def trajectory(abs_dist, direction, start_position):
             points.append((direction*position+start_position, direction*velocity, dt))
     else:
         t1 = calculate_t1_s(x, A)
-        for i in range(0, math.ceil(t1/dt)):
+        for i in range(0, int(math.ceil(t1/dt))):
             t = i*dt
             position = (1/2) * A * math.pow(t, 2)
             velocity = A * t
             points.append((direction*position+start_position, direction*velocity, dt))
-        for i in range(0, math.ceil(t1/dt)):
+        for i in range(0, int(math.ceil(t1/dt))):
             t = i*dt
             position = ((1/2) * A * math.pow(t1, 2)) + (A * t1 * t) - ((1/2) * A * math.pow(t, 2))
             velocity = (A * t1) - (A * t)
@@ -90,7 +90,4 @@ def turn(angle):
     points_left.extend(trajectory(angle, sign, xl_0))
 
 move(10)
-turn(10)
-turn(-10)
-move(-10)
 save_to_csv()
