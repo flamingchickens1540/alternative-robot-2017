@@ -13,7 +13,7 @@ public class CSVExporter {
 		StringBuilder r = new StringBuilder();
 		for (int i=0; i<left.segments.length; ++i) {
 			Segment s = left.segments[i];
-			l.append(s.position + "," + s.velocity + "," + (s.dt*1000) + "\n");
+			l.append(-s.position + "," + -s.velocity + "," + (s.dt*1000) + "\n");
 		}
 		
 		for (int i=0; i<right.segments.length; ++i) {

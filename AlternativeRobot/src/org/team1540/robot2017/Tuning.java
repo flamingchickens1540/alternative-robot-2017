@@ -214,6 +214,7 @@ public class Tuning {
     
     public double getAutoDrivingGearBackoffSet() {
         return tuning.getDouble("Auto Driving Gear Backoff Set", 0.3);
+    }
 
     public double getRightDriveMultiplier() {
         return tuning.getDouble("Drive Right Multiplier", 1.0);

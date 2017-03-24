@@ -3,6 +3,7 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.AutoCrossLineBlue;
 import org.team1540.robot2017.commands.AutoCrossLineRed;
 import org.team1540.robot2017.commands.AutoDoNothing;
+import org.team1540.robot2017.commands.AutoRunMotionProfile;
 import org.team1540.robot2017.commands.AutoShoot;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.AutoShootAndCrossLineRed;
@@ -99,6 +100,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
         chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
         chooser.addObject("Run Motion Profile", new RunMotionProfile("test"));
+        chooser.addObject("Run gen motion profile", new AutoRunMotionProfile());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();

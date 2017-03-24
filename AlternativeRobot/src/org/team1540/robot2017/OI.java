@@ -58,11 +58,6 @@ public class OI {
     public static double getDriveLeftTrigger() {
         return driver.getRawAxis(leftTrigger);
     }
-    
-    // Climber
-    public static double getClimberJoystick() {
-        return copilot.getRawAxis(rightAxisY);
-    }
 
     // Shooter
     public static double getFlywheelSpeedJoystick() {

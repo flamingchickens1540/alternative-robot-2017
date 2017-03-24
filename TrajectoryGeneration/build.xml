@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- build.xml designed to deploy motion profile CSV files to the RoboRio -->
+
+<project name="trajectory-generation-deploy" default="deploy">
+	<property name="csvdir" value="${user.home}/wpilib/motionprofilepaths"/>
+	<property name="deploydir" value="${user.home}/paths"/>
+
+	<!-- Load Tasks -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${wpilib.ant.dir}/ant-contrib.jar"/>
+		</classpath>
+	</taskdef>
+	<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${classloadertask.jar}"/>
+	<classloader loader="system" classpath="${jsch.jar}"/>
+
+	<!-- Targets -->
+
+	<target name="get-target-ip">
+		<property name="ant.enable.asserts" value="true"/>
+		<assert name="team-number" exists="true" message="Team number not set. Go to Window->Preferences->WPILib Preferences to set it."/>
+
+		<echo>Finding roboRIO, please ignore any [hostinfo] error messages</echo>
+		<var name="target" unset="true"/>
+		<trycatch>
+			<try>
+				<parallel failonany="true">
+					<sequential>
+						<echo>Trying mDNS: roboRIO-${team-number}-FRC.local</echo>
+						<hostinfo prefix="targethost_local" host="roboRIO-${team-number}-FRC.local" />
+						<if>
+							<not>
+								<equals arg1="${targethost_local.ADDR4}" arg2="0.0.0.0"/>
+							</not>
+							<then>
+								<echo>Resolved mDNS to ${targethost_local.ADDR4}</echo>
+								<if>
+									<socket server="${targethost_local.ADDR4}" port="80"/>
+									<then>
+										<property name="target" value="${targethost_local.ADDR4}"/>
+										<fail>${targethost_local.ADDR4}</fail>
+									</then>
+								</if>
+							</then>
+						</if>
+					</sequential>
+					<sequential>
+						<echo>Trying DNS: roboRIO-${team-number}-FRC.lan</echo>
+						<hostinfo prefix="targethost_lan" host="roboRIO-${team-number}-FRC.lan" />
+						<if>
+							<not>
+								<equals arg1="${targethost_lan.ADDR4}" arg2="0.0.0.0"/>
+							</not>
+							<then>
+								<echo>Resolved DNS to ${targethost_lan.ADDR4}</echo>
+								<if>
+									<socket server="${targethost_lan.ADDR4}" port="80"/>
+									<then>
+										<property name="target" value="${targethost_lan.ADDR4}"/>
+										<fail>${targethost_lan.ADDR4}</fail>
+									</then>
+								</if>
+							</then>
+						</if>
+					</sequential>
+					<sequential>
+						<echo>Trying USB: 172.22.11.2</echo>
+						<if>
+							<socket server="172.22.11.2" port="80"/>
+							<then>
+								<property name="target" value="172.22.11.2"/>
+								<fail>172.22.11.2</fail>
+							</then>
+						</if>
+					</sequential>
+					<sequential>
+						<math result="ip.upper" operand1="${team-number}" operation="/" operand2="100" datatype="int"/>
+						<math result="ip.lower" operand1="${team-number}" operation="%" operand2="100" datatype="int"/>
+						<property name="targethost_ip" value="10.${ip.upper}.${ip.lower}.2"/>
+						<echo>Trying Static Ethernet: ${targethost_ip}</echo>
+						<if>
+							<socket server="${targethost_ip}" port="80"/>
+							<then>
+								<property name="target" value="${targethost_ip}"/>
+								<fail>${targethost_ip}</fail>
+							</then>
+						</if>
+					</sequential>
+					<sequential>
+						<echo>Trying mDNS: roboRIO-${team-number}-FRC.frc-robot.local</echo>
+						<hostinfo prefix="targethost_robot_local" host="roboRIO-${team-number}-FRC.frc-robot.local" />
+						<if>
+							<not>
+								<equals arg1="${targethost_robot_local.ADDR4}" arg2="0.0.0.0"/>
+							</not>
+							<then>
+								<echo>Resolved mDNS to ${targethost_robot_local.ADDR4}</echo>
+								<if>
+									<socket server="${targethost_robot_local.ADDR4}" port="80"/>
+									<then>
+										<property name="target" value="${targethost_robot_local.ADDR4}"/>
+										<fail>${targethost_robot_local.ADDR4}</fail>
+									</then>
+								</if>
+							</then>
+						</if>
+					</sequential>
+					<sequential>
+						<sleep seconds="20"/>
+						<fail>
+						</fail>
+					</sequential>
+				</parallel>
+			</try>
+			<catch>
+			</catch>
+		</trycatch>
+
+		<if>
+			<isset property="target"/>
+			<then>
+				<echo>roboRIO found at ${target}</echo>
+			</then>
+			<else>
+				<assert name="roboRIOFound" message="roboRIO not found, please check that the roboRIO is connected, imaged and that the team number is set properly in Eclipse"/>
+			</else>
+		</if>
+	</target>
+
+	<target name="deploy" depends="get-target-ip" description="Deploy the CSVs.">
+
+		<echo>[trajectory-generation-deploy] Copying code over.</echo>
+		<scp todir="${username}@${target}:${deploydir}" password="${password}" trust="true">
+			<fileset dir="${csvdir}"/>
+		</scp>
+		<echo>[trajectory-generation-deploy] Done copying code over.</echo>
+
+	</target>
+
+</project>

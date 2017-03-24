@@ -41,12 +41,12 @@ public class DriveTrain extends Subsystem {
         _notifer.startPeriodic(0.005);
         
         try {
-            CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/left.csv"));
-            CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/right.csv"));
+            CSVMotionProfile leftProfilePoints = (new CSVMotionProfile("/home/lvuser/profiles/left.csv"));
+            CSVMotionProfile rightProfilePoints = (new CSVMotionProfile("/home/lvuser/profiles/right.csv"));
             leftProfile = new MotionProfile(driveLeftTalon, leftProfilePoints.points, leftProfilePoints.kNumPoints);
             rightProfile = new MotionProfile(driveRightTalon, rightProfilePoints.points, rightProfilePoints.kNumPoints);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Could not find defualt profile");
         }
         
         for (CANTalon talon : talons) {
