@@ -254,4 +254,23 @@ public class Tuning {
         return tuning.getDouble("Gear Init Roller Spin Secs", 0.5);
     }
     
+    public double getGearRollerCurrentWait() {
+        return tuning.getDouble("Gear Roller Current Wait", 1.0);
+    }
+    
+    public double getMotionProfilingP() {
+        return tuning.getDouble("Motion Profiling P", 0.1);
+    }
+    
+    public double getMotionProfilingI() {
+        return tuning.getDouble("Motion Profiling I", 1.0e-5);
+    }
+    
+    public double getMotionProfilingD() {
+        return tuning.getDouble("Motion Profiling D", 0.1);
+    }
+    
+    public double getMotionProfilingF() {
+        return tuning.getDouble("Motion Profiling F", 7.795);
+    }
 }

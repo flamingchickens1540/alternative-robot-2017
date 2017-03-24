@@ -18,6 +18,8 @@ public class RunMotionProfile extends Command {
     
     @Override
     protected void initialize() {
+        Robot.driveTrain.stopMotionProfile();
+        
         try {
             Robot.driveTrain.setLeftProfile(new CSVMotionProfile("/home/lvuser/profiles/"+profile+"_left.csv"));
             Robot.driveTrain.setRightProfile(new CSVMotionProfile("/home/lvuser/profiles/"+profile+"_right.csv"));
@@ -25,12 +27,14 @@ public class RunMotionProfile extends Command {
             throw new RuntimeException(e);
         }
         
-        Robot.driveTrain.stopMotionProfile();
-        Robot.driveTrain.setPIDLeft(0.1, 1e-5, 0.1, 7.795473596);
-        Robot.driveTrain.setPIDRight(0.1, 1e-5, 0.1, 7.795473596);
-
-//      Robot.driveTrain.setPIDLeft(0.0, 0, 0.0, 7.795473596);
-//      Robot.driveTrain.setPIDRight(0.0, 0, 0.0, 7.795473596);
+        Robot.driveTrain.setPIDLeft(Robot.tuning.getMotionProfilingP(), 
+                Robot.tuning.getMotionProfilingI(), 
+                Robot.tuning.getMotionProfilingD(), 
+                Robot.tuning.getMotionProfilingF());
+        Robot.driveTrain.setPIDRight(Robot.tuning.getMotionProfilingP(), 
+                Robot.tuning.getMotionProfilingI(), 
+                Robot.tuning.getMotionProfilingD(), 
+                Robot.tuning.getMotionProfilingF());
         Robot.driveTrain.startMotionProfile();
     }
     

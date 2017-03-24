@@ -139,9 +139,6 @@ public class MotionProfile {
                         _setValue = CANTalon.SetValueMotionProfile.Hold;
                         _state = 0;
                         _loopTimeout = -1;
-                    }
-                    
-                    if (_status.activePoint.isLastPoint) {
                         return true;
                     }
                     

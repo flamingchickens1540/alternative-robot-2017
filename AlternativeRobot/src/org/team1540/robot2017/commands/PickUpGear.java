@@ -11,10 +11,13 @@ public class PickUpGear extends CommandGroup {
         requires(Robot.gearWrist);
         requires(Robot.gearRollers);
         addSequential(new Command() {
+            private long startTime;
+            
             @Override
             protected void initialize() {
                 Robot.gearWrist.setWrist(Robot.tuning.getGearWristOutput());
-//                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+                startTime = System.currentTimeMillis();
             }
             @Override
             protected void end() {
@@ -22,13 +25,14 @@ public class PickUpGear extends CommandGroup {
             }
             @Override
             protected boolean isFinished() {
-                return Robot.gearWrist.wristCurrentTooHigh();
+                return (System.currentTimeMillis() - startTime) > ((long) (Robot.tuning.getGearRollerCurrentWait() * 1000)) 
+                        && Robot.gearWrist.wristCurrentTooHigh();
             }
         });
         addSequential(new Command() {
             @Override
             protected void initialize() {
-                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
+//                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
             }
             
             @Override
