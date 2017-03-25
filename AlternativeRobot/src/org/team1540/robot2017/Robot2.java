@@ -57,6 +57,7 @@ public class Robot2 extends IterativeRobot {
             @Override
             protected void execute() {
                 SmartDashboard.putNumber("Output", talons[talonChooser.getSelected()].getOutputVoltage() / talons[talonChooser.getSelected()].getBusVoltage());
+                SmartDashboard.putNumber("SPEED", talons[talonChooser.getSelected()].getSpeed());
             }
             
             @Override

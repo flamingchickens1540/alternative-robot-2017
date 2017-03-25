@@ -28,7 +28,7 @@ public class ManualGearControl extends Command {
         } else if ((g >= 315 && g <= 360) || (g >= 0 && g <= 45)) { // up = wrist up
             Robot.gearWrist.setWrist(-Robot.tuning.getGearWristOutput());
         } else {
-            Robot.gearWrist.setWrist(0);
+            Robot.gearWrist.setWrist(-Robot.tuning.getGearWristIdle());
         }
     }
     

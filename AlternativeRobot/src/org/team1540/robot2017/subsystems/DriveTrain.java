@@ -1,7 +1,5 @@
 package org.team1540.robot2017.subsystems;
 
-import java.io.IOException;
-
 import org.team1540.robot2017.Robot;
 import org.team1540.robot2017.RobotMap;
 import org.team1540.robot2017.RobotUtil;
@@ -327,30 +325,37 @@ public class DriveTrain extends Subsystem {
     }
     
     public boolean controlMotionProfile() {
-        boolean isEnd = leftProfile.control();
-        driveLeftTalon.changeControlMode(TalonControlMode.MotionProfile);
-        CANTalon.SetValueMotionProfile setOutputLeft = leftProfile.getSetValue();
-        driveLeftTalon.set(setOutputLeft.value);
+        if (leftProfile != null && rightProfile != null) {
+            boolean isEnd = leftProfile.control();
+            driveLeftTalon.changeControlMode(TalonControlMode.MotionProfile);
+            CANTalon.SetValueMotionProfile setOutputLeft = leftProfile.getSetValue();
+            driveLeftTalon.set(setOutputLeft.value);
+            
+            isEnd = isEnd || rightProfile.control();
+            driveRightTalon.changeControlMode(TalonControlMode.MotionProfile);
+            CANTalon.SetValueMotionProfile setOutputRight = rightProfile.getSetValue();
+            driveRightTalon.set(setOutputRight.value);
+            return isEnd;
+        }
         
-        isEnd = isEnd || rightProfile.control();
-        driveRightTalon.changeControlMode(TalonControlMode.MotionProfile);
-        CANTalon.SetValueMotionProfile setOutputRight = rightProfile.getSetValue();
-        driveRightTalon.set(setOutputRight.value);
-        
-        return isEnd;
+        return false;
     }
     
     public void startMotionProfile() {
-        leftProfile.startMotionProfile();
-        rightProfile.startMotionProfile();
+        if (leftProfile != null && rightProfile != null) {
+            leftProfile.startMotionProfile();
+            rightProfile.startMotionProfile();
+        }
     }
     
     public void stopMotionProfile() {
-        leftProfile.reset();
-        driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
-        driveLeftTalon.set(0);
-        rightProfile.reset();
-        driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
-        driveRightTalon.set(0);
+        if (leftProfile != null && rightProfile != null) {
+            leftProfile.reset();
+            driveLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
+            driveLeftTalon.set(0);
+            rightProfile.reset();
+            driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
+            driveRightTalon.set(0);
+        }
     }
 }

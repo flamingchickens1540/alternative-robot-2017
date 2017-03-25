@@ -29,6 +29,7 @@ public class Shooter extends Subsystem {
         shooterFlywheelTalon.setI(Robot.tuning.getFlywheelI());
         shooterFlywheelTalon.setD(Robot.tuning.getFlywheelD());
         shooterFlywheelTalon.setVoltageRampRate(Robot.tuning.getShooterRampRate());
+//        shooterFlywheelTalon.setVoltageRampRate(7);
         shooterFlywheelTalon.enableBrakeMode(false);
         shooterFlywheelTalon.SetVelocityMeasurementPeriod(VelocityMeasurementPeriod.Period_2Ms);
         shooterFlywheelTalon.SetVelocityMeasurementWindow(3);
@@ -96,6 +97,7 @@ public class Shooter extends Subsystem {
 
     public boolean upToSpeed(double targetSpeed) {
         return Math.abs(getSpeed() - targetSpeed) < Robot.tuning.getFlywheelSpeedMarginOfError();
+//        return true;
     }
 
     public double getFlywheelCurrent() {

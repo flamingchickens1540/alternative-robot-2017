@@ -11,8 +11,8 @@ timestep = 0.02 # in seconds
 points_right = []
 points_left = []
 
-def save_to_csv():
-    with open('/Users/jake/right.csv', 'w') as r, open('/Users/jake/left.csv', 'w') as l:
+def save_to_csv(right, left):
+    with open(right, 'w') as r, open(left, 'w') as l:
         for (p, v, dt) in points_right:
             r.write(str(p) + ',' + str(v) + ',' + str(math.floor(dt*1000)) + '\n')
         for (p, v, dt) in points_left:
@@ -89,9 +89,21 @@ def turn(angle):
     points_right.extend(trajectory(angle, sign, xr_0))
     points_left.extend(trajectory(angle, sign, xl_0))
 
-move(10)
-turn(10)
-turn(-10)
-move(-10)
+convert_dist = 5.0 / 24.25
+convert_angle = 4.5 / 90.0
 
-save_to_csv()
+# center
+# move(-75.0*convert_dist)
+
+# left
+# move(-65.0*convert_dist)
+# turn(-62.0*convert_angle)
+# move(-75.0*convert_dist)
+
+# right
+move(-65.0*convert_dist)
+turn(+58.0*convert_angle)
+move(-75.0*convert_dist)
+
+base = '/Users/jake/Development/sandbox-workspace/alternative-robot/profiles/'
+save_to_csv(base + 'right.csv', base + 'left.csv')

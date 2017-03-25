@@ -124,32 +124,32 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void robotPeriodic() {
-//        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
-//        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
-//        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getError());
-//        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
-//        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrent());
-//        SmartDashboard.putNumber("Flywheel Voltage Left", Robot.shooter.getFlywheelVoltage());
-//        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
-//        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
-//        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
-//        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
-//        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
-//        SmartDashboard.putNumber("Belt Setpoint", Robot.belt.getSetpoint());
-//        SmartDashboard.putNumber("Belt Encoder", Robot.belt.getBeltEncoder());
-//        SmartDashboard.putNumber("Belt Error", Robot.belt.getError());
-//        SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
-//        SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
-//        SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
-//        SmartDashboard.putNumber("Drive Left Position", Robot.driveTrain.getLeftEncoderPosition());
-//        SmartDashboard.putNumber("Drive Right Position", Robot.driveTrain.getRightEncoderPosition());
-//        SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
-//        SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
-//        SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
-//        SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
-//        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
-//        SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
-//        SmartDashboard.putBoolean("Gear Rollers Current Too High", Robot.gearRollers.rollerCurrentTooHigh());
+        SmartDashboard.putNumber("Flywheel Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("Flywheel Setpoint", Robot.shooter.getSetpoint());
+        SmartDashboard.putNumber("Flywheel Error", Robot.shooter.getError());
+        SmartDashboard.putNumber("Flywheel Output", Robot.shooter.getMotorOutput());
+        SmartDashboard.putNumber("Flywheel Current Left", Robot.shooter.getFlywheelCurrent());
+        SmartDashboard.putNumber("Flywheel Voltage Left", Robot.shooter.getFlywheelVoltage());
+        SmartDashboard.putNumber("Climber Top Current Draw", Robot.climber.getTopClimberCurrent());
+        SmartDashboard.putNumber("Climber Bottom Current Draw", Robot.climber.getBottomClimberCurrent());
+        SmartDashboard.putNumber("Belt PID", Robot.belt.getPIDOutput());
+        SmartDashboard.putNumber("Belt Current Draw", Robot.belt.getCurrent());
+        SmartDashboard.putNumber("Belt Speed", Robot.belt.getSpeed());
+        SmartDashboard.putNumber("Belt Setpoint", Robot.belt.getSetpoint());
+        SmartDashboard.putNumber("Belt Encoder", Robot.belt.getBeltEncoder());
+        SmartDashboard.putNumber("Belt Error", Robot.belt.getError());
+        SmartDashboard.putNumber("Belt Output", Robot.belt.getOutput());
+        SmartDashboard.putNumber("Drive Left Output", Robot.driveTrain.getLeftMotorOutput());
+        SmartDashboard.putNumber("Drive Right Output", Robot.driveTrain.getRightMotorOutput());
+        SmartDashboard.putNumber("Drive Left Position", Robot.driveTrain.getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Position", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive Right Setpoint", Robot.driveTrain.getRightSetpoint());
+        SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
+        SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
+        SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
+        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
+        SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
+        SmartDashboard.putBoolean("Gear Rollers Current Too High", Robot.gearRollers.rollerCurrentTooHigh());
     }
 
     /**

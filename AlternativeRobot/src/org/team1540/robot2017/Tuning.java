@@ -105,7 +105,7 @@ public class Tuning {
     }
     
     public double getShooterRampRate() {
-        return tuning.getDouble("Shooter Ramp Rate", 0.001);
+        return tuning.getDouble("Shooter Ramp Rate", 4);
     }
     
     ///////////////////////////////////////////////////////////////////////////////// auto dead-reckoning
@@ -256,6 +256,10 @@ public class Tuning {
     
     public double getGearRollerCurrentWait() {
         return tuning.getDouble("Gear Roller Current Wait", 1.0);
+    }
+    
+    public double getGearWristIdle() {
+        return tuning.getDouble("Gear Wrist Idle", 0.1);
     }
     
     public double getMotionProfilingP() {

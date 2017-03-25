@@ -25,13 +25,18 @@ public class PlaceGear extends CommandGroup {
                 return false;
             }
         });
-        addParallel(new TimedCommand(Robot.tuning.getGearPlacementWristDownSecs()) {
+        addParallel(new Command() {
             @Override
             protected void initialize() {
                 Robot.gearWrist.setWrist(Robot.tuning.getGearWristOutput());
             }
             protected void end() {
                 Robot.gearWrist.stop();
+            }
+            @Override
+            protected boolean isFinished() {
+//                return Robot.gearWrist.wristCurrentTooHigh();
+                return false;
             }
         });
     }
