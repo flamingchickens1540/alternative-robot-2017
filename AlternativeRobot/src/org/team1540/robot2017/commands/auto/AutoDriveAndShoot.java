@@ -1,8 +1,5 @@
 package org.team1540.robot2017.commands.auto;
 
-import org.team1540.robot2017.commands.DriveForTime;
-import org.team1540.robot2017.commands.ShootForTime;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 

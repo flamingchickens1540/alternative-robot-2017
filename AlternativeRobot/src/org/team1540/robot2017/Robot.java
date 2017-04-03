@@ -3,9 +3,7 @@ package org.team1540.robot2017;
 import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.PickUpGear;
 import org.team1540.robot2017.commands.PlaceGear;
-import org.team1540.robot2017.commands.RecordMotionProfile;
 import org.team1540.robot2017.commands.ResetGearMechanism;
-import org.team1540.robot2017.commands.RunMotionProfile;
 import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheelTeleop;
 import org.team1540.robot2017.commands.TurnEverythingOff;
@@ -21,6 +19,8 @@ import org.team1540.robot2017.commands.auto.AutoPlaceGearRight;
 import org.team1540.robot2017.commands.auto.AutoShoot;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineRed;
+import org.team1540.robot2017.commands.auto.RecordMotionProfile;
+import org.team1540.robot2017.commands.auto.RunMotionProfile;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -99,10 +99,10 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Cross Line BLUE", new AutoCrossLineBlue());
         chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
         chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
-        chooser.addObject("Run Motion Profile", new RunMotionProfile("test"));
-        chooser.addObject("Place Gear LEFT", new AutoPlaceGearLeft());
+        chooser.addObject("Run Test Motion Profile", new RunMotionProfile("test"));
+//        chooser.addObject("Place Gear LEFT", new AutoPlaceGearLeft());
         chooser.addObject("Place Gear CENTER", new AutoPlaceGearCenter());
-        chooser.addObject("Place Gear RIGHT", new AutoPlaceGearRight());
+//        chooser.addObject("Place Gear RIGHT", new AutoPlaceGearRight());
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
@@ -147,9 +147,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
         SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
         SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
-        SmartDashboard.putNumber("Gear Wrist Current", Robot.gearWrist.getWristCurrent());
-        SmartDashboard.putNumber("Gear Roller Current", Robot.gearRollers.getRollerCurrent());
-        SmartDashboard.putBoolean("Gear Rollers Current Too High", Robot.gearRollers.rollerCurrentTooHigh());
     }
 
     /**

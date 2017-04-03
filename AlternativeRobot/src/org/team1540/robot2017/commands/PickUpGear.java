@@ -27,13 +27,11 @@ public class PickUpGear extends CommandGroup {
         });
         addSequential(new Command() {
             private long startTime;
-
             @Override
             protected void initialize() {
                 startTime = System.currentTimeMillis();
 //                Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
             }
-            
             @Override
             protected void end() {
                 Robot.gearRollers.stop();

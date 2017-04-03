@@ -11,8 +11,13 @@ timestep = 0.02 # in seconds
 points_right = []
 points_left = []
 
+<<<<<<< HEAD
 def save_to_csv(right, left):
     with open(right, 'w') as r, open(left, 'w') as l:
+=======
+def save_to_csv():
+    with open('/Users/merrillam/auto/right.csv', 'w') as r, open('/Users/merrillam/auto/left.csv', 'w') as l:
+>>>>>>> 1a7b32368d9783bdcfb2b0211dfa9998e0e5b12b
         for (p, v, dt) in points_right:
             r.write(str(p) + ',' + str(v) + ',' + str(math.floor(dt*1000)) + '\n')
         for (p, v, dt) in points_left:
@@ -49,12 +54,12 @@ def trajectory(abs_dist, direction, start_position):
             points.append((direction*position+start_position, direction*velocity, dt))
     else:
         t1 = calculate_t1_s(x, A)
-        for i in range(0, math.ceil(t1/dt)):
+        for i in range(0, int(math.ceil(t1/dt))):
             t = i*dt
             position = (1/2) * A * math.pow(t, 2)
             velocity = A * t
             points.append((direction*position+start_position, direction*velocity, dt))
-        for i in range(0, math.ceil(t1/dt)):
+        for i in range(0, int(math.ceil(t1/dt))):
             t = i*dt
             position = ((1/2) * A * math.pow(t1, 2)) + (A * t1 * t) - ((1/2) * A * math.pow(t, 2))
             velocity = (A * t1) - (A * t)
@@ -89,6 +94,7 @@ def turn(angle):
     points_right.extend(trajectory(angle, sign, xr_0))
     points_left.extend(trajectory(angle, sign, xl_0))
 
+<<<<<<< HEAD
 convert_dist = 5.0 / 24.25
 convert_angle = 4.5 / 90.0
 
@@ -107,3 +113,7 @@ move(-68.0*convert_dist)
 
 base = '/Users/jake/Development/sandbox-workspace/alternative-robot/profiles/'
 save_to_csv(base + 'right.csv', base + 'left.csv')
+=======
+move(10)
+save_to_csv()
+>>>>>>> 1a7b32368d9783bdcfb2b0211dfa9998e0e5b12b

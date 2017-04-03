@@ -234,6 +234,10 @@ public class Tuning {
         return tuning.getDouble("Gear Roller Current Threshold", 5);
     }
     
+    public double getGearRollerTurnOnMillis() {
+        return tuning.getDouble("Gear Roller Turn On Millis", 100);
+    }
+    
     public double getGearWristOutput() {
         return tuning.getDouble("Gear Wrist Output", 0.4);
     }
