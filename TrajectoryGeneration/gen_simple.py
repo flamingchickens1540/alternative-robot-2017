@@ -96,14 +96,14 @@ convert_angle = 4.5 / 90.0
 # move(-75.0*convert_dist)
 
 # left
-# move(-65.0*convert_dist)
-# turn(-62.0*convert_angle)
-# move(-75.0*convert_dist)
+move(-65.0*convert_dist)
+turn(-60.0*convert_angle)
+move(-68.0*convert_dist)
 
 # right
-move(-65.0*convert_dist)
-turn(+58.0*convert_angle)
-move(-75.0*convert_dist)
+# move(-65.0*convert_dist)
+# turn(+60.0*convert_angle)
+# move(-68.0*convert_dist)
 
 base = '/Users/jake/Development/sandbox-workspace/alternative-robot/profiles/'
 save_to_csv(base + 'right.csv', base + 'left.csv')
