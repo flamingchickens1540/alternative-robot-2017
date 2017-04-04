@@ -35,7 +35,6 @@ public class PlaceGear extends CommandGroup {
             }
             @Override
             protected boolean isFinished() {
-//                return Robot.gearWrist.wristCurrentTooHigh();
                 return false;
             }
         });

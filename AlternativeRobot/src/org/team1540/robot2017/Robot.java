@@ -16,9 +16,14 @@ import org.team1540.robot2017.commands.auto.AutoDoNothing;
 import org.team1540.robot2017.commands.auto.AutoPlaceGearCenter;
 import org.team1540.robot2017.commands.auto.AutoPlaceGearLeft;
 import org.team1540.robot2017.commands.auto.AutoPlaceGearRight;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearShootCenterBlue;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearShootCenterRed;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearShootSideBlue;
+import org.team1540.robot2017.commands.auto.AutoPlaceGearShootSideRed;
 import org.team1540.robot2017.commands.auto.AutoShoot;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineRed;
+import org.team1540.robot2017.commands.auto.GearAndShootDuringMotionProfile;
 import org.team1540.robot2017.commands.auto.RecordMotionProfile;
 import org.team1540.robot2017.commands.auto.RunMotionProfile;
 import org.team1540.robot2017.subsystems.Belt;
@@ -36,6 +41,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -100,9 +106,16 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Shoot and Cross Line RED", new AutoShootAndCrossLineRed());
         chooser.addObject("Shoot and Cross Line BLUE", new AutoShootAndCrossLineBlue());
         chooser.addObject("Run Test Motion Profile", new RunMotionProfile("test"));
-//        chooser.addObject("Place Gear LEFT", new AutoPlaceGearLeft());
+        chooser.addObject("Place Gear LEFT", new AutoPlaceGearLeft());
         chooser.addObject("Place Gear CENTER", new AutoPlaceGearCenter());
-//        chooser.addObject("Place Gear RIGHT", new AutoPlaceGearRight());
+        chooser.addObject("Place Gear RIGHT", new AutoPlaceGearRight());
+        
+        chooser.addObject("Place Gear Shoot CENTER BLUE", new AutoPlaceGearShootCenterBlue());
+        chooser.addObject("Place Gear Shoot CENTER RED", new AutoPlaceGearShootCenterRed());
+        chooser.addObject("Place Gear Shoot SIDE BLUE", new AutoPlaceGearShootSideBlue());
+        chooser.addObject("Place Gear Shoot SIDE RED", new AutoPlaceGearShootSideRed());
+        
+        chooser.addObject("TEST THING", new GearAndShootDuringMotionProfile(1, 2));
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
@@ -204,6 +217,12 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null)
             autonomousCommand.cancel();
+        new CommandGroup() {
+            {
+                addSequential(new TurnEverythingOff());
+                addSequential(new ResetGearMechanism());
+            }
+        }.start();
 
         shooter.setPID(tuning.getFlywheelP(), tuning.getFlywheelI(), tuning.getFlywheelD(), tuning.getFlywheelF());
         belt.setPID(tuning.getBeltP(), tuning.getBeltI(), tuning.getBeltD(), tuning.getBeltF());
