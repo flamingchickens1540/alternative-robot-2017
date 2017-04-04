@@ -1,9 +1,10 @@
 
-import math
+import math, sys
+from subprocess import call
 
 # configure these values
-max_acceleration = 4.0 # units per second
-max_velocity = 8.0 # units per second
+max_acceleration = 12.5 # units per second
+max_velocity = 17.0 # units per second
 ramp_time = max_velocity / max_acceleration # in seconds
 timestep = 0.02 # in seconds
 
@@ -89,21 +90,86 @@ def turn(angle):
     points_right.extend(trajectory(angle, sign, xr_0))
     points_left.extend(trajectory(angle, sign, xl_0))
 
+def wait(time):
+    xr_0 = 0
+    xl_0 = 0
+    if len(points_right) > 0:
+        xr_0 = points_right[-1][0]
+    if len(points_left) > 0:
+        xl_0 = points_left[-1][0]
+    points_right.extend([(xr_0, 0, timestep)] * int(time / timestep))
+    points_left.extend([(xl_0, 0, timestep)] * int(time / timestep))
+
 convert_dist = 5.0 / 24.25
 convert_angle = 4.5 / 90.0
 
-# center
-# move(-75.0*convert_dist)
-
-# left
-move(-65.0*convert_dist)
-turn(-60.0*convert_angle)
-move(-68.0*convert_dist)
-
-# right
-# move(-65.0*convert_dist)
-# turn(+60.0*convert_angle)
-# move(-68.0*convert_dist)
-
 base = '/Users/jake/Development/sandbox-workspace/alternative-robot/profiles/'
-save_to_csv(base + 'right.csv', base + 'left.csv')
+
+def traj_center():
+    move(-75.0*convert_dist)
+    save_to_csv(base + 'gear_center_right.csv', base + 'gear_center_left.csv')
+    clear_points()
+
+def traj_left():
+    move(-65.0*convert_dist)
+    turn(-60.0*convert_angle)
+    move(-68.0*convert_dist)
+    save_to_csv(base + 'gear_left_right.csv', base + 'gear_left_left.csv')
+    clear_points()
+
+def traj_right():
+    move(-65.0*convert_dist)
+    turn(+60.0*convert_angle)
+    move(-68.0*convert_dist)
+    save_to_csv(base + 'gear_right_right.csv', base + 'gear_right_left.csv')
+    clear_points()
+
+def traj_blue_center_shoot():
+    move(-70.8*convert_dist)
+    move(20*convert_dist)
+    turn((-66.1-8)*convert_angle)
+    move(134.6*convert_dist)
+    save_to_csv(base + 'gear_blue_center_shoot_right.csv', base + 'gear_blue_center_shoot_left.csv')
+    clear_points()
+
+def traj_blue_side_shoot():
+    move((-67.6-4)*convert_dist)
+    turn(-60.0*convert_angle)
+    move(-65.3*convert_dist)
+    move(20*convert_dist)
+    turn((20.9-3.2)*convert_angle)
+    move((98.2+10)*convert_dist)
+    save_to_csv(base + 'gear_blue_side_shoot_right.csv', base + 'gear_blue_side_shoot_left.csv')
+    clear_points()
+
+def traj_red_center_shoot():
+    move(-70.8*convert_dist)
+    move(20*convert_dist)
+    turn((66.1+8)*convert_angle)
+    move(134.6*convert_dist)
+    save_to_csv(base + 'gear_red_center_shoot_right.csv', base + 'gear_red_center_shoot_left.csv')
+    clear_points()
+
+def traj_red_side_shoot():
+    move((-67.6-4)*convert_dist)
+    turn(60.0*convert_angle)
+    move(-65.3*convert_dist)
+    move(20*convert_dist)
+    turn((-20.9+3.2)*convert_angle)
+    move((98.2+10)*convert_dist)
+    save_to_csv(base + 'gear_red_side_shoot_right.csv', base + 'gear_red_side_shoot_left.csv')
+    clear_points()
+
+def traj_deploy():
+    call(['scp ' + base + '* lvuser@roborio-1540-frc.local:/home/lvuser/profiles'], shell=True)
+
+def traj_clean():
+    call(['rm ' + base + '*'], shell=True)
+
+def clear_points():
+    points_left = []
+    points_right = []
+
+path = sys.argv[1]
+
+globals()['traj_' + path]()
