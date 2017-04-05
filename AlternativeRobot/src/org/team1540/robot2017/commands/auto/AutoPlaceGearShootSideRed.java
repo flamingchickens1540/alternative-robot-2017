@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoPlaceGearShootSideRed extends CommandGroup {
     public AutoPlaceGearShootSideRed() {
-        addSequential(new ResetGearMechanism());
+        addParallel(new ResetGearMechanism());
         addParallel(new GearAndShootDuringMotionProfile(5.28, 6));
         addSequential(new RunMotionProfile("gear_red_side_shoot"));
         addSequential(new FireShooter("Auto Belt Target Speed", 2400));

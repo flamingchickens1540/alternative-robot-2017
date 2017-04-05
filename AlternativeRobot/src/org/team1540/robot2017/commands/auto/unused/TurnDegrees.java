@@ -1,4 +1,4 @@
-package org.team1540.robot2017.commands.auto;
+package org.team1540.robot2017.commands.auto.unused;
 
 import org.team1540.robot2017.Robot;
 
