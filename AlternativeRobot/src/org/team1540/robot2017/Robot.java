@@ -23,9 +23,8 @@ import org.team1540.robot2017.commands.auto.AutoPlaceGearShootSideRed;
 import org.team1540.robot2017.commands.auto.AutoShoot;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineRed;
-import org.team1540.robot2017.commands.auto.GearAndShootDuringMotionProfile;
-import org.team1540.robot2017.commands.auto.RecordMotionProfile;
 import org.team1540.robot2017.commands.auto.RunMotionProfile;
+import org.team1540.robot2017.commands.auto.unused.RecordMotionProfile;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -115,7 +114,6 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Place Gear Shoot SIDE BLUE", new AutoPlaceGearShootSideBlue());
         chooser.addObject("Place Gear Shoot SIDE RED", new AutoPlaceGearShootSideRed());
         
-        chooser.addObject("TEST THING", new GearAndShootDuringMotionProfile(1, 2));
         SmartDashboard.putData("Autonomous Mode Chooser", chooser);
         
         stopEverything = new TurnEverythingOff();
