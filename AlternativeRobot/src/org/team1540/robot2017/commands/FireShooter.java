@@ -4,7 +4,6 @@ import org.team1540.robot2017.OI;
 import org.team1540.robot2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FireShooter extends Command {
     

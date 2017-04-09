@@ -4,7 +4,6 @@ import org.team1540.robot2017.commands.FireShooter;
 import org.team1540.robot2017.commands.PickUpGear;
 import org.team1540.robot2017.commands.PlaceGear;
 import org.team1540.robot2017.commands.ResetGearMechanism;
-import org.team1540.robot2017.commands.SelfTest;
 import org.team1540.robot2017.commands.SpinupFlywheelTeleop;
 import org.team1540.robot2017.commands.TurnEverythingOff;
 import org.team1540.robot2017.commands.TurnHopperOff;
@@ -24,7 +23,6 @@ import org.team1540.robot2017.commands.auto.AutoShoot;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineBlue;
 import org.team1540.robot2017.commands.auto.AutoShootAndCrossLineRed;
 import org.team1540.robot2017.commands.auto.RunMotionProfile;
-import org.team1540.robot2017.commands.auto.unused.RecordMotionProfile;
 import org.team1540.robot2017.subsystems.Belt;
 import org.team1540.robot2017.subsystems.Climber;
 import org.team1540.robot2017.subsystems.DriveTrain;
@@ -79,11 +77,11 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         UsbCamera camera0 = new UsbCamera("Front", 0);
-        UsbCamera camera1 = new UsbCamera("Back", 1);
+//        UsbCamera camera1 = new UsbCamera("Back", 1);
         MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
-        MjpegServer mjpegServer1 = new MjpegServer("Back Server", 1182);
+//        MjpegServer mjpegServer1 = new MjpegServer("Back Server", 1182);
         mjpegServer0.setSource(camera0);
-        mjpegServer1.setSource(camera1);
+//        mjpegServer1.setSource(camera1);
         
         tuning = new Tuning();
         driveTrain = new DriveTrain();
@@ -129,8 +127,18 @@ public class Robot extends IterativeRobot {
         OI.buttonPlaceGear.whileHeld(new PlaceGear());
         OI.buttonResetGearMech.whenPressed(new ResetGearMechanism());
         
-        OI.buttonSelfTest.whenPressed(new SelfTest());
-        OI.buttonRecord.whenPressed(new RecordMotionProfile());
+//        OI.a.whenPressed(new AutoPlaceGearShootCenterRed());
+//        OI.b.whenPressed(new AutoPlaceGearShootSideRed());
+//        OI.x.whenPressed(new AutoPlaceGearShootCenterBlue());
+//        OI.y.whenPressed(new AutoPlaceGearShootSideBlue());
+//        OI.l.whenPressed(new AutoPlaceGearLeft());
+//        OI.r.whenPressed(new AutoPlaceGearRight());
+//        OI.s.whenPressed(new AutoPlaceGearCenter());
+        
+//        OI.buttonSelfTest.whenPressed(new SelfTest());
+//        OI.buttonRecord.whenPressed(new RecordMotionProfile());
+        
+        // teleop auto
     }
     
     @Override
@@ -158,6 +166,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Drive Left Setpoint", Robot.driveTrain.getLeftSetpoint());
         SmartDashboard.putNumber("Drive Left Speed", Robot.driveTrain.getLeftSpeed());
         SmartDashboard.putNumber("Drive Right Speed", Robot.driveTrain.getRightSpeed());
+        SmartDashboard.putNumber("Left Position - Right Position", 
+                Robot.driveTrain.getLeftEncoderPosition() + Robot.driveTrain.getRightEncoderPosition());
     }
 
     /**
@@ -172,6 +182,7 @@ public class Robot extends IterativeRobot {
         OI.driver.setRumble(RumbleType.kLeftRumble, 0.0);
         OI.copilot.setRumble(RumbleType.kRightRumble, 0.0);
         OI.driver.setRumble(RumbleType.kRightRumble, 0.0);
+        driveTrain.setBraking(false);
     }
 
     @Override
@@ -192,6 +203,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
+        driveTrain.setBrakingRampRate(true, 0);
+        
         autonomousCommand = chooser.getSelected();
 
         // schedule the autonomous command (example)
@@ -213,8 +226,11 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        driveTrain.setBrakingRampRate(false, 255);
+        
         if (autonomousCommand != null)
             autonomousCommand.cancel();
+        
         new CommandGroup() {
             {
                 addSequential(new TurnEverythingOff());

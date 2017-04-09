@@ -13,4 +13,16 @@ public class AutoPlaceGearCenter extends CommandGroup {
         addSequential(new DriveForTime(Robot.tuning.getAutoDrivingGearBackoffTime(), 
                 Robot.tuning.getAutoDrivingGearBackoffSet()));
     }
+    
+//    @Override
+//    public void execute() {
+//        super.execute();
+//        boolean encoderWorking = 
+//                Math.abs(Robot.driveTrain.getLeftProfileError()) < Robot.tuning.getMotionProfilingAllowedError()
+//             && Math.abs(Robot.driveTrain.getRightProfileError()) < Robot.tuning.getMotionProfilingAllowedError();
+//        boolean motionProfileRunning = Robot.driveTrain.isProfileRunning();
+//        if (!encoderWorking && motionProfileRunning) {
+//            this.cancel();
+//        }
+//    }
 }

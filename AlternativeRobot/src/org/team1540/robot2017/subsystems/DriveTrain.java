@@ -39,7 +39,8 @@ public class DriveTrain extends Subsystem {
         _notifer.startPeriodic(0.005);
         
         for (CANTalon talon : talons) {
-            talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
+//            talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
+            talon.setVoltageRampRate(0);
             talon.enableBrakeMode(true);
         }
         driveRightTalon.setProfile(0);
@@ -76,8 +77,24 @@ public class DriveTrain extends Subsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new JoystickDrive());
     }
+    
+    public void setBrakingRampRate(boolean brake, int rampRate) {
+        for (CANTalon talon : talons) {
+//          talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
+          talon.setVoltageRampRate(rampRate);
+          talon.enableBrakeMode(brake);
+        }
+    }
+    
+    public void setBraking(boolean brake) {
+        for (CANTalon talon : talons) {
+            if (talon.getBrakeEnableDuringNeutral() ^ brake) {
+                talon.enableBrakeMode(brake);
+            }
+        }
+    }
 
-    public void tankDrive(double left, double right, double triggerL, double triggerR) {
+    public void tankDrive(double leftX, double leftY, double rightX, double rightY, double triggerL, double triggerR, double multiplier) {
         driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
         driveRightBTalon.changeControlMode(TalonControlMode.Follower);
         driveRightCTalon.changeControlMode(TalonControlMode.Follower);
@@ -88,10 +105,13 @@ public class DriveTrain extends Subsystem {
         driveRightCTalon.set(driveRightTalon.getDeviceID());
         driveLeftBTalon.set(driveLeftTalon.getDeviceID());
         driveLeftCTalon.set(driveLeftTalon.getDeviceID());
+        double precision = 1.1;
+        double left = RobotUtil.joystickApproximateForward(leftX, leftY, precision);
+        double right = RobotUtil.joystickApproximateForward(rightX, rightY, precision);
         double deadzone = 0.15;
         double exponent = 2.0;
-        driveRightTalon.set(RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
-        driveLeftTalon.set(RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent)*Robot.tuning.getLeftDriveMultiplier());
+        driveRightTalon.set(multiplier*RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
+        driveLeftTalon.set(multiplier*RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent)*Robot.tuning.getLeftDriveMultiplier());
     }
     
     public void set(double value) {
@@ -356,6 +376,26 @@ public class DriveTrain extends Subsystem {
             rightProfile.reset();
             driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
             driveRightTalon.set(0);
+        }
+    }
+    
+    public boolean isProfileRunning() {
+        return leftProfile.isRunning() && rightProfile.isRunning();
+    }
+    
+    public double getLeftProfileError() {
+        if (isProfileRunning()) {
+            return leftProfile.isActivePointValid() ? leftProfile.getTargetPosition() - getLeftEncoderPosition() : 0.0;
+        } else {
+            return 0;
+        }
+    }
+    
+    public double getRightProfileError() {
+        if (isProfileRunning()) {
+            return rightProfile.isActivePointValid() ? rightProfile.getTargetPosition() - getRightEncoderPosition() : 0.0;
+        } else {
+            return 0;
         }
     }
 }

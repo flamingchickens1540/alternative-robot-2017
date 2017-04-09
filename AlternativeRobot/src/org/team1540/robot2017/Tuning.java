@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Preferences;
 
 public class Tuning {
 
-    private Preferences tuning;
+    public Preferences tuning;
 
     public Tuning() {
         tuning = Preferences.getInstance();
@@ -101,7 +101,7 @@ public class Tuning {
     }
 
     public double getDriveRampRate() {
-        return tuning.getDouble("Drive Ramp Rate", 0.025);
+        return tuning.getDouble("Drive Ramp Rate", 5);
     }
     
     public double getShooterRampRate() {
@@ -276,5 +276,9 @@ public class Tuning {
     
     public double getMotionProfilingF() {
         return tuning.getDouble("Motion Profiling F", 7.795);
+    }
+    
+    public double getMotionProfilingAllowedError() {
+        return tuning.getDouble("Motion Profiling Allowed Error", 10.0);
     }
 }

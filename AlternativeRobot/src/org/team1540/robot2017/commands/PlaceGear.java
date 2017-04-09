@@ -11,6 +11,16 @@ public class PlaceGear extends CommandGroup {
     public PlaceGear() {
         requires(Robot.gearWrist);
         requires(Robot.gearRollers);
+        addSequential(new TimedCommand(0.1) {
+            @Override
+            protected void initialize() {
+                Robot.gearWrist.setWrist(Robot.tuning.getGearWristOutput());
+            }
+            @Override
+            protected void end() {
+                Robot.gearWrist.stop();
+            }
+        });
         addParallel(new Command() {
             @Override
             protected void initialize() {

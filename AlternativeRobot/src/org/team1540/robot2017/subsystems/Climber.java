@@ -28,9 +28,9 @@ public class Climber extends Subsystem {
     public void set(double value) {
         climberTopTalon.changeControlMode(TalonControlMode.PercentVbus);
         climberBottomTalon.changeControlMode(TalonControlMode.PercentVbus);
-        climberTopTalon.set(-value);
-        climberBottomTalon.set(value);
-        climberNewTalon.set(value);
+        climberTopTalon.set(value);
+        climberBottomTalon.set(-value);
+        climberNewTalon.set(-value);
     }
 
     public void setTop(double value) {

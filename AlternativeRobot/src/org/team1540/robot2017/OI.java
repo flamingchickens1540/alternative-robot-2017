@@ -16,6 +16,8 @@ public class OI {
     // Axes
     private static final int rightAxisY = 5;
     private static final int leftAxisY = 1;
+    private static final int rightAxisX = 4;
+    private static final int leftAxisX = 0;
 
     private static final int rightTrigger = 3;
     private static final int leftTrigger = 2;
@@ -33,9 +35,18 @@ public class OI {
     
     public static final JoystickButton buttonResetGearMech = new JoystickButton(copilot, 8);
     
-    public static final JoystickButton buttonSelfTest = new JoystickButton(driver, 7);
+//    public static final JoystickButton buttonSelfTest = new JoystickButton(driver, 7);
+//    
+//    public static final JoystickButton buttonRecord = new JoystickButton(driver, 8);
     
-    public static final JoystickButton buttonRecord = new JoystickButton(driver, 8);
+    // teleop auto
+    public static final JoystickButton a = new JoystickButton(driver, 1);
+    public static final JoystickButton b = new JoystickButton(driver, 2);
+    public static final JoystickButton x = new JoystickButton(driver, 3);
+    public static final JoystickButton y = new JoystickButton(driver, 4);
+    public static final JoystickButton l = new JoystickButton(driver, 5);
+    public static final JoystickButton r = new JoystickButton(driver, 6);
+    public static final JoystickButton s = new JoystickButton(driver, 7);
 
     // DriveTrain
     public static double getDriveRightJoystick() {
@@ -44,6 +55,14 @@ public class OI {
 
     public static double getDriveLeftJoystick() {
         return driver.getRawAxis(leftAxisY);
+    }
+    
+    public static double getDriveRightJoystickX() {
+        return -driver.getRawAxis(rightAxisX);
+    }
+
+    public static double getDriveLeftJoystickX() {
+        return driver.getRawAxis(leftAxisX);
     }
     
     public static double getDriveRightTrigger() {

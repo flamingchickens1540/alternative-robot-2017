@@ -106,58 +106,105 @@ convert_angle = 4.5 / 90.0
 base = '/Users/jake/Development/sandbox-workspace/alternative-robot/profiles/'
 
 def traj_center():
-    move(-75.0*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 4.0 # units per second
+    max_velocity = 8.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(70.8+2.0)*convert_dist)
     save_to_csv(base + 'gear_center_right.csv', base + 'gear_center_left.csv')
     clear_points()
 
 def traj_left():
-    move(-65.0*convert_dist)
-    turn(-60.0*convert_angle)
-    move(-68.0*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 4.0 # units per second
+    max_velocity = 8.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(67.6)*convert_dist)
+    turn(-(60.0-0.5)*convert_angle)
+    move(-(65.3+3.0)*convert_dist)
     save_to_csv(base + 'gear_left_right.csv', base + 'gear_left_left.csv')
     clear_points()
 
 def traj_right():
-    move(-65.0*convert_dist)
-    turn(+60.0*convert_angle)
-    move(-68.0*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 4.0 # units per second
+    max_velocity = 8.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(67.6)*convert_dist)
+    turn((60.0)*convert_angle)
+    move(-(65.3)*convert_dist)
     save_to_csv(base + 'gear_right_right.csv', base + 'gear_right_left.csv')
     clear_points()
 
 def traj_blue_center_shoot():
-    move(-70.8*convert_dist)
-    move(20*convert_dist)
-    turn((-66.1-8)*convert_angle)
-    move(134.6*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 12.5 # units per second
+    max_velocity = 17.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(70.8)*convert_dist)
+    move((20.0)*convert_dist)
+    turn(-(66.1+6.0)*convert_angle)
+    move((134.6+5.0)*convert_dist)
     save_to_csv(base + 'gear_blue_center_shoot_right.csv', base + 'gear_blue_center_shoot_left.csv')
     clear_points()
 
 def traj_blue_side_shoot():
-    move((-67.6-4)*convert_dist)
-    turn(-60.0*convert_angle)
-    move(-65.3*convert_dist)
-    move(20*convert_dist)
-    turn((20.9-3.2)*convert_angle)
-    move((98.2+10)*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 12.5 # units per second
+    max_velocity = 17.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(67.6)*convert_dist)
+    turn(-(60.0+4.0)*convert_angle)
+    move(-(65.3)*convert_dist)
+    move((20.0+5.0)*convert_dist)
+    turn((20.9+2.0)*convert_angle)
+    move((98.2+5.0)*convert_dist)
     save_to_csv(base + 'gear_blue_side_shoot_right.csv', base + 'gear_blue_side_shoot_left.csv')
     clear_points()
 
 def traj_red_center_shoot():
-    move(-70.8*convert_dist)
-    move(20*convert_dist)
-    turn((66.1+8)*convert_angle)
-    move(134.6*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 12.5 # units per second
+    max_velocity = 17.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(70.8)*convert_dist)
+    move((20.0)*convert_dist)
+    turn((66.1+4.0)*convert_angle)
+    move((134.6+5.0)*convert_dist)
     save_to_csv(base + 'gear_red_center_shoot_right.csv', base + 'gear_red_center_shoot_left.csv')
     clear_points()
 
 def traj_red_side_shoot():
-    move((-67.6-4)*convert_dist)
-    turn(60.0*convert_angle)
-    move(-65.3*convert_dist)
-    move(20*convert_dist)
-    turn((-20.9+3.2)*convert_angle)
-    move((98.2+10)*convert_dist)
+    global max_acceleration
+    global max_velocity
+    global ramp_time
+    max_acceleration = 12.5 # units per second
+    max_velocity = 17.0 # units per second
+    ramp_time = max_velocity / max_acceleration # in seconds
+    move(-(67.6)*convert_dist)
+    turn((60.0-5.0)*convert_angle)
+    move(-(65.3+5.0)*convert_dist)
+    move((20.0+5.0)*convert_dist)
+    turn(-(20.9-7.5)*convert_angle)
+    move((98.2+5.0)*convert_dist)
     save_to_csv(base + 'gear_red_side_shoot_right.csv', base + 'gear_red_side_shoot_left.csv')
+    clear_points()
+
+def traj_test():
+    move(-(500)*convert_dist)
+    save_to_csv(base + 'test_right.csv', base + 'test_left.csv')
     clear_points()
 
 def traj_deploy():

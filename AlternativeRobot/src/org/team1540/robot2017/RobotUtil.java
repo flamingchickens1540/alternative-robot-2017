@@ -32,4 +32,15 @@ public class RobotUtil {
         return input;
     }
     
+    public static double joystickApproximateForward(double x, double y, double precision) {
+        // returns +1.0 for full forward, -1.0 for full backward
+        // if the joystick is pressed full forward but slightly to
+        // the side, it still registers full forward; this function
+        // is continuous
+        // y = magnitude * clamp(precision * sin(angle), 1, -1)
+        double angle = Math.atan2(y, x);
+        double magnitude = Math.sqrt(x*x + y*y);
+        return magnitude * limit(precision * Math.sin(angle), 1, -1);
+//        return y;
+    }
 }

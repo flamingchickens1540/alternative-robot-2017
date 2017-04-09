@@ -7,4 +7,5 @@ python3 gen_simple.py blue_center_shoot
 python3 gen_simple.py blue_side_shoot
 python3 gen_simple.py red_center_shoot
 python3 gen_simple.py red_side_shoot
+python3 gen_simple.py test
 python3 gen_simple.py deploy

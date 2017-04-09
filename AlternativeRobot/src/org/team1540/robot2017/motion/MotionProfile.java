@@ -3,8 +3,6 @@ package org.team1540.robot2017.motion;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
-import edu.wpi.first.wpilibj.Notifier;
-
 public class MotionProfile {
     private CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
     private CANTalon _talon;
@@ -17,7 +15,7 @@ public class MotionProfile {
     private int _loaded;
     private static final int kMinPointsInTalon = 5;
     private static final int kNumLoopsTimeout = 10;
-    private boolean _isStarting = true;
+//    private boolean _isStarting = true;
     
     public MotionProfile(CANTalon talon, double[][] profile, int totalCnt) {
         _talon = talon;
@@ -50,7 +48,7 @@ public class MotionProfile {
          * button press
          */
         _bStart = false;
-        _isStarting = true;
+//        _isStarting = true;
     }
     
     public boolean control() {
@@ -234,5 +232,17 @@ public class MotionProfile {
 
     public CANTalon.SetValueMotionProfile getSetValue() {
         return _setValue;
+    }
+    
+    public boolean isActivePointValid() {
+        return _status.activePointValid;
+    }
+    
+    public double getTargetPosition() {
+        return _status.activePointValid? _status.activePoint.position : Double.NaN;
+    }
+    
+    public boolean isRunning() {
+        return _state == 2;
     }
 }
