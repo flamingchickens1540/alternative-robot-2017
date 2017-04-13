@@ -1,4 +1,4 @@
-package org.team1540.robot2017.commands.auto;
+package org.team1540.robot2017.commands.motion;
 
 import java.io.IOException;
 
@@ -27,14 +27,14 @@ public class RunMotionProfile extends Command {
             throw new RuntimeException(e);
         }
         
-        Robot.driveTrain.setPIDLeft(Robot.tuning.getMotionProfilingP(), 
-                Robot.tuning.getMotionProfilingI(), 
-                Robot.tuning.getMotionProfilingD(), 
-                Robot.tuning.getMotionProfilingF());
-        Robot.driveTrain.setPIDRight(Robot.tuning.getMotionProfilingP(), 
-                Robot.tuning.getMotionProfilingI(), 
-                Robot.tuning.getMotionProfilingD(), 
-                Robot.tuning.getMotionProfilingF());
+        Robot.driveTrain.setPIDLeft(Robot.tuning.getMotionProfilingLeftP(), 
+                Robot.tuning.getMotionProfilingLeftI(), 
+                Robot.tuning.getMotionProfilingLeftD(), 
+                Robot.tuning.getMotionProfilingLeftF());
+        Robot.driveTrain.setPIDRight(Robot.tuning.getMotionProfilingRightP(), 
+                Robot.tuning.getMotionProfilingRightI(), 
+                Robot.tuning.getMotionProfilingRightD(), 
+                Robot.tuning.getMotionProfilingRightF());
         Robot.driveTrain.startMotionProfile();
     }
     

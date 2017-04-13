@@ -203,7 +203,7 @@ def traj_red_side_shoot():
     clear_points()
 
 def traj_test():
-    move(-(500)*convert_dist)
+    move(-(150)*convert_dist)
     save_to_csv(base + 'test_right.csv', base + 'test_left.csv')
     clear_points()
 

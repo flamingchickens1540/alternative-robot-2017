@@ -262,20 +262,36 @@ public class Tuning {
         return tuning.getDouble("Gear Wrist Idle", 0.1);
     }
     
-    public double getMotionProfilingP() {
-        return tuning.getDouble("Motion Profiling P", 0.1);
+    public double getMotionProfilingLeftP() {
+        return tuning.getDouble("Motion Profiling Left P", 0.1);
     }
     
-    public double getMotionProfilingI() {
-        return tuning.getDouble("Motion Profiling I", 1.0e-5);
+    public double getMotionProfilingLeftI() {
+        return tuning.getDouble("Motion Profiling Left I", 1.0e-5);
     }
     
-    public double getMotionProfilingD() {
-        return tuning.getDouble("Motion Profiling D", 0.1);
+    public double getMotionProfilingLeftD() {
+        return tuning.getDouble("Motion Profiling Left D", 0.1);
     }
     
-    public double getMotionProfilingF() {
-        return tuning.getDouble("Motion Profiling F", 7.795);
+    public double getMotionProfilingLeftF() {
+        return tuning.getDouble("Motion Profiling Left F", 7.795);
+    }
+    
+    public double getMotionProfilingRightP() {
+        return tuning.getDouble("Motion Profiling Right P", 0.1);
+    }
+    
+    public double getMotionProfilingRightI() {
+        return tuning.getDouble("Motion Profiling Right I", 1.0e-5);
+    }
+    
+    public double getMotionProfilingRightD() {
+        return tuning.getDouble("Motion Profiling Right D", 0.1);
+    }
+    
+    public double getMotionProfilingRightF() {
+        return tuning.getDouble("Motion Profiling Right F", 7.795);
     }
     
     public double getMotionProfilingAllowedError() {

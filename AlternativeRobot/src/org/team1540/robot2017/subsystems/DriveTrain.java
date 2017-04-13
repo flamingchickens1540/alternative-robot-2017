@@ -37,7 +37,6 @@ public class DriveTrain extends Subsystem {
     
     public DriveTrain() {
         _notifer.startPeriodic(0.005);
-        
         for (CANTalon talon : talons) {
 //            talon.setVoltageRampRate(Robot.tuning.getDriveRampRate());
             talon.setVoltageRampRate(0);
@@ -108,10 +107,11 @@ public class DriveTrain extends Subsystem {
         double precision = 1.1;
         double left = RobotUtil.joystickApproximateForward(leftX, leftY, precision);
         double right = RobotUtil.joystickApproximateForward(rightX, rightY, precision);
-        double deadzone = 0.15;
-        double exponent = 2.0;
+        double deadzone = 0.13;
+        double exponent = 1.4;
         driveRightTalon.set(multiplier*RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
         driveLeftTalon.set(multiplier*RobotUtil.betterDeadzone(left - triggerR + triggerL, deadzone, exponent)*Robot.tuning.getLeftDriveMultiplier());
+        System.out.println(multiplier*RobotUtil.betterDeadzone(right + triggerR - triggerL, deadzone, exponent)*Robot.tuning.getRightDriveMultiplier());
     }
     
     public void set(double value) {
@@ -380,7 +380,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public boolean isProfileRunning() {
-        return leftProfile.isRunning() && rightProfile.isRunning();
+        return leftProfile != null && rightProfile != null && leftProfile.isRunning() && rightProfile.isRunning();
     }
     
     public double getLeftProfileError() {
