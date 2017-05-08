@@ -15,7 +15,7 @@ public class JoystickClimb extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.climber.set(RobotUtil.deadzone(OI.getClimberJoystick(), 0.2));
+        Robot.climber.set(RobotUtil.deadzone(Math.abs(OI.getClimberJoystick()), 0.2));
     }
 
     // Make this return true when this Command no longer needs to run execute()
