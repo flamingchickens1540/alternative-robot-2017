@@ -127,18 +127,6 @@ public class Robot extends IterativeRobot {
         OI.buttonPlaceGear.whileHeld(new PlaceGear());
         OI.buttonResetGearMech.whenPressed(new ResetGearMechanism());
         
-//        OI.a.whenPressed(new AutoPlaceGearShootCenterRed());
-//        OI.b.whenPressed(new AutoPlaceGearShootSideRed());
-//        OI.x.whenPressed(new AutoPlaceGearShootCenterBlue());
-//        OI.y.whenPressed(new AutoPlaceGearShootSideBlue());
-//        OI.l.whenPressed(new AutoPlaceGearLeft());
-//        OI.r.whenPressed(new AutoPlaceGearRight());
-//        OI.s.whenPressed(new AutoPlaceGearCenter());
-        
-//        OI.buttonSelfTest.whenPressed(new SelfTest());
-//        OI.buttonRecord.whenPressed(new RecordMotionProfile());
-        
-        // teleop auto
     }
     
     @Override
