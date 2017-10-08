@@ -21,7 +21,7 @@ public class ManualGearControl extends Command {
 //        } else if (g >= 225 && g <= 315) { // left = rollers in
 //            Robot.gearRollers.setRollers(-Robot.tuning.getGearRollerOutput());
 //        } else {
-            Robot.gearRollers.setRollers((OI.getCopilotLeftTrigger() + OI.getCopilotRightTrigger()) / 2);
+            Robot.gearRollers.setRollers((OI.getCopilotLeftTrigger() + OI.getCopilotRightTrigger()) / 4);
 //        }
 //        // wrist
 //        if (g >= 135 && g <= 225) { // down = wrist down
