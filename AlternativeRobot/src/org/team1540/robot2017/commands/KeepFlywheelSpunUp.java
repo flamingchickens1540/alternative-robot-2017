@@ -13,9 +13,9 @@ public class KeepFlywheelSpunUp extends Command {
     }
     
     protected void execute() {
-        Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed() 
-                + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
-                * Robot.tuning.getFlywheelSpeedChangeCoefficient());
+//        Robot.shooter.setSpeed(Robot.tuning.getShooterFlywheelSpeed() 
+//                + RobotUtil.betterDeadzone(OI.getFlywheelSpeedJoystick(), 0.15, 2.0) 
+//                * Robot.tuning.getFlywheelSpeedChangeCoefficient());
     }
     
     @Override
